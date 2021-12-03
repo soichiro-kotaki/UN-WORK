@@ -1,0 +1,40 @@
+{
+    "name": "un-jos-board",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint --dir src",
+        "lint:fix": "eslint src --ext .js,jsx,.ts,.tsx --fix",
+        "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css,scss}'",
+        "css:dev": "TAILWIND_MODE=watch postcss src/styles/tailwind.css -o src/styles/globals.css --watch",
+        "css:build": "postcss src/styles/tailwind.css -o src/styles/globals.css"
+    },
+    "dependencies": {
+        "next": "12.0.4",
+        "react": "17.0.2",
+        "react-dom": "17.0.2"
+    },
+    "devDependencies": {
+        "@types/node": "16.11.11",
+        "@types/react": "17.0.37",
+        "autoprefixer": "^10.4.0",
+        "eslint": "7",
+        "eslint-config-next": "12.0.4",
+        "eslint-config-prettier": "^8.3.0",
+        "postcss": "^8.4.4",
+        "postcss-cli": "^9.0.2",
+        "prettier": "^2.5.0",
+        "tailwindcss": "^2.2.19",
+        "typescript": "4.5.2"
+    },
+    "prettier": {
+        "trailingComma": "all",
+        "tabWidth": 4,
+        "semi": true,
+        "singleQuote": false,
+        "jsxSingleQuote": false,
+        "printWidth": 100
+    }
+}
