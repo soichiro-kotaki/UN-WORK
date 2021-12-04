@@ -24,7 +24,7 @@ const signup: NextPage = () => {
                         type="text"
                         id="name"
                         placeholder="長野 太郎"
-                        className="text-lg input input-accent"
+                        className="text-lg input input-accent focus:ring-green-200 focus:ring-4"
                         required
                     />
                     <label className="label mt-6" htmlFor="email">
@@ -34,7 +34,7 @@ const signup: NextPage = () => {
                         type="email"
                         id="email"
                         placeholder="19G000@u-nagano.ac.jp"
-                        className="text-lg input input-accent "
+                        className="text-lg input input-accent focus:ring-green-200 focus:ring-4"
                         required
                     />
                     <label className="label " htmlFor="email">
@@ -48,13 +48,16 @@ const signup: NextPage = () => {
                         id="password"
                         placeholder="英数字8文字
                         "
-                        className="text-lg input input-accent"
+                        className="text-lg input input-accent focus:ring-green-200 focus:ring-4"
                         required
                     />
                     <label className="label mt-6">
                         <span className="text-lg label-text">現在の学年を選択</span>
                     </label>
-                    <select className="select select-accent w-full" required>
+                    <select
+                        className="text-lg select select-accent w-full focus:ring-green-200 focus:ring-4"
+                        required
+                    >
                         <option disabled={true} defaultChecked={true}>
                             学年
                         </option>
@@ -66,7 +69,10 @@ const signup: NextPage = () => {
                     <label className="label mt-6">
                         <span className="text-lg label-text">所属学科を選択</span>
                     </label>
-                    <select className="select select-accent w-full" required>
+                    <select
+                        className="text-lg select select-accent w-full focus:ring-green-200 focus:ring-4"
+                        required
+                    >
                         <option disabled={true} defaultChecked={true}>
                             学科
                         </option>

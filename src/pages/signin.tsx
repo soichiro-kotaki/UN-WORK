@@ -24,7 +24,7 @@ const signin: NextPage = () => {
                         id="email"
                         type="email"
                         placeholder="19G000@u-nagano.ac.jp"
-                        className="text-lg input input-accent"
+                        className="text-lg input input-accent focus:ring-green-200 focus:ring-4"
                     />
                     <label className="label mt-6" htmlFor="password">
                         <span className="text-lg label-text">パスワード</span>
@@ -34,7 +34,7 @@ const signin: NextPage = () => {
                         id="password"
                         placeholder="英数字8文字
                         "
-                        className="text-lg input input-accent"
+                        className="text-lg input input-accent focus:ring-green-200 focus:ring-4"
                     />
                     <Link href="/">
                         <a className="mt-6 text-green-400 text-xs underline hover:cursor-pointer hover:text-green-300">
