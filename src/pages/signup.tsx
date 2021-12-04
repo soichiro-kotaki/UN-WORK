@@ -16,32 +16,35 @@ const signup: NextPage = () => {
                     新規アカウント作成（登録）
                 </h1>
                 <div className="form-control w-4/5 mx-auto md:w-7/12 lg:w-2/5">
-                    <label className="label mt-6">
+                    <label className="label mt-6" htmlFor="name">
                         <span className="label-text">氏名（本名）</span>
                     </label>
                     <input
                         type="text"
+                        id="name"
                         placeholder="長野 太郎"
-                        className="input input-accent input-bordered"
+                        className="input input-accent input-bordered w-full"
                         required
                     />
-                    <label className="label mt-6">
+                    <label className="label mt-6" htmlFor="email">
                         <span className="label-text">メールアドレス（大学のOutlookのみ利用可)</span>
                     </label>
                     <input
-                        type="text"
+                        type="email"
+                        id="email"
                         placeholder="19G000@u-nagano.ac.jp"
-                        className="input input-accent input-bordered"
+                        className="input input-accent input-bordered w-full"
                         required
                     />
-                    <label className="label mt-6">
+                    <label className="label mt-6" htmlFor="password">
                         <span className="label-text">パスワード</span>
                     </label>
                     <input
-                        type="text"
+                        type="password"
+                        id="password"
                         placeholder="英数字8文字
                         "
-                        className="input input-accent input-bordered"
+                        className="input input-accent input-bordered w-full"
                         required
                     />
                     <label className="label mt-6">
