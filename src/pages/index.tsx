@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
+import Link from "next/link";
 
 const Home: NextPage = () => {
     return (
@@ -11,10 +11,13 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main className="m-16">
-                <h1 className="text-lg text-green-400 text-center font-semibolds lg:text-4xl">
-                    Next.js / TyepScript / Tailwind CSS / Firebaseで作る県大生用バイト掲示板サービス
+            <main className="w-full mt-16  mb-16 pt-6 pb-6 border-2   lg:mt-20 ">
+                <h1 className="text-4xl text-center text-green-400">
+                    ここに求人投稿の一覧を表示する
                 </h1>
+                <Link href="/signin">
+                    <a className="p-3 rounded-md ml-4 bg-green-400">ログイン画面へ</a>
+                </Link>
             </main>
         </div>
     );
