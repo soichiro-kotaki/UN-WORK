@@ -28,9 +28,7 @@ const signup: NextPage = () => {
                         required
                     />
                     <label className="label mt-6" htmlFor="email">
-                        <span className="text-lg  label-text">
-                            メールアドレス（大学のOutlookのみ利用可)
-                        </span>
+                        <span className="text-lg  label-text">メールアドレス</span>
                     </label>
                     <input
                         type="email"
@@ -39,6 +37,9 @@ const signup: NextPage = () => {
                         className="text-lg input input-accent input-bordered"
                         required
                     />
+                    <label className="label " htmlFor="email">
+                        <span className="text-sm label-text">※大学のOutlookのみ利用可</span>
+                    </label>
                     <label className="label mt-6" htmlFor="password">
                         <span className="text-lg label-text">パスワード</span>
                     </label>
