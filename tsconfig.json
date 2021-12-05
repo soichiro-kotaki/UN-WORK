@@ -15,10 +15,10 @@
         "jsx": "preserve",
         "baseUrl": ".",
         "paths": {
-            "@components/*": ["components/*"],
+            "@components/*": ["src/components/*"],
             "@styles/*": ["styles/*"],
-            "@pages/*": ["pages/*"],
-            "@hooks/*": ["hooks/*"]
+            "@pages/*": ["src/pages/*"],
+            "@hooks/*": ["src/hooks/*"]
         },
         "incremental": true
     },
