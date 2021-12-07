@@ -27,6 +27,7 @@
         "postcss": "^8.4.4",
         "postcss-cli": "^9.0.2",
         "prettier": "^2.5.0",
+        "react-hook-form": "^7.20.5",
         "tailwindcss": "^2.2.19",
         "typescript": "4.5.2"
     },
