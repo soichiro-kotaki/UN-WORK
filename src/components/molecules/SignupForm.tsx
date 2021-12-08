@@ -1,7 +1,9 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 // libraries
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
+import { auth } from "@libs/firebaseConfig";
 
 //components
 import { SubmitButton } from "@components/atoms/SubmitButton";
@@ -11,6 +13,8 @@ import { ErrorMessage } from "@components/atoms/ErrorMessage";
 import { SignupFormValuesType } from "src/types/form/SignupFormValuesType";
 
 export const SignupForm: React.FC = (props) => {
+    const router = useRouter();
+
     const {
         register,
         handleSubmit,
@@ -28,12 +32,27 @@ export const SignupForm: React.FC = (props) => {
         },
     });
 
-    const handleOnSubmit: SubmitHandler<SignupFormValuesType> = (values) => {
-        console.log(values);
-        reset();
+    const handleOnSubmit: SubmitHandler<SignupFormValuesType> = async (values) => {
+        const { name, email, password, grade, subject, userImg } = values;
+
+        try {
+            await auth.createUserWithEmailAndPassword(email, password);
+            //ここでFirestoreとCloud Storageへユーザーデータと画像を保存する
+            await auth.currentUser.sendEmailVerification().then((user) => {
+                alert(
+                    `${email}宛にアカウント認証用メールを送信しました。添付のリンクから認証を行った後にログインを行ってください。※受信トレイにメールが届いていない場合は、迷惑メールフォルダに振り分けられている可能性があります。`,
+                );
+
+                router.push("/login");
+                reset();
+            });
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
     const handleOnError: SubmitErrorHandler<SignupFormValuesType> = (errors) => {
+        //Validationエラーが起こったフォームのみ、reset()などで空にしたい。
         console.log(errors);
     };
 
