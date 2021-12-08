@@ -1,8 +1,10 @@
 import React from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 // libraries
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
+import { auth } from "@libs/firebaseConfig";
 
 //components
 import { SubmitButton } from "@components/atoms/SubmitButton";
@@ -12,6 +14,8 @@ import { ErrorMessage } from "@components/atoms/ErrorMessage";
 import { LoginFormValuesType } from "src/types/form/LoginFormValuesType";
 
 export const LoginForm: React.FC = (props) => {
+    const router = useRouter();
+
     const {
         register,
         handleSubmit,
@@ -26,9 +30,19 @@ export const LoginForm: React.FC = (props) => {
         },
     });
 
-    const handleOnSubmit: SubmitHandler<LoginFormValuesType> = (values) => {
-        console.log(values);
-        reset();
+    const handleOnSubmit: SubmitHandler<LoginFormValuesType> = async (values) => {
+        const { email, password } = values;
+        try {
+            await auth.signInWithEmailAndPassword(email, password).then((user) => {
+                !auth.currentUser.emailVerified &&
+                    alert("送信されたメールのリンクから認証を行ってください。");
+                router.push("/");
+                console.log(values);
+                reset();
+            });
+        } catch {
+            alert("アカウント作成を行ってください。");
+        }
     };
 
     const handleOnError: SubmitErrorHandler<LoginFormValuesType> = (errors) => {
