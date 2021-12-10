@@ -1,16 +1,20 @@
 import { useEffect } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 //libraries
+import firebase from "firebase/app";
+import "firebase/auth";
 import { auth } from "@libs/firebaseConfig";
 
 const Home: NextPage = () => {
     const router = useRouter();
 
+    // const [authState, setAuthState] = useState<undefined | firebase.User | null>(undefined);
+
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
+            // setAuthState(user);
             !user && router.push("/login");
             !user.emailVerified && router.push("/login");
         });
