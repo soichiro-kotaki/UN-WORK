@@ -4,6 +4,9 @@ import { useRouter } from "next/router";
 // libraries
 import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
 import { auth } from "@libs/firebaseConfig";
+import { db } from "@libs/firebaseConfig";
+import { storage } from "@libs/firebaseConfig";
+import firebase from "@libs/firebaseConfig";
 
 //components
 import { SubmitButton } from "@components/atoms/SubmitButton";
@@ -29,23 +32,46 @@ export const SignupForm: React.FC = (props) => {
             password: "",
             grade: "1年生",
             subject: "GM",
+            userImg: null,
         },
     });
 
     const handleOnSubmit: SubmitHandler<SignupFormValuesType> = async (values) => {
         const { name, email, password, grade, subject, userImg } = values;
 
-        try {
-            await auth.createUserWithEmailAndPassword(email, password);
-            //ここでFirestoreとCloud Storageへユーザーデータと画像を保存する
-            await auth.currentUser.sendEmailVerification().then((user) => {
-                alert(
-                    `${email}宛にアカウント認証用メールを送信しました。添付のリンクから認証を行った後にログインを行ってください。※受信トレイにメールが届いていない場合は、迷惑メールフォルダに振り分けられている可能性があります。`,
-                );
+        //Storageにフォームから取得した画像ファイルを保存
+        const userImgRef = storage.ref().child("user_image/" + `${userImg[0].name}`);
 
-                router.push("/login");
-                reset();
+        try {
+            //ユーザー情報をAuthに登録
+            const user = await auth.createUserWithEmailAndPassword(email, password);
+
+            //Storageに保存した画像を参照して、AuthのphotoURLに追加
+            await userImgRef.put(userImg[0]);
+            const url = await userImgRef.getDownloadURL();
+            user.user.updateProfile({
+                photoURL: url,
             });
+
+            //Firestoreにユーザーデータを登録
+            db.collection("users").doc(`${user.user.uid}`).set({
+                user_id: name,
+                user_email: email,
+                user_grade: grade,
+                user_subject: subject,
+                user_img: url,
+                created_at: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+
+            //アカウント作成時に入力されたメールアドレスに認証確認を行うためのメールを送信
+            await auth.currentUser.sendEmailVerification();
+            alert(
+                `${email}宛にアカウント認証用メールを送信しました。添付のリンクから認証を行った後にログインを行ってください。※受信トレイにメールが届いていない場合は、迷惑メールフォルダに振り分けられている可能性があります。`,
+            );
+
+            //フォームの値を空にしてログインページへ遷移
+            reset();
+            router.push("/login");
         } catch (error) {
             alert(error.message);
         }

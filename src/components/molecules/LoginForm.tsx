@@ -32,14 +32,13 @@ export const LoginForm: React.FC = (props) => {
 
     const handleOnSubmit: SubmitHandler<LoginFormValuesType> = async (values) => {
         const { email, password } = values;
+
         try {
-            await auth.signInWithEmailAndPassword(email, password).then((user) => {
-                !auth.currentUser.emailVerified &&
-                    alert("送信されたメールのリンクから認証を行ってください。");
-                router.push("/");
-                console.log(values);
-                reset();
-            });
+            const user = await auth.signInWithEmailAndPassword(email, password);
+            reset();
+            user.user.emailVerified
+                ? router.push("/")
+                : alert("送信されたメールのリンクから認証を行ってください。");
         } catch {
             alert("アカウント作成を行ってください。");
         }
