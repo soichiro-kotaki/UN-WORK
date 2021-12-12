@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 // libraries
-import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { auth } from "@libs/firebaseConfig";
 
 //components
@@ -13,7 +13,7 @@ import { ErrorMessage } from "@components/atoms/ErrorMessage";
 //types
 import { LoginFormValuesType } from "src/types/form/LoginFormValuesType";
 
-export const LoginForm: React.FC = (props) => {
+export const LoginForm: React.FC = () => {
     const router = useRouter();
 
     const {
@@ -38,23 +38,15 @@ export const LoginForm: React.FC = (props) => {
             reset();
             user.user.emailVerified
                 ? router.push("/")
-                : alert("送信されたメールのリンクから認証を行ってください。");
+                : alert("送信されたメールから認証を行ってください。");
         } catch {
-            alert("アカウント作成を行ってください。");
+            alert("メールアドレスもしくはパスワードが違います。");
         }
-    };
-
-    const handleOnError: SubmitErrorHandler<LoginFormValuesType> = (errors) => {
-        console.log(errors);
     };
 
     return (
         <>
-            <form
-                action=""
-                className="w-full"
-                onSubmit={handleSubmit(handleOnSubmit, handleOnError)}
-            >
+            <form action="" className="w-full" onSubmit={handleSubmit(handleOnSubmit)}>
                 <label className="label mt-6" htmlFor="email">
                     <span className="text-lg label-text">メールアドレス</span>
                 </label>
@@ -94,7 +86,7 @@ export const LoginForm: React.FC = (props) => {
                         },
                     })}
                 />
-                <Link href="/">
+                <Link href="/resetPassword">
                     <a className="mt-6 inline-block text-green-400 text-xs underline hover:cursor-pointer hover:text-green-300">
                         パスワードを忘れた場合はこちら
                     </a>

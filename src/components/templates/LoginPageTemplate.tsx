@@ -2,9 +2,9 @@ import React from "react";
 import Link from "next/link";
 
 //components
-import { LoginForm } from "@components/molecules/LoginForm";
+import { LoginForm } from "@components/forms/LoginForm";
 
-export const LoginPageTemplate: React.FC = (props) => {
+export const LoginPageTemplate: React.FC = () => {
     return (
         <>
             <main className="w-full mt-16 mb-16 pt-6 pb-6 border-2  bg-gray-50 lg:mt-20 ">

@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 // libraries
-import { useForm, SubmitHandler, SubmitErrorHandler } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { auth } from "@libs/firebaseConfig";
 import { db } from "@libs/firebaseConfig";
 import { storage } from "@libs/firebaseConfig";
@@ -15,8 +15,12 @@ import { ErrorMessage } from "@components/atoms/ErrorMessage";
 //types
 import { SignupFormValuesType } from "src/types/form/SignupFormValuesType";
 
-export const SignupForm: React.FC = (props) => {
+export const SignupForm: React.FC = () => {
     const router = useRouter();
+
+    const actionCodeSettings = {
+        url: process.env.NEXT_PUBLIC_BASE_URL + "/login",
+    };
 
     const {
         register,
@@ -63,8 +67,8 @@ export const SignupForm: React.FC = (props) => {
                 created_at: firebase.firestore.FieldValue.serverTimestamp(),
             });
 
-            //アカウント作成時に入力されたメールアドレスに認証確認を行うためのメールを送信
-            await auth.currentUser.sendEmailVerification();
+            //アカウント作成時に入力されたメールアドレスにアカウント認証を行うためのメールを送信
+            await auth.currentUser.sendEmailVerification(actionCodeSettings);
             alert(
                 `${email}宛にアカウント認証用メールを送信しました。添付のリンクから認証を行った後にログインを行ってください。※受信トレイにメールが届いていない場合は、迷惑メールフォルダに振り分けられている可能性があります。`,
             );
@@ -77,14 +81,9 @@ export const SignupForm: React.FC = (props) => {
         }
     };
 
-    const handleOnError: SubmitErrorHandler<SignupFormValuesType> = (errors) => {
-        //Validationエラーが起こったフォームのみ、reset()などで空にしたい。
-        console.log(errors);
-    };
-
     return (
         <>
-            <form action="" onSubmit={handleSubmit(handleOnSubmit, handleOnError)}>
+            <form action="" onSubmit={handleSubmit(handleOnSubmit)}>
                 <label className="label mt-6" htmlFor="name">
                     <span className="text-lg label-text">氏名（本名）</span>
                 </label>
@@ -121,7 +120,7 @@ export const SignupForm: React.FC = (props) => {
                 />
                 <label className="label " htmlFor="email">
                     <span className="text-sm label-text">
-                        ※大学のOutlookのみ利用可、アカウント作成後に入力されたアドレスに確認メールが届きます。
+                        ※大学のOutlookのみ利用可、アカウント作成後に入力されたアドレスにアカウント認証用メールが届きます。
                     </span>
                 </label>
                 <label className="label mt-6" htmlFor="password">
@@ -196,6 +195,9 @@ export const SignupForm: React.FC = (props) => {
                         required: "画像を選択してください。",
                     })}
                 />
+                <label className="label" htmlFor="userImg">
+                    <span className="text-sm label-text">※ログイン後に変更可。</span>
+                </label>
                 <div className="mt-10 mx-auto w-40">
                     <SubmitButton text={"登録"} />
                 </div>
