@@ -1,27 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 
 //libraries
-import firebase from "firebase/app";
 import "firebase/auth";
 import { auth } from "@libs/firebaseConfig";
 
 //components
 import { TopPageTemplate } from "@components/templates/TopPageTemplate";
+import { IsUserContext } from "./_app";
+import { LoadingIcon } from "@components/atoms/LoadingIcon";
 
 const Home: NextPage = () => {
     const router = useRouter();
-    // const [authState, setAuthState] = useState<undefined | firebase.User | null>(undefined);
+    const currentUser = useContext(IsUserContext);
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
-            // setAuthState(user);
-            if (!user || !user.emailVerified) {
+            if (!currentUser || !user.emailVerified) {
                 router.push("/login");
             }
         });
-    }, [router]);
+    }, [router, currentUser]);
 
     const handleLogOut = async () => {
         try {
@@ -32,11 +32,7 @@ const Home: NextPage = () => {
         }
     };
 
-    return (
-        <div>
-            <TopPageTemplate handleLogOut={handleLogOut} />
-        </div>
-    );
+    return <>{currentUser ? <TopPageTemplate handleLogOut={handleLogOut} /> : <LoadingIcon />}</>;
 };
 
 export default Home;
