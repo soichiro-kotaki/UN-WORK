@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-// libraries
+//libs
 import { useForm, SubmitHandler } from "react-hook-form";
 import { auth } from "@libs/firebaseConfig";
 
@@ -30,7 +30,7 @@ export const LoginForm: React.FC = () => {
         },
     });
 
-    const handleOnSubmit: SubmitHandler<LoginFormValuesType> = async (values) => {
+    const handleOnLogin: SubmitHandler<LoginFormValuesType> = async (values) => {
         const { email, password } = values;
 
         try {
@@ -46,7 +46,8 @@ export const LoginForm: React.FC = () => {
 
     return (
         <>
-            <form action="" className="w-full" onSubmit={handleSubmit(handleOnSubmit)}>
+            <form action="" onSubmit={handleSubmit(handleOnLogin)}>
+                {/* メールアドレス入力フォーム */}
                 <label className="label mt-6" htmlFor="email">
                     <span className="text-lg label-text">メールアドレス</span>
                 </label>
@@ -66,6 +67,8 @@ export const LoginForm: React.FC = () => {
                         },
                     })}
                 />
+
+                {/* パスワード入力フォーム */}
                 <label className="label mt-6" htmlFor="password">
                     <span className="text-lg label-text">パスワード</span>
                 </label>
@@ -86,11 +89,15 @@ export const LoginForm: React.FC = () => {
                         },
                     })}
                 />
+
+                {/* パスワード再設定ページのリンク */}
                 <Link href="/resetPassword">
                     <a className="mt-6 inline-block text-green-400 text-xs underline hover:cursor-pointer hover:text-green-300">
                         パスワードを忘れた場合はこちら
                     </a>
                 </Link>
+
+                {/* ログインボタン */}
                 <div className="mt-10 mx-auto w-40">
                     <SubmitButton text={"ログイン"} />
                 </div>
