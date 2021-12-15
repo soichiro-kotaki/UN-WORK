@@ -1,8 +1,29 @@
+import React, { useState, useEffect } from "react";
 import "@styles/tailwind.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
+//libs
+import { auth, db } from "@libs/firebaseConfig";
+
+//types
+import { UserAuthContextType } from "src/types/user/UserAuthContextType";
+
+//contextAPI
+export const IsUserContext = React.createContext<UserAuthContextType>({ currentUser: undefined });
+
 function MyApp({ Component, pageProps }: AppProps) {
+    const [currentUser, setCurrentUser] = useState(undefined);
+
+    useEffect(() => {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                const userData = (await db.collection("users").doc(`${user.uid}`).get()).data();
+                setCurrentUser(userData);
+            }
+        });
+    }, []);
+
     return (
         <>
             <Head>
@@ -11,7 +32,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <Component {...pageProps} />
+            <IsUserContext.Provider value={currentUser}>
+                <Component {...pageProps} />
+            </IsUserContext.Provider>
         </>
     );
 }
