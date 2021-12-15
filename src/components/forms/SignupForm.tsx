@@ -3,10 +3,7 @@ import { useRouter } from "next/router";
 
 //libs
 import { useForm, SubmitHandler } from "react-hook-form";
-import { auth } from "@libs/firebaseConfig";
-import { db } from "@libs/firebaseConfig";
-import { storage } from "@libs/firebaseConfig";
-import firebase from "@libs/firebaseConfig";
+import firebase, { auth, db, storage } from "@libs/firebaseConfig";
 
 //components
 import { SubmitButton } from "@components/atoms/SubmitButton";

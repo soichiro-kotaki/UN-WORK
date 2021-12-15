@@ -15,7 +15,7 @@ export const LoginPageTemplate: React.FC = () => {
                     <LoginForm />
 
                     <Link href="/signup">
-                        <a className="mt-10 text-green-400 underline hover:cursor-pointer hover:text-green-300">
+                        <a className="mt-10  text-green-400 underline hover:cursor-pointer hover:text-green-300">
                             新規アカウント作成はこちら
                         </a>
                     </Link>
