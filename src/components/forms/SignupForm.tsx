@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-// libraries
+//libs
 import { useForm, SubmitHandler } from "react-hook-form";
 import { auth } from "@libs/firebaseConfig";
 import { db } from "@libs/firebaseConfig";
@@ -40,7 +40,7 @@ export const SignupForm: React.FC = () => {
         },
     });
 
-    const handleOnSubmit: SubmitHandler<SignupFormValuesType> = async (values) => {
+    const handleOnSignup: SubmitHandler<SignupFormValuesType> = async (values) => {
         const { name, email, password, grade, subject, userImg } = values;
 
         //Storageにフォームから取得した画像ファイルを保存
@@ -83,7 +83,8 @@ export const SignupForm: React.FC = () => {
 
     return (
         <>
-            <form action="" onSubmit={handleSubmit(handleOnSubmit)}>
+            <form action="" onSubmit={handleSubmit(handleOnSignup)}>
+                {/* 氏名（ユーザー名）登録フォーム */}
                 <label className="label mt-6" htmlFor="name">
                     <span className="text-lg label-text">氏名（本名）</span>
                 </label>
@@ -99,6 +100,8 @@ export const SignupForm: React.FC = () => {
                         required: "入力必須項目です。",
                     })}
                 />
+
+                {/* メールアドレス登録フォーム */}
                 <label className="label mt-6" htmlFor="email">
                     <span className="text-lg  label-text">メールアドレス</span>
                 </label>
@@ -123,6 +126,8 @@ export const SignupForm: React.FC = () => {
                         ※大学のOutlookのみ利用可、アカウント作成後に入力されたアドレスにアカウント認証用メールが届きます。
                     </span>
                 </label>
+
+                {/* パスワード登録フォーム */}
                 <label className="label mt-6" htmlFor="password">
                     <span className="text-lg label-text">パスワード</span>
                 </label>
@@ -146,6 +151,8 @@ export const SignupForm: React.FC = () => {
                 <label className="label" htmlFor="password">
                     <span className="text-sm label-text">※ログイン時に使用します</span>
                 </label>
+
+                {/* 学年選択フォーム */}
                 <label className="label mt-6 mb-2" htmlFor="grade">
                     <span className="text-lg label-text">現在の学年を選択</span>
                 </label>
@@ -163,6 +170,8 @@ export const SignupForm: React.FC = () => {
                     <option>3年生</option>
                     <option>4年生</option>
                 </select>
+
+                {/* 所属学科選択フォーム */}
                 <label className="label mt-6 mb-2" htmlFor="subject">
                     <span className="text-lg label-text">所属学科を選択</span>
                 </label>
@@ -179,6 +188,8 @@ export const SignupForm: React.FC = () => {
                     <option>こども</option>
                     <option>食健康</option>
                 </select>
+
+                {/* プロフィール画像登録フォーム */}
                 <label className="label mt-6" htmlFor="userImg">
                     <span className="text-lg label-text">プロフィール用画像を選択</span>
                 </label>
@@ -198,6 +209,8 @@ export const SignupForm: React.FC = () => {
                 <label className="label" htmlFor="userImg">
                     <span className="text-sm label-text">※ログイン後に変更可。</span>
                 </label>
+
+                {/* 登録用ボタン */}
                 <div className="mt-10 mx-auto w-40">
                     <SubmitButton text={"登録"} />
                 </div>

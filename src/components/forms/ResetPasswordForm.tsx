@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-// libraries
+//libs
 import { useForm, SubmitHandler } from "react-hook-form";
 import { auth } from "@libs/firebaseConfig";
 
@@ -34,6 +34,7 @@ export const ResetPasswordForm: React.FC = () => {
 
     const handleOnSendVerification: SubmitHandler<ResetPasswordFormValueType> = async (value) => {
         const { email } = value;
+
         try {
             await auth.sendPasswordResetEmail(email, actionCodeSettings);
             reset();
@@ -47,6 +48,7 @@ export const ResetPasswordForm: React.FC = () => {
     return (
         <>
             <form action="" className="w-full" onSubmit={handleSubmit(handleOnSendVerification)}>
+                {/* メールアドレス入力フォーム */}
                 <label className="label mt-6" htmlFor="email">
                     <span className="text-lg label-text">メールアドレス</span>
                 </label>
@@ -67,6 +69,7 @@ export const ResetPasswordForm: React.FC = () => {
                     })}
                 />
 
+                {/* メール送信ボタン */}
                 <div className="mt-10 mx-auto w-40">
                     <SubmitButton text={"送信"} />
                 </div>
