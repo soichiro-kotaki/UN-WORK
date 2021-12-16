@@ -56,7 +56,7 @@ export const SignupForm: React.FC = () => {
 
             //Firestoreにユーザーデータを登録
             db.collection("users").doc(`${user.user.uid}`).set({
-                user_id: name,
+                user_name: name,
                 user_email: email,
                 user_grade: grade,
                 user_subject: subject,
