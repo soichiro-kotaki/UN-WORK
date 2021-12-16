@@ -17,9 +17,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     useEffect(() => {
         auth.onAuthStateChanged(async (user) => {
+            //uidをグローバルstateとしてユーザーのログイン管理
             if (user) {
-                const userData = (await db.collection("users").doc(`${user.uid}`).get()).data();
-                setCurrentUser(userData);
+                // const userData = (await db.collection("users").doc(`${user.uid}`).get()).data();
+                setCurrentUser(user.uid);
             }
         });
     }, []);

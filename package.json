@@ -12,6 +12,7 @@
         "css:build": "postcss src/styles/tailwind.css -o src/styles/globals.css"
     },
     "dependencies": {
+        "date-fns": "^2.27.0",
         "firebase": "8.6.1",
         "next": "12.0.4",
         "react": "17.0.2",
