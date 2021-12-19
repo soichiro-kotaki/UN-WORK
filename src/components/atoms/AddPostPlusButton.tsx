@@ -4,8 +4,8 @@ import Link from "next/link";
 export const AddPostPlusButton: React.FC = () => {
     return (
         <>
-            <Link href="/">
-                <a className="rounded fixed right-4 bottom-16 inline-block lg:hidden">
+            <Link href="/postform">
+                <a className="z-20 fixed right-4 bottom-16 inline-block lg:hidden">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className="h-16 w-16 text-green-400 hover:text-green-700 transition-colors"

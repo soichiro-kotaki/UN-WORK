@@ -21,7 +21,7 @@ export const MenuBar: React.FC = () => {
                     </a>
                 </Link>
 
-                <Link href="/announcements">
+                <Link href="/announce">
                     <a className="text-xs w-1/4 h-full text-center pt-2 inline-block lg:block lg:w-4/5 lg:h-16 lg:mt-16 lg:mx-auto lg:pt-2 lg:text-lg hover:bg-gray-200 lg:rounded-full">
                         <MdAnnouncement className="w-5 h-5 text-center mx-auto" />
                         お知らせ

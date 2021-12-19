@@ -37,7 +37,9 @@ export const UserProfile: React.FC<Props> = (props) => {
                         <p className="mb-4">{`${userData.user_subject}学科${userData.user_grade}`}</p>
                         <p className="text-sm mb-4 lg:text-base">{` ${userData.user_email}`}</p>
                         <span className="block mb-8 text-sm text-gray-500">{`${userData.created_at}に登録`}</span>
-                        <EditProfileButton />
+                        <div className="w-full mx-auto md:w-3/5 lg:w-full">
+                            <EditProfileButton />
+                        </div>
                     </div>
                 </div>
             </div>

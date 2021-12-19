@@ -30,8 +30,8 @@ export const Footer: React.FC = () => {
                             </a>
                         </Link>
                     </div>
-                    <p className="my-4 lg:my-20 text-center">©️2021 UN-WORK </p>
                 </div>
+                <p className="my-4 lg:my-32 text-center">©️2021 UN-WORK </p>
             </div>
         </>
     );
