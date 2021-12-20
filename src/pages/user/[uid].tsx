@@ -1,9 +1,9 @@
-import { useContext } from "react";
 import type { NextPage } from "next";
 import Head from "next/head";
 
-//libs
-import { db } from "@libs/firebaseConfig";
+//apis
+import { getPostEachUser } from "src/apis/post";
+import { getUserProfileData } from "src/apis/user";
 
 //components
 import { UserPageTemplate } from "@components/templates/UserPageTemplate";
@@ -11,13 +11,15 @@ import { UserPageTemplate } from "@components/templates/UserPageTemplate";
 //types
 import { GetServerSideProps } from "next";
 import { UserDataType } from "src/types/user/UserDataType";
+import { PostDataType } from "src/types/post/PostDataType";
 
 type Props = {
     userData: UserDataType;
+    userPostsData: PostDataType[];
 };
 
 const user: NextPage<Props> = (props) => {
-    const { userData } = props;
+    const { userData, userPostsData } = props;
 
     return (
         <>
@@ -25,7 +27,7 @@ const user: NextPage<Props> = (props) => {
                 <title>マイページ</title>
             </Head>
 
-            <UserPageTemplate userData={userData} />
+            <UserPageTemplate userData={userData} userPostsData={userPostsData} />
         </>
     );
 };
@@ -34,8 +36,9 @@ export default user;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { uid } = context.params;
-    let userData = (await db.collection("users").doc(`${uid}`).get()).data();
-    userData.created_at = userData.created_at.toDate().toLocaleDateString();
 
-    return { props: { userData: userData } };
+    const userData = await getUserProfileData(uid);
+    const userPostData = await getPostEachUser(uid);
+
+    return { props: { userData: userData, userPostsData: userPostData } };
 };
