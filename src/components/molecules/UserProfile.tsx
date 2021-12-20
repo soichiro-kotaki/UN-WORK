@@ -17,11 +17,8 @@ export const UserProfile: React.FC<Props> = (props) => {
     return (
         <>
             <div className="w-11/12 rounded-3xl bg-white border border-gray-300 p-8 mx-auto md:w-9/12 lg:w-11/12">
-                <h1 className="text-2xl text-center text-green-400 font-bold mb-4 lg:text-4xl lg:mb-8">
-                    プロフィール
-                </h1>
-                <div className="lg:flex lg:justify-evenly">
-                    <div className="rounded-full text-center mx-auto lg:text-left lg:inline-block lg:m-0 lg:mr-20 xl:mr-60">
+                <div className="lg:flex lg:justify-between lg:items-center">
+                    <div className="rounded-full text-center mx-auto lg:text-left lg:inline-block lg:m-0 ">
                         <Image
                             src={userData.user_img}
                             width={180}
@@ -37,7 +34,7 @@ export const UserProfile: React.FC<Props> = (props) => {
                         <p className="mb-4">{`${userData.user_subject}学科${userData.user_grade}`}</p>
                         <p className="text-sm mb-4 lg:text-base">{` ${userData.user_email}`}</p>
                         <span className="block mb-8 text-sm text-gray-500">{`${userData.created_at}に登録`}</span>
-                        <div className="w-full mx-auto md:w-3/5 lg:w-full">
+                        <div className=" mx-auto md:w-3/5 lg:w-full">
                             <EditProfileButton />
                         </div>
                     </div>
