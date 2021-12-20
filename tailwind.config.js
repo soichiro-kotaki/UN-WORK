@@ -6,11 +6,12 @@ module.exports = {
         extend: {
             colors: {
                 "background-main": "#f4f5f7",
+                "background-sub": "#74b9ff",
             },
         },
     },
     variants: {
         extend: {},
     },
-    plugins: [require("daisyui")],
+    plugins: [require("daisyui"), require("@tailwindcss/line-clamp")],
 };

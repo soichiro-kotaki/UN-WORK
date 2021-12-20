@@ -6,7 +6,7 @@ import Link from "next/link";
 export const Footer: React.FC = () => {
     return (
         <>
-            <div className="h-72 border-gray-300 border-t w-full lg:z-10 lg:fixed lg:right-0 lg:top-0 lg:w-1/5 lg:h-full lg:border-l">
+            <div className="h-60 border-gray-300 border-t w-full lg:z-10 lg:fixed lg:right-0 lg:top-0 lg:w-1/5 lg:h-full lg:border-l lg:border-t-0">
                 <div className="w-4/5 lg:mt-96">
                     <a
                         className=" block my-4 pl-4 font-bold text-left text-green-400 hover:text-green-600 hover:underline"
@@ -30,8 +30,8 @@ export const Footer: React.FC = () => {
                             </a>
                         </Link>
                     </div>
-                    <p className="my-4 lg:my-20 text-center">©️2021 UN-WORK </p>
                 </div>
+                <p className="my-4 lg:my-32 text-center">©️2021 UN-WORK </p>
             </div>
         </>
     );

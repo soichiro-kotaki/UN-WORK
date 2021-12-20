@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 
 //libs
-import { auth, db } from "@libs/firebaseConfig";
+import { auth } from "@libs/firebaseConfig";
 
 //types
 import { UserAuthContextType } from "src/types/user/UserAuthContextType";
@@ -19,10 +19,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         auth.onAuthStateChanged(async (user) => {
             //uidをグローバルstateとしてユーザーのログイン管理
             if (user) {
-                // const userData = (await db.collection("users").doc(`${user.uid}`).get()).data();
                 setCurrentUser(user.uid);
             }
         });
+
+        return () => {
+            setCurrentUser(undefined);
+        };
     }, []);
 
     return (

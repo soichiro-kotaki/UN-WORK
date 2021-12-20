@@ -1,0 +1,51 @@
+//libs
+import firebase, { db, storage } from "@libs/firebaseConfig";
+
+//types
+import { PostFormValuesType } from "src/types/form/PostFormValuesType";
+import { UserAuthContextType } from "src/types/user/UserAuthContextType";
+
+//新規の求人を投稿
+export const addJobPost = async (values: PostFormValuesType, uid: UserAuthContextType) => {
+    const { title, salary, category, body, post_img } = values;
+
+    //Storageにフォームから取得した画像ファイルを保存
+    const postImgRef = storage.ref(`images/posts/${uid}`).child(`${post_img[0].name}`);
+    await postImgRef.put(post_img[0]);
+    const url = await postImgRef.getDownloadURL();
+
+    await db.collection("posts").doc().set({
+        uid: uid,
+        title: title,
+        salary: salary,
+        category: category,
+        body: body,
+        post_img: url,
+        created_at: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+    alert("求人が投稿されました！");
+};
+
+//全ユーザーの投稿一覧を取得
+export const getAllPostsData = async () => {
+    let allPostsData = await db.collection("posts").get();
+    let allPostsDataList = [];
+    allPostsData.forEach((postData) => {
+        let result = postData.data();
+        result.created_at = result.created_at.toDate().toLocaleDateString();
+        allPostsDataList.push(result);
+    });
+    return allPostsDataList;
+};
+
+//全ユーザーの投稿のうち、自身が投稿した求人を取得
+export const getPostEachUser = async (uid: string | string[] | UserAuthContextType) => {
+    let userPostsData = await db.collection("posts").where("uid", "==", `${uid}`).get();
+    let postsDataList = [];
+    userPostsData.forEach((userPostData) => {
+        let result = userPostData.data();
+        result.created_at = result.created_at.toDate().toLocaleDateString();
+        postsDataList.push(result);
+    });
+    return postsDataList;
+};

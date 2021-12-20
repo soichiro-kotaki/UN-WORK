@@ -1,6 +1,9 @@
 import React from "react";
 import { useRouter } from "next/router";
 
+//apis
+// import { signupUserData } from "src/apis/user";
+
 //libs
 import { useForm, SubmitHandler } from "react-hook-form";
 import firebase, { auth, db, storage } from "@libs/firebaseConfig";
@@ -40,22 +43,25 @@ export const SignupForm: React.FC = () => {
     const handleOnSignup: SubmitHandler<SignupFormValuesType> = async (values) => {
         const { name, email, password, grade, subject, userImg } = values;
 
-        //Storageにフォームから取得した画像ファイルを保存
-        const userImgRef = storage.ref().child("user_image/" + `${userImg[0].name}`);
+        //Storageにフォームから取得した画像ファイルを保存・参照用パスを生成
+        const userImgRef = storage
+            .ref()
+            .child(`images/users/${values.email}/${values.userImg[0].name}`);
 
         try {
-            //ユーザー情報をAuthに登録
+            //新規アカウント登録、アカウント認証メールの送信
+            // signupUserData(values, userImgRef, actionCodeSettings);（現在、エラーが発生しており解決できていないので、未使用。）
+
             const user = await auth.createUserWithEmailAndPassword(email, password);
 
-            //Storageに保存した画像を参照して、AuthのphotoURLに追加
+            //Storageに保存した画像を参照、AuthのphotoURLに追加
             await userImgRef.put(userImg[0]);
             const url = await userImgRef.getDownloadURL();
-            user.user.updateProfile({
+            await user.user.updateProfile({
                 photoURL: url,
             });
 
-            //Firestoreにユーザーデータを登録
-            db.collection("users").doc(`${user.user.uid}`).set({
+            await db.collection("users").doc(`${user.user.uid}`).set({
                 user_name: name,
                 user_email: email,
                 user_grade: grade,
@@ -67,7 +73,7 @@ export const SignupForm: React.FC = () => {
             //アカウント作成時に入力されたメールアドレスにアカウント認証を行うためのメールを送信
             await auth.currentUser.sendEmailVerification(actionCodeSettings);
             alert(
-                `${email}宛にアカウント認証用メールを送信しました。添付のリンクから認証を行った後にログインを行ってください。※受信トレイにメールが届いていない場合は、迷惑メールフォルダに振り分けられている可能性があります。`,
+                `${email}宛にアカウント認証用メールを送信しました。添付のリンクから認証を行った後にログインを行ってください。\n※受信トレイにメールが届いていない場合は、迷惑メールフォルダに振り分けられている可能性があります。`,
             );
 
             //フォームの値を空にしてログインページへ遷移
@@ -91,7 +97,7 @@ export const SignupForm: React.FC = () => {
                 <input
                     type="text"
                     id="name"
-                    placeholder="長野 太郎"
+                    placeholder="例: 長野 太郎"
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
                     {...register("name", {
                         required: "入力必須項目です。",
@@ -108,7 +114,7 @@ export const SignupForm: React.FC = () => {
                 <input
                     type="email"
                     id="email"
-                    placeholder="19G000@u-nagano.ac.jp"
+                    placeholder="例: 〇〇G000@u-nagano.ac.jp"
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
                     {...register("email", {
                         required: "入力必須項目です。",
@@ -120,7 +126,7 @@ export const SignupForm: React.FC = () => {
                 />
                 <label className="label " htmlFor="email">
                     <span className="text-sm label-text">
-                        ※大学のOutlookのみ利用可、アカウント作成後に入力されたアドレスにアカウント認証用メールが届きます。
+                        ※大学のOutlookのみ利用可、アカウント作成後に入力されたアドレスにアカウント認証用メールが届きます
                     </span>
                 </label>
 
@@ -204,7 +210,7 @@ export const SignupForm: React.FC = () => {
                     })}
                 />
                 <label className="label" htmlFor="userImg">
-                    <span className="text-sm label-text">※ログイン後に変更可。</span>
+                    <span className="text-sm label-text">※ログイン後に変更可能です</span>
                 </label>
 
                 {/* 登録用ボタン */}
