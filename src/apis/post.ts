@@ -49,3 +49,21 @@ export const getPostEachUser = async (uid: string | string[] | UserAuthContextTy
     });
     return postsDataList;
 };
+
+//詳細を見るボタンを押された求人を取得
+export const getPostDetail = async (id: string) => {
+    const postData = await db.collection("posts").doc(id).get();
+
+    return postData;
+};
+
+//各投稿詳細ページのパスを生成
+export const createPostPagePath = async (uid: string) => {
+    let dataList = [];
+    const postId = await db.collection("posts").where("uid", "==", `${uid}`).get();
+    postId.forEach((data) => {
+        dataList.push(data.id);
+    });
+
+    return dataList;
+};

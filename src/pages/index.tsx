@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 
 //apis
-import { getAllPostsData } from "src/apis/post";
+import { getAllPostsData } from "@apis/post";
 
 //libs
 import { auth } from "@libs/firebaseConfig";
