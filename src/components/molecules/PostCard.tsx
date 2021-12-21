@@ -1,6 +1,4 @@
 import React from "react";
-import Image from "next/image";
-// import Image from "next/image";
 
 //components
 import { DetailButton } from "@components/atoms/DetailButton";
@@ -19,14 +17,6 @@ export const PostCard: React.FC<Props> = (props) => {
         <>
             <div className="w-11/12 rounded-3xl bg-white border border-gray-300 p-6 mx-auto">
                 <div className="">
-                    {/* <div className="rounded-full text-center mx-auto">
-                        <Image
-                            src={userPostData.post_img}
-                            width={1000}
-                            height={1000}
-                            alt="プロフィール画像"
-                        />
-                    </div> */}
                     <div className="mb-4 mt-4 lg:flex lg:flex-col lg:text-left lg:mb-8  xl:mr-0">
                         <h2 className="text-2xl font-semibold mb-2 mx-auto lg:text-3xl lg:inline-block lg:mx-0 ">
                             {userPostData.title}
@@ -45,7 +35,7 @@ export const PostCard: React.FC<Props> = (props) => {
                             </p>
                         </div>
                         <div className="w-4/5 mx-auto md:w-3/5 lg lg:w-2/5">
-                            <DetailButton text={"詳細を見る"} />
+                            <DetailButton text={"詳細を見る"} uid={userPostData.uid} />
                         </div>
                     </div>
                 </div>

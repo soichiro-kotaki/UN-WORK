@@ -2,8 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 //apis
-import { getPostEachUser } from "src/apis/post";
-import { getUserProfileData } from "src/apis/user";
+import { getPostEachUser } from "@apis/post";
+import { getUserProfileData } from "@apis/user";
 
 //components
 import { UserPageTemplate } from "@components/templates/UserPageTemplate";
