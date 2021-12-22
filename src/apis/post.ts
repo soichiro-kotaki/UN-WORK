@@ -1,5 +1,8 @@
+//apis
+import { uploadPostImage } from "./image";
+
 //libs
-import firebase, { db, storage } from "@libs/firebaseConfig";
+import firebase, { db } from "@libs/firebaseConfig";
 
 //types
 import { PostFormValuesType } from "src/types/form/PostFormValuesType";
@@ -10,8 +13,9 @@ export const addJobPost = async (values: PostFormValuesType, uid: UserAuthContex
     const { title, salary, category, body, post_img } = values;
 
     //Storageにフォームから取得した画像ファイルを保存
-    const postImgRef = storage.ref(`images/posts/${uid}`).child(`${post_img[0].name}`);
-    await postImgRef.put(post_img[0]);
+    const postImgRef = await uploadPostImage(post_img[0], uid);
+    // const postImgRef = storage.ref(`images/posts/${uid}`).child(`${post_img[0].name}`);
+    // await postImgRef.put(post_img[0]);
     const url = await postImgRef.getDownloadURL();
 
     await db.collection("posts").doc().set({
