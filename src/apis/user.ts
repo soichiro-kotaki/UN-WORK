@@ -1,5 +1,8 @@
+//apis
+import { uploadUserImage } from "./image";
 //libs
 import firebase, { auth, db, storage } from "@libs/firebaseConfig";
+import { UpdateUserProfileValuesType } from "src/types/user/UpdateUserProfileValuesType";
 
 //types
 import { UserAuthContextType } from "src/types/user/UserAuthContextType";
@@ -48,4 +51,26 @@ export const getUserProfileData = async (uid: string | string[] | UserAuthContex
     userData.created_at = userData.created_at.toDate().toLocaleDateString();
 
     return userData;
+};
+
+//ユーザーのプロフィールデータ(画像）を更新
+export const updateUserProfile = async (
+    userImg: UpdateUserProfileValuesType,
+    uid: string | string[] | UserAuthContextType,
+) => {
+    const userDataRef = db.collection("users").doc(`${uid}`);
+    const userData = (await userDataRef.get()).data();
+    const email = userData.user_email;
+
+    //画像の圧縮
+    const userImgRef = await uploadUserImage(userImg.userImg[0], email);
+    const url = await userImgRef.getDownloadURL();
+
+    //Firebase AuthとFirestoreに画像URLを更新
+    await auth.currentUser.updateProfile({
+        photoURL: url,
+    });
+    await userDataRef.update({
+        user_img: url,
+    });
 };
