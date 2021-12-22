@@ -44,9 +44,7 @@ export const SignupForm: React.FC = () => {
         const { name, email, password, grade, subject, userImg } = values;
 
         //Storageにフォームから取得した画像ファイルを保存・参照用パスを生成
-        const userImgRef = storage
-            .ref()
-            .child(`images/users/${values.email}/${values.userImg[0].name}`);
+        const userImgRef = storage.ref().child(`images/users/${email}/${userImg[0].name}`);
 
         try {
             //新規アカウント登録、アカウント認証メールの送信
