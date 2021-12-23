@@ -12,10 +12,10 @@ import { UserAuthContextType } from "src/types/user/UserAuthContextType";
 export const addJobPost = async (values: PostFormValuesType, uid: UserAuthContextType) => {
     const { title, salary, category, body, post_img } = values;
 
+    alert("求人が投稿されました！");
+
     //Storageにフォームから取得した画像ファイルを保存
     const postImgRef = await uploadPostImage(post_img[0], uid);
-    // const postImgRef = storage.ref(`images/posts/${uid}`).child(`${post_img[0].name}`);
-    // await postImgRef.put(post_img[0]);
     const url = await postImgRef.getDownloadURL();
 
     await db.collection("posts").doc().set({
@@ -27,7 +27,6 @@ export const addJobPost = async (values: PostFormValuesType, uid: UserAuthContex
         post_img: url,
         created_at: firebase.firestore.FieldValue.serverTimestamp(),
     });
-    alert("求人が投稿されました！");
 };
 
 //全ユーザーの投稿一覧を取得

@@ -43,7 +43,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                             <p className="text-sm lg:text-lg">{`時給: ${postData.salary}`}</p>
                             <span className="block text-xs text-gray-500 lg:text-sm">{`投稿日: ${postData.created_at}`}</span>
                         </div>
-                        <h2 className="my-6 text-xl font-semibold lg:my-12 lg:text-3xl">
+                        <h2 className="my-6 text-xl text-center font-semibold lg:my-12 lg:text-3xl">
                             ---求人詳細---
                         </h2>
                         {postData.body

@@ -8,7 +8,7 @@ import { UserAuthContextType } from "src/types/user/UserAuthContextType";
 // 画像の圧縮用モジュール
 export const compressFile = async (file: File) => {
     return await imageCompression(file, {
-        maxSizeMB: 0.1,
+        maxSizeMB: 0.3,
         maxWidthOrHeight: 1400,
     });
 };
