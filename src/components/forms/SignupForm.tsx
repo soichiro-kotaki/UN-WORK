@@ -2,11 +2,10 @@ import React from "react";
 import { useRouter } from "next/router";
 
 //apis
-// import { signupUserData } from "src/apis/user";
+import { signupUserData } from "src/apis/user";
 
 //libs
 import { useForm, SubmitHandler } from "react-hook-form";
-import firebase, { auth, db, storage } from "@libs/firebaseConfig";
 
 //components
 import { SubmitButton } from "@components/atoms/SubmitButton";
@@ -41,38 +40,9 @@ export const SignupForm: React.FC = () => {
     });
 
     const handleOnSignup: SubmitHandler<SignupFormValuesType> = async (values) => {
-        const { name, email, password, grade, subject, userImg } = values;
-
-        //Storageにフォームから取得した画像ファイルを保存・参照用パスを生成
-        const userImgRef = storage.ref().child(`images/users/${email}/${userImg[0].name}`);
-
         try {
-            //新規アカウント登録、アカウント認証メールの送信
-            // signupUserData(values, userImgRef, actionCodeSettings);（現在、エラーが発生しており解決できていないので、未使用。）
-
-            const user = await auth.createUserWithEmailAndPassword(email, password);
-
-            //Storageに保存した画像を参照、AuthのphotoURLに追加
-            await userImgRef.put(userImg[0]);
-            const url = await userImgRef.getDownloadURL();
-            await user.user.updateProfile({
-                photoURL: url,
-            });
-
-            await db.collection("users").doc(`${user.user.uid}`).set({
-                user_name: name,
-                user_email: email,
-                user_grade: grade,
-                user_subject: subject,
-                user_img: url,
-                created_at: firebase.firestore.FieldValue.serverTimestamp(),
-            });
-
-            //アカウント作成時に入力されたメールアドレスにアカウント認証を行うためのメールを送信
-            await auth.currentUser.sendEmailVerification(actionCodeSettings);
-            alert(
-                `${email}宛にアカウント認証用メールを送信しました。添付のリンクから認証を行った後にログインを行ってください。\n※受信トレイにメールが届いていない場合は、迷惑メールフォルダに振り分けられている可能性があります。`,
-            );
+            //新規アカウント登録・アカウント認証メールの送信
+            await signupUserData(values, actionCodeSettings);
 
             //フォームの値を空にしてログインページへ遷移
             reset();

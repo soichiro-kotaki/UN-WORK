@@ -39,10 +39,11 @@ export const EditProfileForm: React.FC = () => {
     ) => {
         try {
             await updateUserProfile(userImg, uid);
-            reset();
             alert("画像が更新されました。");
+            reset();
             router.push(`/user/${uid}`);
         } catch (error) {
+            alert("更新出来ませんでした。");
             console.log(error.message);
         }
     };
