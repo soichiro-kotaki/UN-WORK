@@ -7,7 +7,7 @@ import { BaseLayout } from "@components/layouts/BaseLayout";
 //types
 import { PostDataType } from "src/types/post/PostDataType";
 import { UserDataType } from "src/types/user/UserDataType";
-import { reverseStr } from "src/utils/reverseStr";
+import { convertDateStr } from "src/utils/convertDateStr";
 
 type Props = {
     userData: UserDataType;
@@ -16,6 +16,7 @@ type Props = {
 
 export const PostPageTemplate: React.FC<Props> = (props) => {
     const { userData, postData } = props;
+    console.log(userData.created_at);
 
     return (
         <>
@@ -42,7 +43,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                         </p>
                         <div className="flex justify-between mb-4 md:mb-6">
                             <p className="text-sm lg:text-lg">{`時給: ${postData.salary}`}</p>
-                            <span className="block text-xs text-gray-500 lg:text-sm">{`投稿日: ${reverseStr(
+                            <span className="block text-xs text-gray-500 lg:text-sm">{`投稿日: ${convertDateStr(
                                 postData.created_at,
                             )}`}</span>
                         </div>
@@ -72,7 +73,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                 <p className="my-4">
                                     所属: {`${userData.user_subject}学科 ${userData.user_grade}`}
                                 </p>
-                                <p>{reverseStr(userData.created_at)}に登録</p>
+                                <p>{convertDateStr(userData.created_at)}に登録</p>
                             </div>
                         </div>
                     </div>

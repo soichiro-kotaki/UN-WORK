@@ -8,7 +8,7 @@ import { EditProfileButton } from "@components/atoms/EditProfileButton";
 import { UserDataType } from "src/types/user/UserDataType";
 
 //utils
-import { reverseStr } from "src/utils/reverseStr";
+import { convertDateStr } from "src/utils/convertDateStr";
 
 type Props = {
     userData: UserDataType;
@@ -36,7 +36,7 @@ export const UserProfile: React.FC<Props> = (props) => {
                         </h2>
                         <p className="mb-4">{`${userData.user_subject}学科${userData.user_grade}`}</p>
                         <p className="text-sm mb-4 lg:text-base">{` ${userData.user_email}`}</p>
-                        <span className="block mb-8 text-sm text-gray-500">{`${reverseStr(
+                        <span className="block mb-8 text-sm text-gray-500">{`${convertDateStr(
                             userData.created_at,
                         )}に登録`}</span>
                         <div className=" mx-auto md:w-3/5 lg:w-full">
