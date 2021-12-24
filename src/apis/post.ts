@@ -1,5 +1,5 @@
 //apis
-import { uploadPostImage } from "./image";
+import { uploadPostImage } from "@apis/image";
 
 //libs
 import firebase, { db } from "@libs/firebaseConfig";

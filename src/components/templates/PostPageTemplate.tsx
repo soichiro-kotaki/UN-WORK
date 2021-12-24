@@ -7,6 +7,7 @@ import { BaseLayout } from "@components/layouts/BaseLayout";
 //types
 import { PostDataType } from "src/types/post/PostDataType";
 import { UserDataType } from "src/types/user/UserDataType";
+import { reverseStr } from "src/utils/reverseStr";
 
 type Props = {
     userData: UserDataType;
@@ -41,7 +42,9 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                         </p>
                         <div className="flex justify-between mb-4 md:mb-6">
                             <p className="text-sm lg:text-lg">{`時給: ${postData.salary}`}</p>
-                            <span className="block text-xs text-gray-500 lg:text-sm">{`投稿日: ${postData.created_at}`}</span>
+                            <span className="block text-xs text-gray-500 lg:text-sm">{`投稿日: ${reverseStr(
+                                postData.created_at,
+                            )}`}</span>
                         </div>
                         <h2 className="my-6 text-xl text-center font-semibold lg:my-12 lg:text-3xl">
                             ---求人詳細---
@@ -69,7 +72,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                 <p className="my-4">
                                     所属: {`${userData.user_subject}学科 ${userData.user_grade}`}
                                 </p>
-                                <p>{userData.created_at}に登録したユーザー</p>
+                                <p>{reverseStr(userData.created_at)}に登録</p>
                             </div>
                         </div>
                     </div>

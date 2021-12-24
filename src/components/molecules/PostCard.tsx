@@ -6,6 +6,9 @@ import { DetailButton } from "@components/atoms/DetailButton";
 //types
 import { PostDataType } from "src/types/post/PostDataType";
 
+//utils
+import { reverseStr } from "src/utils/reverseStr";
+
 type Props = {
     userPostData: PostDataType;
 };
@@ -26,7 +29,9 @@ export const PostCard: React.FC<Props> = (props) => {
                         </div>
                         <div className="flex justify-between mb-4 md:mb-6">
                             <p className="text-sm lg:text-lg">{`時給: ${userPostData.salary}`}</p>
-                            <span className="block text-xs text-gray-500 lg:text-sm">{`投稿日: ${userPostData.created_at}`}</span>
+                            <span className="block text-xs text-gray-500 lg:text-sm">{`投稿日: ${reverseStr(
+                                userPostData.created_at,
+                            )}`}</span>
                         </div>
 
                         <div>
