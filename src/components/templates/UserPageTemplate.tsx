@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 //components
 import { BaseLayout } from "@components/layouts/BaseLayout";
@@ -8,6 +9,7 @@ import { UserProfile } from "@components/molecules/UserProfile";
 //types
 import { UserDataType } from "src/types/user/UserDataType";
 import { PostDataType } from "src/types/post/PostDataType";
+import { LoadingIcon } from "@components/atoms/LoadingIcon";
 
 type Props = {
     userData: UserDataType;
@@ -16,6 +18,15 @@ type Props = {
 
 export const UserPageTemplate: React.FC<Props> = (props) => {
     const { userData, userPostsData } = props;
+    const router = useRouter();
+
+    if (router.isFallback) {
+        return (
+            <>
+                <LoadingIcon />
+            </>
+        );
+    }
 
     return (
         <>

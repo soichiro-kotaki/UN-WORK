@@ -6,12 +6,9 @@ import ReactLoading from "react-loading";
 export const LoadingIcon: React.FC = () => {
     return (
         <>
-            <ReactLoading
-                type="spinningBubbles"
-                width={"5%"}
-                height={"5%"}
-                className="fixed text-green-300 top-1/2 -left-1/2 lg:w-1/6 lg:h-1/6"
-            />
+            <div className="text-center w-1/4 h-full mx-auto">
+                <ReactLoading type="spokes" width={"30%"} height={"30%"} color="#37cdbe" />
+            </div>
         </>
     );
 };

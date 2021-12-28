@@ -9,7 +9,7 @@ import { PostFormValuesType } from "src/types/form/PostFormValuesType";
 import { UserAuthContextType } from "src/types/user/UserAuthContextType";
 
 //新規の求人を投稿
-export const addJobPost = async (values: PostFormValuesType, uid: UserAuthContextType) => {
+export const addJobPost = async (values: PostFormValuesType, uid: string) => {
     const { title, salary, category, body, post_img } = values;
 
     alert("求人が投稿されました！");
@@ -55,8 +55,8 @@ export const getPostEachUser = async (uid: string | string[] | UserAuthContextTy
 
 //詳細を見るボタンを押された求人を取得
 export const getPostDetail = async (id: string) => {
-    const postData = await db.collection("posts").doc(id).get();
-
+    const postData = (await db.collection("posts").doc(id).get()).data();
+    postData.created_at = postData.created_at.toDate().toLocaleDateString();
     return postData;
 };
 

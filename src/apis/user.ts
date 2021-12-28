@@ -39,12 +39,32 @@ export const signupUserData = async (values: SignupFormValuesType, actionCodeSet
     );
 };
 
+//ゲストログイン
+export const handleGuestLogin = async () => {
+    await auth.signInAnonymously();
+};
+
+//ログアウト
+export const handleLogOut = async () => {
+    await auth.signOut();
+};
+
 //ユーザーのプロフィールデータを取得
 export const getUserProfileData = async (uid: string | string[] | UserAuthContextType) => {
     let userData = (await db.collection("users").doc(`${uid}`).get()).data();
-    userData.created_at = userData.created_at.toDate().toLocaleDateString();
+    if (userData) {
+        userData.created_at = userData.created_at.toDate().toLocaleDateString();
+    }
 
     return userData;
+};
+
+//テストユーザー用のプロフィールデータを取得
+export const getTestUserProfileData = async () => {
+    let testUserData = (await db.collection("users").doc("test-user").get()).data();
+    testUserData.created_at = testUserData.created_at.toDate().toLocaleDateString();
+
+    return testUserData;
 };
 
 //ユーザーのプロフィールデータ(画像）を更新
