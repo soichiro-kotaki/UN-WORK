@@ -1,3 +1,4 @@
 export type UserAuthContextType = {
-    currentUser: string | null | undefined;
+    uid: string | null | undefined;
+    isTestUser: boolean;
 };

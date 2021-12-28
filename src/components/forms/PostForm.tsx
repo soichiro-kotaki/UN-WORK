@@ -15,11 +15,11 @@ import { ErrorMessage } from "@components/atoms/ErrorMessage";
 import { PostFormValuesType } from "src/types/form/PostFormValuesType";
 
 //contextAPI
-import { IsUserContext } from "@pages/_app";
+import { UserAuthContext } from "@pages/_app";
 
 export const PostForm: React.FC = () => {
     const router = useRouter();
-    const uid = useContext(IsUserContext);
+    const User = useContext(UserAuthContext);
 
     const {
         register,
@@ -38,19 +38,25 @@ export const PostForm: React.FC = () => {
         },
     });
 
-    const handleOnLogin: SubmitHandler<PostFormValuesType> = async (values) => {
-        try {
-            await addJobPost(values, uid);
-            reset();
-            router.push("/");
-        } catch {
-            alert("投稿に失敗しました。");
+    const handleOnAddPost: SubmitHandler<PostFormValuesType> = async (
+        values: PostFormValuesType,
+    ) => {
+        if (User.isTestUser) {
+            alert("求人投稿を行うには、ログインもしくは新規アカウント作成を行ってください。");
+        } else {
+            try {
+                await addJobPost(values, User.uid);
+                reset();
+                router.push("/");
+            } catch {
+                alert("投稿に失敗しました。");
+            }
         }
     };
 
     return (
         <>
-            <form action="" onSubmit={handleSubmit(handleOnLogin)}>
+            <form action="" onSubmit={handleSubmit(handleOnAddPost)}>
                 {/* 求人タイトル入力フォーム */}
                 <label className="label mt-6" htmlFor="title">
                     <span className="text-lg label-text">求人タイトル</span>
@@ -99,10 +105,11 @@ export const PostForm: React.FC = () => {
                     <option defaultChecked={true}>飲食(居酒屋)</option>
                     <option>飲食(ファストフード系)</option>
                     <option>飲食(その他)</option>
+                    <option>パン・ケーキ屋</option>
                     <option>カフェ</option>
                     <option>ホテル・婚礼</option>
                     <option>本屋</option>
-                    <option>カラオケ</option>
+                    <option>エンタメ（カラオケなど）</option>
                     <option>フィットネス・ジム</option>
                     <option>雑貨屋</option>
                     <option>スーパー・コンビニ</option>
@@ -110,7 +117,7 @@ export const PostForm: React.FC = () => {
                     <option>ファッション</option>
                     <option>配送・デリバリー</option>
                     <option>単発バイト・日雇い</option>
-                    <option>事務</option>
+                    <option>事務系</option>
                     <option>美容系</option>
                     <option>その他</option>
                 </select>
@@ -124,7 +131,7 @@ export const PostForm: React.FC = () => {
                 </div>
                 <textarea
                     id="body"
-                    placeholder={`例: (最大400文字) \n【勤務地】\n 〇〇ホテル長野三輪店 \n \n【仕事内容】 \n . \n . \n .`}
+                    placeholder={`例: (最大400文字、下の記入例ように、項目毎に改行を行なってください。) \n【勤務地】\n 〇〇ホテル長野三輪店 \n \n【仕事内容】 \n . \n . \n .`}
                     className="w-full h-60 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
                     {...register("body", {
                         required: "入力必須項目です。",

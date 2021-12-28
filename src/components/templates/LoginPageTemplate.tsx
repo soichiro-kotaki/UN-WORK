@@ -1,10 +1,15 @@
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+
+//apis
+import { handleGuestLogin } from "@apis/user";
 
 //components
 import { LoginForm } from "@components/forms/LoginForm";
 
 export const LoginPageTemplate: React.FC = () => {
+    const router = useRouter();
     return (
         <>
             <main className="w-full mt-16 mb-16 pt-6 pb-6 border-2  bg-gray-50 lg:mt-20 ">
@@ -19,6 +24,17 @@ export const LoginPageTemplate: React.FC = () => {
                             新規アカウント作成はこちら
                         </a>
                     </Link>
+                    <div className="mt-10">
+                        <p
+                            className="text-green-400 text-center  underline inline-block w-sm h-full hover:cursor-pointer hover:text-green-300"
+                            onClick={() => {
+                                handleGuestLogin();
+                                router.push("/");
+                            }}
+                        >
+                            ゲストログインはこちら
+                        </p>
+                    </div>
                 </div>
             </main>
         </>

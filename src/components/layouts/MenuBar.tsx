@@ -6,10 +6,12 @@ import { AddPostTextButton } from "@components/atoms/AddPostTextButton";
 import { AiFillHome, AiFillTags } from "react-icons/ai";
 import { MdAnnouncement } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
-import { IsUserContext } from "@pages/_app";
+
+//contestAPI
+import { UserAuthContext } from "@pages/_app";
 
 export const MenuBar: React.FC = () => {
-    const uid = useContext(IsUserContext);
+    const User = useContext(UserAuthContext);
 
     return (
         <>
@@ -36,7 +38,7 @@ export const MenuBar: React.FC = () => {
                         </a>
                     </Link>
 
-                    <Link href={`/user/${uid}`}>
+                    <Link href={`/user/${User.uid}`}>
                         <a className="text-xs w-1/4 h-full text-center pt-2 inline-block md:w-1/6 lg:block lg:w-4/5 lg:h-16 lg:mt-16 lg:mx-auto lg:pt-2 lg:text-lg hover:bg-gray-200 lg:rounded-full">
                             <FaUserAlt className="w-5 h-5 text-center mx-auto" />
                             マイページ

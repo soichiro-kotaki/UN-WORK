@@ -10,21 +10,30 @@ import { auth } from "@libs/firebaseConfig";
 import { UserAuthContextType } from "src/types/user/UserAuthContextType";
 
 //contextAPI
-export const IsUserContext = React.createContext<UserAuthContextType>({ currentUser: undefined });
+export const UserAuthContext = React.createContext<UserAuthContextType>({
+    uid: undefined,
+    isTestUser: false,
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
-    const [currentUser, setCurrentUser] = useState(undefined);
+    const [uid, setUid] = useState(undefined);
+    const [isTestUser, setIsTestUser] = useState(false);
 
     useEffect(() => {
-        auth.onAuthStateChanged(async (user) => {
-            //uidをグローバルstateとしてユーザーのログイン管理
+        auth.onAuthStateChanged((user) => {
+            //認証状態に関するUserオブジェクトをグローバルstateとして、ユーザーの状態を管理
             if (user) {
-                setCurrentUser(user.uid);
+                setUid(user.uid);
+
+                if (user.isAnonymous) {
+                    setIsTestUser(true);
+                }
             }
         });
 
         return () => {
-            setCurrentUser(undefined);
+            setUid(undefined);
+            setIsTestUser(false);
         };
     }, []);
 
@@ -36,9 +45,10 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <IsUserContext.Provider value={currentUser}>
+
+            <UserAuthContext.Provider value={{ uid: uid, isTestUser: isTestUser }}>
                 <Component {...pageProps} />
-            </IsUserContext.Provider>
+            </UserAuthContext.Provider>
         </>
     );
 }

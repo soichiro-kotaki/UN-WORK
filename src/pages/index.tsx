@@ -10,7 +10,8 @@ import { auth } from "@libs/firebaseConfig";
 
 //components
 import { TopPageTemplate } from "@components/templates/TopPageTemplate";
-import { IsUserContext } from "./_app";
+import { UserAuthContext } from "./_app";
+import { LoadingIcon } from "@components/atoms/LoadingIcon";
 
 //types
 import { GetServerSideProps } from "next";
@@ -23,26 +24,25 @@ type Props = {
 const Home: NextPage<Props> = (props) => {
     const { allPostsData } = props;
     const router = useRouter();
-    const currentUser = useContext(IsUserContext);
+    const User = useContext(UserAuthContext);
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
-            if (!currentUser || !user.emailVerified) {
+            if (user) {
+                if (user.isAnonymous) {
+                    return;
+                } else {
+                    if (!user.emailVerified) {
+                        router.push("/login");
+                    }
+                }
+            } else {
                 router.push("/login");
             }
         });
-    }, [router, currentUser]);
+    }, [router, User.uid]);
 
-    // const handleLogOut = async () => {
-    //     try {
-    //         await auth.signOut();
-    //         router.push("/login");
-    //     } catch (error) {
-    //         alert(error.message);
-    //     }
-    // };
-
-    return <>{currentUser ? <TopPageTemplate allPostsData={allPostsData} /> : <div></div>}</>;
+    return <>{User.uid ? <TopPageTemplate allPostsData={allPostsData} /> : <LoadingIcon />}</>;
 };
 
 export default Home;

@@ -37,8 +37,7 @@ export default user;
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const { id } = context.params;
 
-    let postData = (await getPostDetail(id as string)).data();
-    postData.created_at = postData.created_at.toDate().toLocaleDateString();
+    let postData = await getPostDetail(id as string);
     const userData = await getUserProfileData(postData.uid);
 
     return { props: { userData: userData, postData: postData } };

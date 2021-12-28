@@ -2,9 +2,6 @@
 import imageCompression from "browser-image-compression";
 import { storage } from "@libs/firebaseConfig";
 
-//types
-import { UserAuthContextType } from "src/types/user/UserAuthContextType";
-
 // 画像の圧縮用モジュール
 export const compressFile = async (file: File) => {
     return await imageCompression(file, {
@@ -25,7 +22,7 @@ export const uploadUserImage = async (userImg: File, email: string) => {
 };
 
 //storageに投稿画像を圧縮してアップロード
-export const uploadPostImage = async (postImg: File, uid: UserAuthContextType) => {
+export const uploadPostImage = async (postImg: File, uid: string) => {
     const compressedFile = await compressFile(postImg);
     const blob = new Blob([compressedFile], { type: postImg.type });
 

@@ -15,11 +15,11 @@ import { ErrorMessage } from "@components/atoms/ErrorMessage";
 import { UpdateUserProfileValuesType } from "src/types/user/UpdateUserProfileValuesType";
 
 //contextAPI
-import { IsUserContext } from "@pages/_app";
+import { UserAuthContext } from "@pages/_app";
 
 export const EditProfileForm: React.FC = () => {
     const router = useRouter();
-    const uid = useContext(IsUserContext);
+    const User = useContext(UserAuthContext);
 
     const {
         register,
@@ -37,14 +37,20 @@ export const EditProfileForm: React.FC = () => {
     const handleOnUserImg: SubmitHandler<UpdateUserProfileValuesType> = async (
         userImg: UpdateUserProfileValuesType,
     ) => {
-        try {
-            await updateUserProfile(userImg, uid);
-            alert("画像が更新されました。");
-            reset();
-            router.push(`/user/${uid}`);
-        } catch (error) {
-            alert("更新出来ませんでした。");
-            console.log(error.message);
+        if (User.isTestUser) {
+            alert(
+                "プロフィール画像編集を行うには、ログインもしくは新規アカウント登録を行ってください。",
+            );
+        } else {
+            try {
+                await updateUserProfile(userImg, User.uid);
+                alert("画像が更新されました。");
+                reset();
+                router.push(`/user/${User.uid}`);
+            } catch (error) {
+                alert("更新出来ませんでした。");
+                console.log(error.message);
+            }
         }
     };
 
