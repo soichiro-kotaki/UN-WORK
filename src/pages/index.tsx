@@ -42,7 +42,17 @@ const Home: NextPage<Props> = (props) => {
         });
     }, [router, User.uid]);
 
-    return <>{User.uid ? <TopPageTemplate allPostsData={allPostsData} /> : <LoadingIcon />}</>;
+    return (
+        <>
+            {User.uid ? (
+                <TopPageTemplate allPostsData={allPostsData} />
+            ) : (
+                <div className="mt-8">
+                    <LoadingIcon />
+                </div>
+            )}
+        </>
+    );
 };
 
 export default Home;

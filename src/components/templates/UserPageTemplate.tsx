@@ -23,7 +23,13 @@ export const UserPageTemplate: React.FC<Props> = (props) => {
     if (router.isFallback) {
         return (
             <>
-                <LoadingIcon />
+                <BaseLayout>
+                    <main className="w-full min-h-screen bg-background-main mt-16 pt-6 pb-6 lg:mt-20 lg:w-3/5 lg:mx-auto">
+                        <div className="mt-8">
+                            <LoadingIcon />
+                        </div>
+                    </main>
+                </BaseLayout>
             </>
         );
     }
