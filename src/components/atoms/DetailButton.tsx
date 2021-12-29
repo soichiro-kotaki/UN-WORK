@@ -1,24 +1,20 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-//apis
-import { createPostPagePath } from "@apis/post";
-
 type Props = {
     text: string;
-    uid: string;
+    postID: string;
 };
 
 export const DetailButton: React.FC<Props> = (props) => {
-    const { text, uid } = props;
+    const { text, postID } = props;
     const router = useRouter();
 
     return (
         <>
             <button
-                onClick={async () => {
-                    const dataList = await createPostPagePath(uid);
-                    router.push(`/post/${dataList}`);
+                onClick={() => {
+                    router.push(`/post/${postID}`);
                 }}
                 className="btn btn-accent inline-block w-full"
             >
