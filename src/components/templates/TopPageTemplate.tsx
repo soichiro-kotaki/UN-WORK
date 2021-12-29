@@ -19,7 +19,7 @@ export const TopPageTemplate: React.FC<Props> = (props) => {
             <BaseLayout>
                 <main className="w-full min-h-screen mt-16 pt-6 pb-6 bg-background-main lg:mt-20 lg:w-3/5 lg:mx-auto">
                     <h1 className="mb-4 p-4 text-2xl font-bold text-center text-green-400 lg:text-4xl">
-                        最近投稿された求人一覧
+                        最近投稿された求人
                     </h1>
                     {allPostsData[0] ? (
                         allPostsData.map((postData, index) => {

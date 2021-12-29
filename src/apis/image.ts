@@ -1,6 +1,6 @@
 //libs
 import imageCompression from "browser-image-compression";
-import { storage } from "@libs/firebaseConfig";
+import { storage, functions } from "@libs/firebaseConfig";
 
 // 画像の圧縮用モジュール
 export const compressFile = async (file: File) => {
@@ -30,4 +30,9 @@ export const uploadPostImage = async (postImg: File, uid: string) => {
 
     const result = await postImgRef.put(blob);
     return result.ref;
+};
+
+//選択された求人投稿の画像を削除
+export const deletePostImage = async (post_img: string) => {
+    await storage.refFromURL(post_img).delete();
 };

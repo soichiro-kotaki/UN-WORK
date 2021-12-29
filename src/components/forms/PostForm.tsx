@@ -109,7 +109,7 @@ export const PostForm: React.FC = () => {
                     <option>カフェ</option>
                     <option>ホテル・婚礼</option>
                     <option>本屋</option>
-                    <option>エンタメ（カラオケなど）</option>
+                    <option>エンタメ系(カラオケなど)</option>
                     <option>フィットネス・ジム</option>
                     <option>雑貨屋</option>
                     <option>スーパー・コンビニ</option>

@@ -1,5 +1,6 @@
 //apis
 import { uploadPostImage } from "@apis/image";
+import { deletePostImage } from "@apis/image";
 
 //libs
 import firebase, { db } from "@libs/firebaseConfig";
@@ -31,25 +32,37 @@ export const addJobPost = async (values: PostFormValuesType, uid: string) => {
 
 //全ユーザーの投稿一覧を取得
 export const getAllPostsData = async () => {
-    let allPostsData = await db.collection("posts").get();
+    let allPostsData = await db.collection("posts").orderBy("created_at", "desc").limit(20).get();
     let allPostsDataList = [];
+
     allPostsData.forEach((postData) => {
+        const postID = postData.id;
         let result = postData.data();
+        result.postID = postID;
         result.created_at = result.created_at.toDate().toLocaleDateString();
         allPostsDataList.push(result);
     });
+
     return allPostsDataList;
 };
 
 //全ユーザーの投稿のうち、自身が投稿した求人を取得
 export const getPostEachUser = async (uid: string | string[] | UserAuthContextType) => {
-    let userPostsData = await db.collection("posts").where("uid", "==", `${uid}`).get();
+    const userPostsData = await db
+        .collection("posts")
+        .where("uid", "==", `${uid}`)
+        .orderBy("created_at", "desc")
+        .get();
     let postsDataList = [];
+
     userPostsData.forEach((userPostData) => {
-        let result = userPostData.data();
+        const postID = userPostData.id;
+        const result = userPostData.data();
+        result.postID = postID;
         result.created_at = result.created_at.toDate().toLocaleDateString();
         postsDataList.push(result);
     });
+
     return postsDataList;
 };
 
@@ -57,16 +70,14 @@ export const getPostEachUser = async (uid: string | string[] | UserAuthContextTy
 export const getPostDetail = async (id: string) => {
     const postData = (await db.collection("posts").doc(id).get()).data();
     postData.created_at = postData.created_at.toDate().toLocaleDateString();
+
     return postData;
 };
 
-//各投稿詳細ページのパスを生成
-export const createPostPagePath = async (uid: string) => {
-    let dataList = [];
-    const postId = await db.collection("posts").where("uid", "==", `${uid}`).get();
-    postId.forEach((data) => {
-        dataList.push(data.id);
-    });
+//求人投稿を削除
+export const deleteJobPost = async (postID: string, post_img: string) => {
+    await db.collection("posts").doc(`${postID}`).delete();
+    console.log(postID);
 
-    return dataList;
+    await deletePostImage(post_img);
 };

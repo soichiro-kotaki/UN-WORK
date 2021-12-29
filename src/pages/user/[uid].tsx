@@ -62,5 +62,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
     const userPostData = await getPostEachUser(uid);
 
-    return { props: { userData: userData, userPostsData: userPostData }, revalidate: 300 };
+    return { props: { userData: userData, userPostsData: userPostData }, revalidate: 60 };
 };
