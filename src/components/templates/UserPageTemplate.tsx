@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { BaseLayout } from "@components/layouts/BaseLayout";
 import { PostCard } from "@components/molecules/PostCard";
 import { UserProfile } from "@components/molecules/UserProfile";
+import { BsFillBookmarkHeartFill } from "react-icons/bs";
 
 //types
 import { UserDataType } from "src/types/user/UserDataType";
@@ -43,13 +44,13 @@ export const UserPageTemplate: React.FC<Props> = (props) => {
                     </h1>
                     <UserProfile userData={userData} />
 
-                    <h1 className="mt-8 text-2xl text-center text-green-400 font-bold mb-4 lg:text-4xl lg:mt-20 lg:mb-8">
+                    <h1 className="mt-14 text-2xl text-center text-green-400 font-bold mb-4 lg:text-4xl lg:mt-20 lg:mb-8">
                         あなたの投稿
                     </h1>
                     {userPostsData[0] ? (
-                        userPostsData.map((userPostData, index) => {
+                        userPostsData.map((userPostData) => {
                             return (
-                                <div className="mb-6 lg:mb-12" key={index}>
+                                <div className="mb-6 lg:mb-12" key={userPostData.postID}>
                                     <PostCard userPostData={userPostData} />
                                 </div>
                             );
@@ -57,8 +58,9 @@ export const UserPageTemplate: React.FC<Props> = (props) => {
                     ) : (
                         <p className="mx-auto text-center">投稿した求人がありません</p>
                     )}
-                    <h1 className="mt-8 text-2xl text-center text-green-400 font-bold mb-4 lg:text-4xl lg:mt-20 lg:mb-8">
-                        ブックマークした求人投稿
+                    <h1 className="mt-14 text-2xl text-center text-green-400 font-bold mb-4 lg:text-4xl lg:mt-20 lg:mb-8">
+                        <BsFillBookmarkHeartFill className="inline-block  w-6 h-6 mr-4 lg:w-8 lg:h-8 hover:cursor-pointer lg:ml-2 " />
+                        ブックマークした投稿
                     </h1>
                     <p className="mb-16 mx-auto text-center">申し訳ありません! 現在開発中です🙇‍♂️ </p>
                 </main>

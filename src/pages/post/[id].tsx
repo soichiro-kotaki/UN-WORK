@@ -1,15 +1,17 @@
-import type { NextPage } from "next";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 
 //apis
 import { getUserProfileData } from "@apis/user";
 import { getPostDetail } from "@apis/post";
 
+//libs
+import { db } from "@libs/firebaseConfig";
+
 //components
 import { PostPageTemplate } from "@components/templates/PostPageTemplate";
 
 //types
-import { GetServerSideProps } from "next";
 import { UserDataType } from "src/types/user/UserDataType";
 import { PostDataType } from "src/types/post/PostDataType";
 
@@ -34,11 +36,32 @@ const user: NextPage<Props> = (props) => {
 
 export default user;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const { id } = context.params;
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//     const { id } = context.params;
 
-    let postData = await getPostDetail(id as string);
+//     let postData = await getPostDetail(id as string);
+//     const userData = await getUserProfileData(postData.uid);
+
+//     return { props: { userData: userData, postData: postData } };
+// };
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    const postIDList = [];
+    const allPostsData = await db.collection("posts").get();
+    allPostsData.forEach((postData) => {
+        postIDList.push(postData.id);
+    });
+
+    const paths = postIDList.map((postID) => `/post/${postID}`);
+
+    return { paths, fallback: true };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+    const postID = params.id;
+
+    let postData = await getPostDetail(postID as string);
     const userData = await getUserProfileData(postData.uid);
 
-    return { props: { userData: userData, postData: postData } };
+    return { props: { userData: userData, postData: postData }, revalidate: 60 };
 };

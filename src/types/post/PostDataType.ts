@@ -6,4 +6,5 @@ export type PostDataType = {
     body: string;
     post_img: string;
     created_at: string;
+    postID: string;
 };
