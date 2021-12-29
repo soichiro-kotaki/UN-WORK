@@ -7,6 +7,7 @@ module.exports = {
             colors: {
                 "background-main": "#f4f5f7",
                 "background-sub": "#74b9ff",
+                "background-danger": "#ff4757",
             },
         },
     },
