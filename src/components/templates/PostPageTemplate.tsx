@@ -1,10 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import { useRouter } from "next/router";
 
 //components
 import { BaseLayout } from "@components/layouts/BaseLayout";
-import { LoadingIcon } from "@components/atoms/LoadingIcon";
 
 //types
 import { PostDataType } from "src/types/post/PostDataType";
@@ -18,22 +16,6 @@ type Props = {
 
 export const PostPageTemplate: React.FC<Props> = (props) => {
     const { userData, postData } = props;
-
-    const router = useRouter();
-
-    if (router.isFallback) {
-        return (
-            <>
-                <BaseLayout>
-                    <main className="w-full min-h-screen bg-background-main mt-16 pt-6 pb-6 lg:mt-20 lg:w-3/5 lg:mx-auto">
-                        <div className="mt-8">
-                            <LoadingIcon />
-                        </div>
-                    </main>
-                </BaseLayout>
-            </>
-        );
-    }
 
     return (
         <>

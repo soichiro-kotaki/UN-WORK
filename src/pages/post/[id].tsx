@@ -36,15 +36,6 @@ const user: NextPage<Props> = (props) => {
 
 export default user;
 
-// export const getServerSideProps: GetServerSideProps = async (context) => {
-//     const { id } = context.params;
-
-//     let postData = await getPostDetail(id as string);
-//     const userData = await getUserProfileData(postData.uid);
-
-//     return { props: { userData: userData, postData: postData } };
-// };
-
 export const getStaticPaths: GetStaticPaths = async () => {
     const postIDList = [];
     const allPostsData = await db.collection("posts").get();
@@ -54,13 +45,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
     const paths = postIDList.map((postID) => `/post/${postID}`);
 
-    return { paths, fallback: true };
+    return { paths, fallback: "blocking" };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const postID = params.id;
 
-    let postData = await getPostDetail(postID as string);
+    const postData = await getPostDetail(postID as string);
     const userData = await getUserProfileData(postData.uid);
 
     return { props: { userData: userData, postData: postData }, revalidate: 60 };
