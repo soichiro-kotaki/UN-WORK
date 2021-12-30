@@ -16,7 +16,7 @@ const announce: NextPage = () => {
                     <h1 className="text-2xl text-center text-green-400 font-bold mb-4 lg:text-4xl lg:mb-8">
                         お知らせ一覧
                     </h1>
-                    <h2 className="pt-4 text-2xl text-center">現在開発中です🙇‍♂️</h2>
+                    <h2 className="pt-4 text-2xl text-center">現在、お知らせはありません。</h2>
                 </main>
             </BaseLayout>
         </>

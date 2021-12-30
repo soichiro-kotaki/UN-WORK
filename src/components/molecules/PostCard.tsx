@@ -45,10 +45,10 @@ export const PostCard: React.FC<Props> = (props) => {
                                     className="text-pink-200 w-6 h-6 mr-3 lg:w-10 lg:h-10 hover:cursor-pointer hover:text-pink-400 lg:mr-4"
                                 />
                                 {User.uid === userPostData.uid ? (
-                                    <div className="dropdown dropdown-end ">
+                                    <div className="dropdown dropdown-end">
                                         <FaTrash
                                             tabIndex={0}
-                                            className=" w-6 h-6 lg:w-10 text-gray-500 lg:h-10 hover:cursor-pointer hover:text-gray-300"
+                                            className="w-6 h-6 lg:w-10 text-gray-500 lg:h-10 hover:cursor-pointer hover:text-gray-300"
                                         />
                                         <ul
                                             tabIndex={0}
@@ -61,10 +61,14 @@ export const PostCard: React.FC<Props> = (props) => {
                                                 >
                                                     <a
                                                         onClick={async () => {
-                                                            await deleteJobPost(
-                                                                userPostData.postID,
-                                                                userPostData.post_img,
-                                                            );
+                                                            try {
+                                                                await deleteJobPost(
+                                                                    userPostData.postID,
+                                                                    userPostData.post_img,
+                                                                );
+                                                            } catch {
+                                                                alert("削除に失敗しました。");
+                                                            }
                                                         }}
                                                         className="
                                                         text-center block"
