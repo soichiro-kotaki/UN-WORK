@@ -2,6 +2,7 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 
 //apis
+import { getPostsDataByCategory } from "@apis/post";
 
 //libs
 import { db } from "@libs/firebaseConfig";
@@ -51,23 +52,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const categoryID = params.id;
 
-    const categoryPostsList = [];
-    const categoryData = (await db.collection("categories").doc(`${categoryID}`).get()).data();
-
-    const categoryPostsData = await db
-        .collection("posts")
-        .where("category", "==", `${categoryData.name}`)
-        .orderBy("created_at", "desc")
-        .get();
-
-    categoryPostsData.forEach((postData) => {
-        const result = postData.data();
-        result.created_at = result.created_at.toDate().toLocaleDateString();
-        categoryPostsList.push(result);
-    });
+    const { categoryPostsList, categoryName } = await getPostsDataByCategory(categoryID as string);
 
     return {
-        props: { categoryPostsData: categoryPostsList, categoryName: categoryData.name },
+        props: { categoryPostsData: categoryPostsList, categoryName: categoryName },
         revalidate: 60,
     };
 };
