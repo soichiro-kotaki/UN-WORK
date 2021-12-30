@@ -31,7 +31,7 @@ export const MenuBar: React.FC = () => {
                         </a>
                     </Link>
 
-                    <Link href="/categories">
+                    <Link href="/category/search">
                         <a className="text-xs w-1/4 h-full text-center pt-2 inline-block md:w-1/6 lg:block lg:w-4/5 lg:h-16 lg:mt-12 lg:mx-auto lg:pt-5  lg:text-lg hover:bg-gray-200 lg:rounded-full">
                             <AiFillTags className="w-5 h-5 text-center mx-auto lg:inline-block lg:mr-3" />
                             カテゴリー
