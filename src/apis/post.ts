@@ -74,6 +74,27 @@ export const getPostDetail = async (id: string) => {
     return postData;
 };
 
+//カテゴリーに該当する求人投稿を削除
+export const getPostsDataByCategory = async (categoryID: string) => {
+    const categoryPostsList = [];
+    const categoryData = (await db.collection("categories").doc(`${categoryID}`).get()).data();
+
+    const categoryPostsData = await db
+        .collection("posts")
+        .where("category", "==", `${categoryData.name}`)
+        .orderBy("created_at", "desc")
+        .get();
+
+    categoryPostsData.forEach((postData) => {
+        const result = postData.data();
+        result.postID = postData.id;
+        result.created_at = result.created_at.toDate().toLocaleDateString();
+        categoryPostsList.push(result);
+    });
+
+    return { categoryPostsList: categoryPostsList, categoryName: categoryData.name };
+};
+
 //求人投稿を削除
 export const deleteJobPost = async (postID: string, post_img: string) => {
     await db.collection("posts").doc(`${postID}`).delete();
