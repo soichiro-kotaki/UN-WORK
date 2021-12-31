@@ -6,11 +6,11 @@ import { BaseLayout } from "@components/layouts/BaseLayout";
 import { PostCard } from "@components/molecules/PostCard";
 import { UserProfile } from "@components/molecules/UserProfile";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
+import { LoadingIcon } from "@components/atoms/LoadingIcon";
 
 //types
 import { UserDataType } from "src/types/user/UserDataType";
 import { PostDataType } from "src/types/post/PostDataType";
-import { LoadingIcon } from "@components/atoms/LoadingIcon";
 
 type Props = {
     userData: UserDataType;
@@ -25,7 +25,7 @@ export const UserPageTemplate: React.FC<Props> = (props) => {
         return (
             <>
                 <BaseLayout>
-                    <main className="w-full min-h-screen bg-background-main mt-16 pt-6 pb-6 lg:mt-20 lg:w-3/5 lg:mx-auto">
+                    <main className="w-full min-h-screen bg-background-main py-6  lg:w-3/5 lg:mx-auto">
                         <div className="mt-8">
                             <LoadingIcon />
                         </div>
@@ -38,7 +38,7 @@ export const UserPageTemplate: React.FC<Props> = (props) => {
     return (
         <>
             <BaseLayout>
-                <main className="w-full min-h-screen bg-background-main mt-16 pt-6 pb-6 lg:mt-20 lg:w-3/5 lg:mx-auto">
+                <main className="w-full min-h-screen bg-background-main py-6 lg:w-3/5 lg:mx-auto">
                     <h1 className="text-2xl text-center text-green-400 font-bold mb-4 lg:text-4xl lg:mb-8">
                         プロフィール
                     </h1>

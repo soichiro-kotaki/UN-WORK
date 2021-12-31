@@ -20,7 +20,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
     return (
         <>
             <BaseLayout>
-                <main className="w-full min-h-screen mt-16 pt-6  bg-white lg:mt-20 lg:w-3/5 lg:mx-auto">
+                <main className="w-full min-h-screen pt-6  bg-white  lg:w-3/5 lg:mx-auto">
                     <h1 className="mb-4 p-4 text-2xl font-bold text-center text-green-400 md:text-3xl lg:text-4xl">
                         {postData.title}
                     </h1>
@@ -53,8 +53,11 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                             .split(/(\n)/g)
                             .map((text, index) => (text === "\n" ? <br key={index} /> : text))}
                     </div>
-                    <div className="mt-12 p-8 bg-background-main lg:pb-12">
-                        <h2 className="my-6 font-bold lg:text-2xl text-green-400">
+                    <div className="w-full h-16 mt-12 pt-4 align-middle bg-green-400 lg:h-24 lg:pt-7">
+                        <p className="text-white text-center lg:h-20 lg:text-3xl">{`連絡先: ${userData.user_email}`}</p>
+                    </div>
+                    <div className="p-8 bg-background-main text-gray-900 lg:pb-12">
+                        <h2 className="my-6 font-bold text-green-400  lg:text-2xl ">
                             投稿者プロフィール
                         </h2>
                         <div className="lg;flex lg:justify-between">

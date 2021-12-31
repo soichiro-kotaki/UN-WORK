@@ -74,7 +74,7 @@ export const getPostDetail = async (id: string) => {
     return postData;
 };
 
-//カテゴリーに該当する求人投稿を削除
+//カテゴリーに該当する求人投稿の一覧を取得
 export const getPostsDataByCategory = async (categoryID: string) => {
     const categoryPostsList = [];
     const categoryData = (await db.collection("categories").doc(`${categoryID}`).get()).data();
