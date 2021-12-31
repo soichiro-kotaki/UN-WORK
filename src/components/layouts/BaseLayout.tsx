@@ -3,6 +3,7 @@ import React from "react";
 //components
 import { AddPostPlusButton } from "@components/atoms/AddPostPlusButton";
 import { MenuBar } from "./MenuBar";
+import { TopBar } from "@components/layouts/TopBar";
 import { Footer } from "./Footer";
 
 type Props = {
@@ -15,6 +16,7 @@ export const BaseLayout: React.FC<Props> = (props) => {
     return (
         <>
             <MenuBar />
+            <TopBar />
             {children}
             <Footer />
             <AddPostPlusButton />
