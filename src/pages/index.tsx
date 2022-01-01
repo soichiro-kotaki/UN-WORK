@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 
 //apis
@@ -10,12 +10,13 @@ import { auth } from "@libs/firebaseConfig";
 
 //components
 import { TopPageTemplate } from "@components/templates/TopPageTemplate";
-import { UserAuthContext } from "./_app";
-import { LoadingIcon } from "@components/atoms/LoadingIcon";
+import { LoadingIcon } from "@components/atoms/icons/LoadingIcon";
 
 //types
-import { GetServerSideProps } from "next";
 import { PostDataType } from "src/types/post/PostDataType";
+
+//contextAPI
+import { UserAuthContext } from "./_app";
 
 type Props = {
     allPostsData: PostDataType[];
@@ -57,8 +58,8 @@ const Home: NextPage<Props> = (props) => {
 
 export default Home;
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
     const allPostsData = await getAllPostsData();
 
-    return { props: { allPostsData: allPostsData } };
+    return { props: { allPostsData: allPostsData }, revalidate: 30 };
 };

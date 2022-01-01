@@ -95,10 +95,23 @@ export const getPostsDataByCategory = async (categoryID: string) => {
     return { categoryPostsList: categoryPostsList, categoryName: categoryData.name };
 };
 
+//ブックマークされた求人投稿を取得
+export const getBookmarkedPosts = async (uid: string | string[]) => {
+    let bookmarkedDataList = [];
+    const bookmarkedData = await db.collection("users").doc(`${uid}`).collection("bookmarks").get();
+
+    bookmarkedData.forEach((postData) => {
+        const result = postData.data();
+
+        bookmarkedDataList.push(result);
+    });
+
+    return bookmarkedDataList;
+};
+
 //求人投稿を削除
 export const deleteJobPost = async (postID: string, post_img: string) => {
     await db.collection("posts").doc(`${postID}`).delete();
-    console.log(postID);
 
     await deletePostImage(post_img);
 };

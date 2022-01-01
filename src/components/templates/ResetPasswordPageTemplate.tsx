@@ -3,7 +3,7 @@ import Link from "next/link";
 
 //components
 import { ResetPasswordForm } from "@components/forms/ResetPasswordForm";
-import { ServiceLogo } from "@components/atoms/ServiceLogo";
+import { ServiceLogo } from "@components/atoms/icons/ServiceLogo";
 
 export const ResetPasswordPageTemplate: React.FC = () => {
     return (

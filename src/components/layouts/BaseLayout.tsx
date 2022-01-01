@@ -1,9 +1,9 @@
 import React from "react";
 
 //components
-import { AddPostPlusButton } from "@components/atoms/AddPostPlusButton";
+import { AddPostPlusButton } from "@components/atoms/buttons/AddPostPlusButton";
 import { MenuBar } from "./MenuBar";
-import { TopBar } from "@components/layouts/TopBar";
+import { TopBar } from "./TopBar";
 import { Footer } from "./Footer";
 
 type Props = {

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 //components
 import { SignupForm } from "@components/forms/SignupForm";
-import { ServiceLogo } from "@components/atoms/ServiceLogo";
+import { ServiceLogo } from "@components/atoms/icons/ServiceLogo";
 
 export const SignupPageTemplate: React.FC = () => {
     return (

@@ -6,7 +6,7 @@ import { BaseLayout } from "@components/layouts/BaseLayout";
 import { PostCard } from "@components/molecules/PostCard";
 import { UserProfile } from "@components/molecules/UserProfile";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
-import { LoadingIcon } from "@components/atoms/LoadingIcon";
+import { LoadingIcon } from "@components/atoms/icons/LoadingIcon";
 
 //types
 import { UserDataType } from "src/types/user/UserDataType";
@@ -15,10 +15,11 @@ import { PostDataType } from "src/types/post/PostDataType";
 type Props = {
     userData: UserDataType;
     userPostsData: PostDataType[];
+    userBookmarkedPostsData: PostDataType[];
 };
 
 export const UserPageTemplate: React.FC<Props> = (props) => {
-    const { userData, userPostsData } = props;
+    const { userData, userPostsData, userBookmarkedPostsData } = props;
     const router = useRouter();
 
     if (router.isFallback) {
@@ -62,7 +63,19 @@ export const UserPageTemplate: React.FC<Props> = (props) => {
                         <BsFillBookmarkHeartFill className="inline-block  w-6 h-6 mr-4 lg:w-8 lg:h-8 hover:cursor-pointer lg:ml-2 " />
                         ブックマークした投稿
                     </h1>
-                    <p className="mb-16 mx-auto text-center">申し訳ありません! 現在開発中です🙇‍♂️ </p>
+                    {userBookmarkedPostsData[0] ? (
+                        userBookmarkedPostsData.map((userBookmarkedPostData) => {
+                            return (
+                                <div className="mb-6 lg:mb-12" key={userBookmarkedPostData.postID}>
+                                    <PostCard userPostData={userBookmarkedPostData} />
+                                </div>
+                            );
+                        })
+                    ) : (
+                        <p className="mb-16 mx-auto text-center">
+                            ブックマークした求人がありません
+                        </p>
+                    )}
                 </main>
             </BaseLayout>
         </>

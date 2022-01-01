@@ -54,5 +54,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const postData = await getPostDetail(postID as string);
     const userData = await getUserProfileData(postData.uid);
 
-    return { props: { userData: userData, postData: postData }, revalidate: 60 };
+    return { props: { userData: userData, postData: postData }, revalidate: 300 };
 };

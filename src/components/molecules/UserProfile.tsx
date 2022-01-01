@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 //components
-import { EditProfileButton } from "@components/atoms/EditProfileButton";
+import { EditProfileButton } from "@components/atoms/buttons/EditProfileButton";
 
 //types
 import { UserDataType } from "src/types/user/UserDataType";

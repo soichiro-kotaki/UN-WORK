@@ -7,6 +7,8 @@ import { BaseLayout } from "@components/layouts/BaseLayout";
 //types
 import { PostDataType } from "src/types/post/PostDataType";
 import { UserDataType } from "src/types/user/UserDataType";
+
+//utils
 import { convertDateStr } from "src/utils/convertDateStr";
 
 type Props = {
