@@ -53,8 +53,8 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                             .split(/(\n)/g)
                             .map((text, index) => (text === "\n" ? <br key={index} /> : text))}
                     </div>
-                    <div className="w-full h-16 mt-12 pt-4 align-middle bg-green-400 lg:h-24 lg:pt-7">
-                        <p className="text-white text-center lg:h-20 lg:text-3xl">{`連絡先: ${userData.user_email}`}</p>
+                    <div className="w-full h-16 mt-12 pt-5 align-middle bg-green-400 lg:h-24 lg:pt-7">
+                        <p className="text-white text-center  lg:text-3xl">{`連絡先: ${userData.user_email}`}</p>
                     </div>
                     <div className="p-8 bg-background-main text-gray-900 lg:pb-12">
                         <h2 className="my-6 font-bold text-green-400  lg:text-2xl ">

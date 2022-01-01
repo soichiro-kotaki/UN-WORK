@@ -14,6 +14,8 @@ import { PostDataType } from "src/types/post/PostDataType";
 
 //utils
 import { convertDateStr } from "src/utils/convertDateStr";
+
+//contextAPI
 import { UserAuthContext } from "@pages/_app";
 
 type Props = {
@@ -26,7 +28,7 @@ export const PostCard: React.FC<Props> = (props) => {
 
     return (
         <>
-            <div className="w-11/12 rounded-3xl bg-white border border-gray-300 p-6 mx-auto lg:w-9/12">
+            <div className="w-11/12 rounded-3xl bg-white border border-gray-300 p-6 mx-auto md:w-9/12">
                 <div>
                     <div className="mb-4 mt-4 lg:flex lg:flex-col lg:text-left lg:mb-8 xl:mr-0">
                         <h2 className="text-2xl font-semibold mb-2 mx-auto lg:text-3xl lg:inline-block lg:mx-0 ">
@@ -38,12 +40,22 @@ export const PostCard: React.FC<Props> = (props) => {
                                 {` ${userPostData.category}`}
                             </p>
                             <div className="flex">
-                                <BsFillBookmarkHeartFill
-                                    onClick={() => {
-                                        alert("ブックマーク機能は現在開発中です🙇‍♂️");
-                                    }}
-                                    className="text-pink-200 w-6 h-6 mr-3 lg:w-10 lg:h-10 hover:cursor-pointer hover:text-pink-400 lg:mr-4"
-                                />
+                                <div className="dropdown dropdown-end">
+                                    <BsFillBookmarkHeartFill
+                                        tabIndex={0}
+                                        className="w-6 h-6 mr-3 lg:w-10 lg:h-10 hover:cursor-pointer text-pink-400 hover:text-pink-200 lg:mr-4"
+                                    />
+                                    <div
+                                        tabIndex={0}
+                                        className="text-sm mr-3 p-1 shadow menu dropdown-content text-gray-100 bg-pink-200 rounded-lg w-32 hover:bg-pink-700 lg:mr-4 lg:p-2 lg:w-40"
+                                        onClick={() => {
+                                            alert("ブックマーク機能は現在開発中です🙇‍♂️");
+                                        }}
+                                    >
+                                        <a className="block text-center mx-auto">ブックマーク</a>
+                                    </div>
+                                </div>
+
                                 {User.uid === userPostData.uid ? (
                                     <div className="dropdown dropdown-end">
                                         <FaTrash
@@ -52,7 +64,7 @@ export const PostCard: React.FC<Props> = (props) => {
                                         />
                                         <ul
                                             tabIndex={0}
-                                            className="text-sm p-1 shadow menu dropdown-content text-gray-100 bg-background-danger rounded-full w-20 lg:p-2 lg:w-40 hover:bg-red-700"
+                                            className="text-sm p-1 shadow menu dropdown-content text-gray-100 bg-background-danger rounded-lg w-24 lg:p-2 lg:w-40 hover:bg-red-700"
                                         >
                                             <li>
                                                 <label
