@@ -2,7 +2,7 @@ import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 
 //apis
-import { getPostEachUser } from "@apis/post";
+import { getBookmarkedPosts, getPostEachUser } from "@apis/post";
 import { getUserProfileData } from "@apis/user";
 import { getTestUserProfileData } from "@apis/user";
 
@@ -19,10 +19,11 @@ import { PostDataType } from "src/types/post/PostDataType";
 type Props = {
     userData: UserDataType;
     userPostsData: PostDataType[];
+    userBookmarkedPostsData: PostDataType[];
 };
 
 const user: NextPage<Props> = (props) => {
-    const { userData, userPostsData } = props;
+    const { userData, userPostsData, userBookmarkedPostsData } = props;
 
     return (
         <>
@@ -30,7 +31,11 @@ const user: NextPage<Props> = (props) => {
                 <title>マイページ</title>
             </Head>
 
-            <UserPageTemplate userData={userData} userPostsData={userPostsData} />
+            <UserPageTemplate
+                userData={userData}
+                userPostsData={userPostsData}
+                userBookmarkedPostsData={userBookmarkedPostsData}
+            />
         </>
     );
 };
@@ -60,7 +65,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         userData = testUserData;
     }
 
-    const userPostData = await getPostEachUser(uid);
+    const userPostsData = await getPostEachUser(uid);
+    const userBookmarkedPostsData = await getBookmarkedPosts(uid);
 
-    return { props: { userData: userData, userPostsData: userPostData }, revalidate: 60 };
+    return {
+        props: {
+            userData: userData,
+            userPostsData: userPostsData,
+            userBookmarkedPostsData: userBookmarkedPostsData,
+        },
+        revalidate: 30,
+    };
 };

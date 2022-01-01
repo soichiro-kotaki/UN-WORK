@@ -1,7 +1,7 @@
 import React from "react";
 
 //components
-import { AddPostPlusButton } from "@components/atoms/icons/AddPostPlusButton";
+import { AddPostPlusButton } from "@components/atoms/buttons/AddPostPlusButton";
 import { MenuBar } from "./MenuBar";
 import { TopBar } from "./TopBar";
 import { Footer } from "./Footer";
