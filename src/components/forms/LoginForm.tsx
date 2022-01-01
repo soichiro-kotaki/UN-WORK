@@ -7,8 +7,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { auth } from "@libs/firebaseConfig";
 
 //components
-import { SubmitButton } from "@components/atoms/SubmitButton";
-import { ErrorMessage } from "@components/atoms/ErrorMessage";
+import { SubmitButton } from "@components/atoms/buttons/SubmitButton";
+import { ErrorMessage } from "@components/atoms/buttons/ErrorMessage";
 
 //types
 import { LoginFormValuesType } from "src/types/form/LoginFormValuesType";

@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 
 //apis
+import { addPostToBookmarkList } from "@apis/bookmark";
 import { deleteJobPost } from "@apis/post";
 
 //components
-import { DetailButton } from "@components/atoms/DetailButton";
+import { DetailButton } from "@components/atoms/buttons/DetailButton";
 import { FaTrash } from "react-icons/fa";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { AiOutlineTags } from "react-icons/ai";
@@ -25,6 +26,7 @@ type Props = {
 export const PostCard: React.FC<Props> = (props) => {
     const { userPostData } = props;
     const User = useContext(UserAuthContext);
+    console.log(userPostData);
 
     return (
         <>
@@ -48,8 +50,22 @@ export const PostCard: React.FC<Props> = (props) => {
                                     <div
                                         tabIndex={0}
                                         className="text-sm mr-3 p-1 shadow menu dropdown-content text-gray-100 bg-pink-200 rounded-lg w-32 hover:bg-pink-700 lg:mr-4 lg:p-2 lg:w-40"
-                                        onClick={() => {
-                                            alert("ブックマーク機能は現在開発中です🙇‍♂️");
+                                        onClick={async () => {
+                                            // alert("ブックマーク機能は現在開発中です🙇‍♂️");
+                                            if (User.isTestUser) {
+                                                alert(
+                                                    "ブックマークを行うには、ログインもしくは新規アカウント作成を行ってください。",
+                                                );
+                                            } else {
+                                                try {
+                                                    await addPostToBookmarkList(
+                                                        User.uid,
+                                                        userPostData,
+                                                    );
+                                                } catch {
+                                                    alert("ブックマークに失敗しました。");
+                                                }
+                                            }
                                         }}
                                     >
                                         <a className="block text-center mx-auto">ブックマーク</a>

@@ -8,7 +8,7 @@ import { handleGuestLogin } from "@apis/user";
 //components
 import { LoginForm } from "@components/forms/LoginForm";
 import { TopBar } from "@components/layouts/TopBar";
-import { ServiceLogo } from "@components/atoms/ServiceLogo";
+import { ServiceLogo } from "@components/atoms/icons/ServiceLogo";
 
 export const LoginPageTemplate: React.FC = () => {
     const router = useRouter();

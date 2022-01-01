@@ -8,8 +8,8 @@ import { signupUserData } from "src/apis/user";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 //components
-import { SubmitButton } from "@components/atoms/SubmitButton";
-import { ErrorMessage } from "@components/atoms/ErrorMessage";
+import { SubmitButton } from "@components/atoms/buttons/SubmitButton";
+import { ErrorMessage } from "@components/atoms/buttons/ErrorMessage";
 
 //types
 import { SignupFormValuesType } from "src/types/form/SignupFormValuesType";

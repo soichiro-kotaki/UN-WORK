@@ -11,7 +11,7 @@ import { auth } from "@libs/firebaseConfig";
 //components
 import { TopPageTemplate } from "@components/templates/TopPageTemplate";
 import { UserAuthContext } from "./_app";
-import { LoadingIcon } from "@components/atoms/LoadingIcon";
+import { LoadingIcon } from "@components/atoms/icons/LoadingIcon";
 
 //types
 import { GetServerSideProps } from "next";

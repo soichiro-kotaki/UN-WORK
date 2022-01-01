@@ -98,7 +98,6 @@ export const getPostsDataByCategory = async (categoryID: string) => {
 //求人投稿を削除
 export const deleteJobPost = async (postID: string, post_img: string) => {
     await db.collection("posts").doc(`${postID}`).delete();
-    console.log(postID);
 
     await deletePostImage(post_img);
 };

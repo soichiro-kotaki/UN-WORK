@@ -2,7 +2,7 @@ import React from "react";
 
 //components
 import { MdNotifications } from "react-icons/md";
-import { ServiceLogo } from "@components/atoms/ServiceLogo";
+import { ServiceLogo } from "@components/atoms/icons/ServiceLogo";
 
 export const TopBar: React.FC = () => {
     return (

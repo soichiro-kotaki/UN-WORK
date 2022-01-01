@@ -6,7 +6,7 @@ import { BaseLayout } from "@components/layouts/BaseLayout";
 import { PostCard } from "@components/molecules/PostCard";
 import { UserProfile } from "@components/molecules/UserProfile";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
-import { LoadingIcon } from "@components/atoms/LoadingIcon";
+import { LoadingIcon } from "@components/atoms/icons/LoadingIcon";
 
 //types
 import { UserDataType } from "src/types/user/UserDataType";

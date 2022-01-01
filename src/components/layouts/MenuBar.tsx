@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Link from "next/link";
 
 //components
-import { AddPostTextButton } from "@components/atoms/AddPostTextButton";
+import { AddPostTextButton } from "@components/atoms/buttons/AddPostTextButton";
 import { AiFillHome, AiFillTags } from "react-icons/ai";
 import { MdAnnouncement } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
