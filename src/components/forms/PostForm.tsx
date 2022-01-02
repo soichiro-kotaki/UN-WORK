@@ -42,7 +42,7 @@ export const PostForm: React.FC = () => {
         values: PostFormValuesType,
     ) => {
         if (User.isTestUser) {
-            alert("求人投稿を行うには、ログインもしくは新規アカウント作成を行ってください。");
+            alert("求人投稿を行うには、ログインもしくはアカウント作成を行ってください。");
         } else {
             try {
                 await addJobPost(values, User.uid);

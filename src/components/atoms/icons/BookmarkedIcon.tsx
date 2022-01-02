@@ -51,17 +51,23 @@ export const BookmarkedIcon: React.FC<Props> = (props) => {
                     tabIndex={0}
                     className="text-sm mr-3 p-1 shadow menu dropdown-content text-gray-100 bg-pink-400 rounded-lg w-32 hover:bg-pink-700 lg:mr-4 lg:p-2 lg:w-40"
                     onClick={async () => {
-                        try {
-                            if (isBookmarked) {
-                                await deletePostToBookmarkList(User.uid, userPostData.postID);
-                                setIsBookmarked(false);
-                                alert("ブックマークから削除されました。");
-                            } else {
-                                await addPostToBookmarkList(User.uid, userPostData);
-                                alert("ブックマークに登録されました。");
+                        if (User.isTestUser) {
+                            alert(
+                                "ブックマーク機能を利用するには、ログインもしくはアカウント作成を行ってください。",
+                            );
+                        } else {
+                            try {
+                                if (isBookmarked) {
+                                    await deletePostToBookmarkList(User.uid, userPostData.postID);
+                                    setIsBookmarked(false);
+                                    alert("ブックマークから削除されました。");
+                                } else {
+                                    await addPostToBookmarkList(User.uid, userPostData);
+                                    alert("ブックマークに登録されました。");
+                                }
+                            } catch {
+                                alert("操作に失敗ました。再度試してください。");
                             }
-                        } catch {
-                            alert("操作に失敗ました。再度試してください。");
                         }
                     }}
                 >
