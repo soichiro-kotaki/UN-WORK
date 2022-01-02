@@ -32,7 +32,7 @@ export const addJobPost = async (values: PostFormValuesType, uid: string) => {
 
 //全ユーザーの投稿一覧を取得
 export const getAllPostsData = async () => {
-    const allPostsData = await db.collection("posts").orderBy("created_at", "desc").limit(20).get();
+    const allPostsData = await db.collection("posts").orderBy("created_at", "desc").limit(10).get();
     let allPostsDataList = [];
 
     allPostsData.forEach((postData) => {
