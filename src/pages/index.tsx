@@ -61,5 +61,5 @@ export default Home;
 export const getStaticProps: GetStaticProps = async () => {
     const allPostsData = await getAllPostsData();
 
-    return { props: { allPostsData: allPostsData }, revalidate: 30 };
+    return { props: { allPostsData: allPostsData }, revalidate: 60 };
 };

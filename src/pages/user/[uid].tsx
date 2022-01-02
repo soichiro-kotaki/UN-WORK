@@ -74,6 +74,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             userPostsData: userPostsData,
             userBookmarkedPostsData: userBookmarkedPostsData,
         },
-        revalidate: 30,
+        revalidate: 60,
     };
 };
