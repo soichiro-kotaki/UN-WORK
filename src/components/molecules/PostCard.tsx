@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 
 //apis
-import { addPostToBookmarkList } from "@apis/bookmark";
+// import { addPostToBookmarkList } from "@apis/bookmark";
 import { deleteJobPost } from "@apis/post";
 
 //libs
-import { db } from "@libs/firebaseConfig";
+// import { db } from "@libs/firebaseConfig";
 
 //components
 import { BookmarkedIcon } from "@components/atoms/icons/BookmarkedIcon";
