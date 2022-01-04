@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 
 //components
 import { BaseLayout } from "@components/layouts/BaseLayout";
+import { AiFillTags } from "react-icons/ai";
 
 //types
 import { PostDataType } from "src/types/post/PostDataType";
@@ -11,6 +12,9 @@ import { UserDataType } from "src/types/user/UserDataType";
 //utils
 import { convertDateStr } from "src/utils/convertDateStr";
 
+//contextAPI
+import { UserAuthContext } from "@pages/_app";
+
 type Props = {
     userData: UserDataType;
     postData: PostDataType;
@@ -18,6 +22,7 @@ type Props = {
 
 export const PostPageTemplate: React.FC<Props> = (props) => {
     const { userData, postData } = props;
+    const User = useContext(UserAuthContext);
 
     return (
         <>
@@ -38,27 +43,38 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                             alt={"求人詳細イメージ画像"}
                         />
                     </div>
-                    <div className="w-11/12 mx-auto">
-                        <p className="text-xs text-center mx-auto p-2 rounded-full inline-block text-white mb-4 bg-background-sub lg:text-xs lg:mb-6">
+                    <div className="w-11/12 mx-auto mt-4">
+                        <p className="text-xs text-center mx-auto p-2 rounded-full inline-block text-white mb-4 bg-background-sub lg:text-xs lg:mb-6 lg:px-4">
+                            <AiFillTags className="w-5 h-5 mr-1 text-center mx-auto inline-block" />
                             {postData.category}
                         </p>
                         <div className="flex justify-between mb-4 md:mb-6">
-                            <p className="text-sm lg:text-lg">{`時給: ${postData.salary}`}</p>
+                            <p className="text-sm font-semibold lg:text-lg">{`時給: ${postData.salary}`}</p>
                             <span className="block text-xs text-gray-500 lg:text-sm">{`投稿日: ${convertDateStr(
                                 postData.created_at,
                             )}`}</span>
                         </div>
-                        <h2 className="my-6 text-xl text-center font-semibold lg:my-12 lg:text-3xl">
+                        <h2 className="my-6 text-xl text-center font-bold lg:my-12 lg:text-3xl">
                             ---求人詳細---
                         </h2>
                         {postData.body
                             .split(/(\n)/g)
                             .map((text, index) => (text === "\n" ? <br key={index} /> : text))}
+                        <div className="w-full h-16 mt-6 pt-5 align-middle lg:h-20 lg:pt-7">
+                            <p className="text-gray-900 font-semibold text-center lg:text-3xl">{`連絡先: ${userData.user_email}`}</p>
+                        </div>
+                        <button
+                            onClick={() => {
+                                alert("コメント機能は現在開発中です🙇‍♂️");
+                            }}
+                            className="mt-8 mb-6 p-3 duration-300 ml-auto block text-xs shadow-xl text-white rounded-full bg-background-sub border border-background-sub hover:text-background-sub hover:bg-white lg:mb-12 lg:text-lg"
+                        >
+                            {User.uid === postData.uid
+                                ? "コメントに返信する"
+                                : "質問・コメントを見る"}
+                        </button>
                     </div>
-                    <div className="w-full h-16 mt-12 pt-5 align-middle bg-green-400 lg:h-24 lg:pt-7">
-                        <p className="text-white text-center  lg:text-3xl">{`連絡先: ${userData.user_email}`}</p>
-                    </div>
-                    <div className="p-8 bg-background-main text-gray-900 lg:pb-12">
+                    <div className="p-8 bg-background-main text-gray-900 border-t border-gray-300 lg:pb-12">
                         <h2 className="my-6 font-bold text-green-400  lg:text-2xl ">
                             投稿者プロフィール
                         </h2>
