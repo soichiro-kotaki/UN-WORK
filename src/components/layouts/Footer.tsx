@@ -27,13 +27,13 @@ export const Footer: React.FC = () => {
                             FAQ
                         </a>
                         {/* </Link> */}
-                        <Link href="/">
+                        <Link href="/policy">
                             <a className="block w-44 pl-3 mb-4 hover:underline">
                                 プライバシーポリシー
                             </a>
                         </Link>
 
-                        <Link href="/">
+                        <Link href="/disclaimer">
                             <a
                                 className="block w-20 pl-3 mb-4 hover:underline
                             "
