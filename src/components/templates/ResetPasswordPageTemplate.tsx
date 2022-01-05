@@ -1,17 +1,19 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 //components
 import { ResetPasswordForm } from "@components/forms/ResetPasswordForm";
-import { ServiceLogo } from "@components/atoms/icons/ServiceLogo";
 
 export const ResetPasswordPageTemplate: React.FC = () => {
     return (
         <>
-            <div className="flex items-center justify-between w-full h-16 pl-4 lg:h-20 lg:pl-12 xl:pl-32">
-                <ServiceLogo />
+            <div className="flex items-center justify-between w-full h-16  lg:h-20 md:w-4/5 md:mx-auto">
+                <div className="md:ml-8">
+                    <Image src="/service-logo.png" width={220} height={65} alt="ロゴ画像です。" />
+                </div>
                 <Link href="/login">
-                    <a className="rounded-full mr-4 py-2 px-4 text-center text-white text-sm bg-green-400 hover:cursor-pointer  hover:bg-green-600 lg:px-8 lg:mr-20 lg:text-lg xl:mr-32">
+                    <a className="rounded-full mr-4 py-3 px-4 text-center text-white text-sm bg-green-400 hover:cursor-pointer  hover:bg-green-600 lg:px-8 lg:mr-20 lg:text-lg xl:mr-32">
                         ログインする
                     </a>
                 </Link>
