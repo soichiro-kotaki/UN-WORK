@@ -6,13 +6,18 @@ import Link from "next/link";
 export const Footer: React.FC = () => {
     return (
         <>
-            <div className="h-72 border-gray-300 border-t w-full lg:z-10 lg:fixed lg:right-0 lg:top-0 lg:w-1/5 lg:h-full lg:border-l lg:border-t-0">
-                <div className="lg:w-4/5 lg:mx-auto lg:mt-96">
+            <div className="h-80 border-gray-300 border-t w-full lg:z-10 lg:fixed lg:right-0 lg:top-0 lg:w-1/5 lg:h-full lg:border-l lg:border-t-0">
+                <div className="lg:w-4/5 pt-4 lg:mx-auto lg:mt-72">
+                    <Link href="/login">
+                        <a className="text-gray-50 w-2/5 ml-3 py-1 text-center text-sm block bg-green-400 hover:bg-green-700 transition-colors rounded-full lg:p-3 lg:w-40">
+                            ログインページへ
+                        </a>
+                    </Link>
                     <a
                         className=" block my-4 pl-3 font-bold text-left text-green-400 hover:text-green-600 hover:underline "
                         target="_blank"
                         rel="noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSeVxHvJuBYXeyfA6D3cV99OaFIwNKzV8Yw8G6W-ZYrDHluehA/viewform"
+                        href="https://docs.google.com/forms/d/1IlKQMwgqTrjqrfRdAymi0O4itEICDGw2k6g97ubC6yA/edit"
                     >
                         アンケートはこちら
                     </a>
@@ -43,7 +48,7 @@ export const Footer: React.FC = () => {
                         </Link>
                     </div>
                 </div>
-                <p className="my-10 lg:my-20 text-center text-sm lg:text-base">©️2021 UN-WORK </p>
+                <p className="my-8 lg:my-20 text-center text-sm lg:text-base">©️2021 UN-WORK </p>
             </div>
         </>
     );

@@ -69,7 +69,9 @@ export const getPostEachUser = async (uid: string | string[] | UserAuthContextTy
 //詳細を見るボタンを押された求人を取得
 export const getPostDetail = async (id: string) => {
     const postData = (await db.collection("posts").doc(id).get()).data();
-    postData.created_at = postData.created_at.toDate().toLocaleDateString();
+    if (postData) {
+        postData.created_at = postData.created_at.toDate().toLocaleDateString();
+    }
 
     return postData;
 };
