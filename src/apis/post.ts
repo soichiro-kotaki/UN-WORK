@@ -71,6 +71,7 @@ export const getPostDetail = async (id: string) => {
     const postData = (await db.collection("posts").doc(id).get()).data();
     if (postData) {
         postData.created_at = postData.created_at.toDate().toLocaleDateString();
+        postData.postID = id;
     }
 
     return postData;

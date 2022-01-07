@@ -1,5 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Image from "next/image";
+
+//apis
+import { getCommentsOnPost } from "@apis/comment";
 
 //components
 import { BaseLayout } from "@components/layouts/BaseLayout";
@@ -14,6 +17,7 @@ import { convertDateStr } from "src/utils/convertDateStr";
 
 //contextAPI
 import { UserAuthContext } from "@pages/_app";
+import { Comments } from "@components/molecules/Comments";
 
 type Props = {
     userData: UserDataType;
@@ -23,6 +27,8 @@ type Props = {
 export const PostPageTemplate: React.FC<Props> = (props) => {
     const { userData, postData } = props;
     const User = useContext(UserAuthContext);
+    const [comments, setComments] = useState([]);
+    const [isVisibleComments, setIsVisibleComments] = useState(false);
 
     return (
         <>
@@ -64,15 +70,32 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                             <p className="text-gray-900 font-semibold text-center lg:text-3xl">{`連絡先: ${userData.user_email}`}</p>
                         </div>
                         <button
-                            onClick={() => {
-                                alert("コメント機能は現在開発中です🙇‍♂️");
+                            onClick={async () => {
+                                if (User.isTestUser) {
+                                    alert(
+                                        "コメントを見るには、ログインもしくはアカウント作成を行ってください。",
+                                    );
+                                } else {
+                                    try {
+                                        const commentsData = await getCommentsOnPost(
+                                            postData.postID,
+                                        );
+                                        setComments(commentsData);
+                                        setIsVisibleComments(!isVisibleComments);
+                                    } catch {
+                                        alert("コメントの取得に失敗しました。");
+                                    }
+                                }
                             }}
                             className="mt-8 mb-6 p-3 duration-300 ml-auto block text-xs shadow-xl text-white rounded-full bg-background-sub border border-background-sub hover:text-background-sub hover:bg-white lg:mb-12 lg:text-lg"
                         >
-                            {User.uid === postData.uid
-                                ? "コメントに返信する"
-                                : "質問・コメントを見る"}
+                            {isVisibleComments ? "コメントを閉じる" : "コメントを見る"}
                         </button>
+                        {isVisibleComments ? (
+                            <Comments postData={postData} userData={userData} comments={comments} />
+                        ) : (
+                            ""
+                        )}
                     </div>
                     <div className="p-8 bg-background-main text-gray-900 border-t border-gray-300 lg:pb-12">
                         <h2 className="my-6 font-bold text-green-400  lg:text-2xl ">
