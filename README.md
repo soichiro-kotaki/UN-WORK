@@ -29,7 +29,7 @@
 
 | 技術領域                      | 仕様技術・ツール                  |
 | ----------------------------- | --------------------------------- |
-| デザイン                      | Figma/Storybook                   |
+| デザイン                      | Figma                             |
 | フロントエンド                | React(Next.js)/TypeScript         |
 | スタイリング                  | Tailwind CSS/daisy UI/Headless UI |
 | バックエンド                  | Firebase/microCMS                 |
