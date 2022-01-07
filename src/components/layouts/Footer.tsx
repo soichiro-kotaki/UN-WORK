@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
                         className=" block my-4 pl-3 font-bold text-left text-green-400 hover:text-green-600 hover:underline "
                         target="_blank"
                         rel="noreferrer"
-                        href="https://docs.google.com/forms/d/1IlKQMwgqTrjqrfRdAymi0O4itEICDGw2k6g97ubC6yA/edit"
+                        href="https://docs.google.com/forms/d/e/1FAIpQLSdX3yRZjHaqsV29LQWusM-T1C2EHEa8z5AOYvFBMps1EyxWqw/viewform"
                     >
                         アンケートはこちら
                     </a>
