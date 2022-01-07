@@ -131,11 +131,11 @@ export const PostForm: React.FC = () => {
                 </div>
                 <textarea
                     id="body"
-                    placeholder={`例: (最大400文字、下の記入例ように、項目毎に改行を行なってください。) \n【勤務地】\n 〇〇ホテル長野三輪店 \n \n【仕事内容】 \n . \n . \n .`}
+                    placeholder={`※最大600文字。記入の際、項目毎に空行を入れてください。`}
                     className="w-full h-60 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
                     {...register("body", {
                         required: "入力必須項目です。",
-                        maxLength: 400,
+                        maxLength: 600,
                     })}
                 />
 
