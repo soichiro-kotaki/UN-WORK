@@ -32,7 +32,7 @@ export const ReplyComment: React.FC<Props> = (props) => {
                     <div className="flex justify-between">
                         <p className="font-semibold">{userData.user_name}</p>
                         <span className="text-gray-500 text-sm ml-8">
-                            {convertDateStr(`${comment.created_at}`)}
+                            {`${convertDateStr(comment.created_at)}`}
                         </span>
                     </div>
                     <p className="mt-2 text-sm">{comment.comment}</p>
