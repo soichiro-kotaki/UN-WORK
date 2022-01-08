@@ -15,7 +15,7 @@ export const MenuBar: React.FC = () => {
 
     return (
         <>
-            <div className="z-10 fixed bottom-0 bg-white border-gray-300 border-t w-full h-12 lg:left-0 lg:top-0 lg:w-1/5 lg:h-full lg:border-r lg:border-t-0">
+            <div className="z-10 fixed bottom-0 bg-white text-gray-900 border-gray-300 border-t w-full h-12 lg:left-0 lg:top-0 lg:w-1/5 lg:h-full lg:border-r lg:border-t-0">
                 <div>
                     <Link href="/">
                         <a className="text-xs w-1/4 h-full text-center pt-2 inline-block md:w-1/6 lg:block lg:w-4/5 lg:h-16 lg:mt-12 lg:mx-auto lg:pt-5 lg:text-lg hover:bg-gray-200 lg:rounded-full">

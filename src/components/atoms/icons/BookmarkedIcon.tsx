@@ -47,7 +47,7 @@ export const BookmarkedIcon: React.FC<Props> = (props) => {
                 />
                 <div
                     tabIndex={0}
-                    className="text-sm mr-3 p-1 shadow menu dropdown-content text-gray-100 bg-pink-400 rounded-lg w-32 hover:bg-pink-700 lg:mr-4 lg:p-2 lg:w-40"
+                    className="text-sm mr-3 p-1 shadow menu dropdown-content text-gray-100 bg-pink-400 rounded-lg w-40 hover:bg-pink-700 lg:mr-4 lg:p-2 lg:w-40"
                     onClick={async () => {
                         if (User.isTestUser) {
                             alert(

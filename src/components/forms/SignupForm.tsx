@@ -54,10 +54,10 @@ export const SignupForm: React.FC = () => {
 
     return (
         <>
-            <form action="" onSubmit={handleSubmit(handleOnSignup)}>
+            <form action="" onSubmit={handleSubmit(handleOnSignup)} className="text-gray-900">
                 {/* 氏名（ユーザー名）登録フォーム */}
                 <label className="label mt-6" htmlFor="name">
-                    <span className="text-lg label-text">氏名（本名）</span>
+                    <span className="text-lg">氏名（本名）</span>
                 </label>
                 <div className="mb-2">
                     {errors.name && <ErrorMessage errorMessage={errors.name.message} />}
@@ -74,7 +74,7 @@ export const SignupForm: React.FC = () => {
 
                 {/* メールアドレス登録フォーム */}
                 <label className="label mt-6" htmlFor="email">
-                    <span className="text-lg  label-text">メールアドレス</span>
+                    <span className="text-lg ">メールアドレス</span>
                 </label>
                 <div className="mb-2">
                     {errors.email && <ErrorMessage errorMessage={errors.email.message} />}
@@ -93,14 +93,14 @@ export const SignupForm: React.FC = () => {
                     })}
                 />
                 <label className="label " htmlFor="email">
-                    <span className="text-sm label-text">
+                    <span className="text-sm">
                         ※大学のOutlookのみ利用可、アカウント作成後に入力されたアドレスにアカウント認証用メールが届きます
                     </span>
                 </label>
 
                 {/* パスワード登録フォーム */}
                 <label className="label mt-6" htmlFor="password">
-                    <span className="text-lg label-text">パスワード</span>
+                    <span className="text-lg">パスワード</span>
                 </label>
                 <div className="mb-2">
                     {errors.password && <ErrorMessage errorMessage={errors.password.message} />}
@@ -120,15 +120,15 @@ export const SignupForm: React.FC = () => {
                     })}
                 />
                 <label className="label" htmlFor="password">
-                    <span className="text-sm label-text">※ログイン時に使用します</span>
+                    <span className="text-sm">※ログイン時に使用します</span>
                 </label>
 
                 {/* 学年選択フォーム */}
                 <label className="label mt-6 mb-2" htmlFor="grade">
-                    <span className="text-lg label-text">現在の学年を選択</span>
+                    <span className="text-lg">現在の学年を選択</span>
                 </label>
                 <select
-                    className="w-full select text-lg duration-150 ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
+                    className="w-full select text-lg duration-150 ring-green-400 bg-white ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
                     required
                     id="grade"
                     {...register("grade", {})}
@@ -144,10 +144,10 @@ export const SignupForm: React.FC = () => {
 
                 {/* 所属学科選択フォーム */}
                 <label className="label mt-6 mb-2" htmlFor="subject">
-                    <span className="text-lg label-text">所属学科を選択</span>
+                    <span className="text-lg">所属学科を選択</span>
                 </label>
                 <select
-                    className="w-full select text-lg duration-150 ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
+                    className="w-full select text-lg duration-150 ring-green-400 bg-white ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
                     required
                     id="subject"
                     {...register("subject", {})}
@@ -162,7 +162,7 @@ export const SignupForm: React.FC = () => {
 
                 {/* プロフィール画像登録フォーム */}
                 <label className="label mt-6" htmlFor="userImg">
-                    <span className="text-lg label-text">プロフィール用画像を選択</span>
+                    <span className="text-lg">プロフィール用画像を選択</span>
                 </label>
                 <div className="mb-2">
                     {errors.userImg && <ErrorMessage errorMessage={errors.userImg.message} />}
@@ -178,7 +178,7 @@ export const SignupForm: React.FC = () => {
                     })}
                 />
                 <label className="label" htmlFor="userImg">
-                    <span className="text-sm label-text">※ログイン後に変更可能です</span>
+                    <span className="text-sm">※ログイン後に変更可能です</span>
                 </label>
 
                 {/* 登録用ボタン */}

@@ -8,7 +8,7 @@ import { ResetPasswordForm } from "@components/forms/ResetPasswordForm";
 export const ResetPasswordPageTemplate: React.FC = () => {
     return (
         <>
-            <div className="flex items-center justify-between w-full h-16  lg:h-20 md:w-4/5 md:mx-auto">
+            <div className="flex items-center justify-between bg-white w-full h-16 lg:h-20">
                 <div className="md:ml-8">
                     <Image src="/service-logo.png" width={220} height={65} alt="ロゴ画像です。" />
                 </div>

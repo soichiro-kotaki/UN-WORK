@@ -46,10 +46,10 @@ export const LoginForm: React.FC = () => {
 
     return (
         <>
-            <form action="" onSubmit={handleSubmit(handleOnLogin)}>
+            <form action="" onSubmit={handleSubmit(handleOnLogin)} className="text-gray-900">
                 {/* メールアドレス入力フォーム */}
                 <label className="label mt-6" htmlFor="email">
-                    <span className="text-lg label-text">メールアドレス</span>
+                    <span className="text-lg">メールアドレス</span>
                 </label>
                 <div className="mb-2">
                     {errors.email && <ErrorMessage errorMessage={errors.email.message} />}
@@ -70,7 +70,7 @@ export const LoginForm: React.FC = () => {
 
                 {/* パスワード入力フォーム */}
                 <label className="label mt-6" htmlFor="password">
-                    <span className="text-lg label-text">パスワード</span>
+                    <span className="text-lg">パスワード</span>
                 </label>
                 <div className="mb-2">
                     {errors.password && <ErrorMessage errorMessage={errors.password.message} />}

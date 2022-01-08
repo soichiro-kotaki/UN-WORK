@@ -35,7 +35,7 @@ export const PostCard: React.FC<Props> = (props) => {
 
     return (
         <>
-            <div className="w-11/12 rounded-3xl bg-white border border-gray-300 p-6 mx-auto md:w-9/12">
+            <div className="w-11/12 rounded-3xl bg-white text-gray-900 border border-gray-300 p-6 mx-auto md:w-9/12">
                 <div>
                     <div className="mb-4 mt-4 lg:flex lg:flex-col lg:text-left lg:mb-8 xl:mr-0">
                         <h2 className="text-2xl font-semibold mb-2 mx-auto lg:text-3xl lg:inline-block lg:mx-0 ">

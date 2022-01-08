@@ -47,10 +47,14 @@ export const ResetPasswordForm: React.FC = () => {
 
     return (
         <>
-            <form action="" className="w-full" onSubmit={handleSubmit(handleOnSendVerification)}>
+            <form
+                action=""
+                className="w-full text-gray-900"
+                onSubmit={handleSubmit(handleOnSendVerification)}
+            >
                 {/* メールアドレス入力フォーム */}
                 <label className="label mt-6" htmlFor="email">
-                    <span className="text-lg label-text">メールアドレス</span>
+                    <span className="text-lg">メールアドレス</span>
                 </label>
                 <div className="mb-2">
                     {errors.email && <ErrorMessage errorMessage={errors.email.message} />}

@@ -33,7 +33,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
     return (
         <>
             <BaseLayout>
-                <main className="w-full min-h-screen pt-6  bg-white  lg:w-3/5 lg:mx-auto">
+                <main className="w-full min-h-screen pt-6  bg-white text-gray-900  lg:w-3/5 lg:mx-auto">
                     <h1 className="mb-4 p-4 text-2xl font-bold text-center text-green-400 md:text-3xl lg:text-4xl">
                         {postData.title}
                     </h1>

@@ -13,7 +13,7 @@ export const LoginPageTemplate: React.FC = () => {
     const router = useRouter();
     return (
         <>
-            <div className="flex items-center justify-between w-full h-16 lg:h-20 md:w-4/5 md:mx-auto">
+            <div className="flex items-center justify-between bg-white w-full h-16 lg:h-20">
                 <div className="md:ml-8">
                     <Image src="/service-logo.png" width={220} height={65} alt="ロゴ画像です。" />
                 </div>
@@ -32,7 +32,7 @@ export const LoginPageTemplate: React.FC = () => {
 
                     <div className="mt-10">
                         <p
-                            className="text-green-400 text-center  underline inline-block w-sm h-full hover:cursor-pointer hover:text-green-300"
+                            className="text-green-400 text-center underline inline-block w-sm h-full hover:cursor-pointer hover:text-green-300"
                             onClick={async () => {
                                 await handleGuestLogin();
                                 router.push("/");

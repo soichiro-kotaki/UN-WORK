@@ -33,7 +33,7 @@ export const Comments: React.FC<Props> = (props) => {
 
     return (
         <>
-            <div className="w-full mx-auto my-8 lg:w-4/5">
+            <div className="w-full mx-auto text-gray-900 my-8 lg:w-4/5">
                 <h2 className="text-center text-2xl font-semibold mb-8 lg:text-3xl">コメント</h2>
                 {comments[0] ? (
                     <div>
@@ -60,8 +60,8 @@ export const Comments: React.FC<Props> = (props) => {
                 ) : (
                     <div className="my-12 text-lg">コメントはありません</div>
                 )}
-                <label className="label mt-6" htmlFor="comment">
-                    <span className="text-lg label-text">
+                <label className="label mt-6 " htmlFor="comment">
+                    <span className="text-lg text-gray-90">
                         {User.uid === postData.uid ? "返信コメントを入力" : "質問・コメントを入力"}
                     </span>
                 </label>
