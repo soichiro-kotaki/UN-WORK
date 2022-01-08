@@ -5,7 +5,7 @@ import { storage, functions } from "@libs/firebaseConfig";
 // 画像の圧縮用モジュール
 export const compressFile = async (file: File) => {
     return await imageCompression(file, {
-        maxSizeMB: 0.3,
+        maxSizeMB: 0.5,
         maxWidthOrHeight: 1400,
     });
 };
