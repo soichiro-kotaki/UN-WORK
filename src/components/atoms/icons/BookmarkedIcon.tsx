@@ -30,18 +30,14 @@ export const BookmarkedIcon: React.FC<Props> = (props) => {
             <div className="dropdown dropdown-end">
                 <BsFillBookmarkHeartFill
                     tabIndex={0}
-                    className="w-6 h-6 mr-3 lg:w-10 lg:h-10 hover:cursor-pointer text-pink-400 hover:text-pink-700 lg:mr-4"
+                    className="w-6 h-6 mr-3 lg:w-10 lg:h-10 hover:cursor-pointer text-pink-400 hover:text-pink-200 lg:mr-4"
                     onClick={async () => {
-                        let list = [];
-                        const bookmarkData = await db
-                            .collection("users")
-                            .doc(`${User.uid}`)
-                            .collection("bookmarks")
-                            .get();
-                        bookmarkData.forEach((data) => {
-                            list.push(data.id);
-                            const isPostID = list.find((postID) => postID === userPostData.postID);
-                            if (isPostID) {
+                        const userData = (
+                            await db.collection("users").doc(`${User.uid}`).get()
+                        ).data();
+
+                        userData.bookmarks.forEach((postID) => {
+                            if (postID === userPostData.postID) {
                                 setIsBookmarked(true);
                             }
                         });
