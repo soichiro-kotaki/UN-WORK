@@ -56,10 +56,10 @@ export const EditProfileForm: React.FC = () => {
 
     return (
         <>
-            <form action="" onSubmit={handleSubmit(handleOnUserImg)}>
+            <form action="" onSubmit={handleSubmit(handleOnUserImg)} className="text-gray-900">
                 {/* プロフィール画像更新フォーム */}
                 <label className="label mt-6" htmlFor="userImg">
-                    <span className="text-lg label-text">新たなプロフィール用画像を選択</span>
+                    <span className="text-lg">新たなプロフィール用画像を選択</span>
                 </label>
                 <div className="mb-2">
                     {errors.userImg && <ErrorMessage errorMessage={errors.userImg.message} />}

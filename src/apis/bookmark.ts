@@ -9,12 +9,7 @@ export const addPostToBookmarkList = async (uid: string, postData: PostDataType)
     await db
         .collection("users")
         .doc(`${uid}`)
-        .set(
-            {
-                bookmarks: [postData.postID],
-            },
-            { merge: true },
-        );
+        .update({ bookmarks: firebase.firestore.FieldValue.arrayUnion(`${postData.postID}`) });
 };
 
 //リストから削除
