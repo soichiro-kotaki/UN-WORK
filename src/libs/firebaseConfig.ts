@@ -3,6 +3,8 @@ import "firebase/firestore";
 import "firebase/storage";
 import "firebase/functions";
 
+import "firebase/analytics";
+
 import firebase from "firebase/app";
 
 const firebaseConfig = {
@@ -17,6 +19,9 @@ const firebaseConfig = {
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
+    if (process.browser) {
+        firebase.analytics();
+    }
 }
 
 export const auth = firebase.auth();
