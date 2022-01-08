@@ -101,13 +101,17 @@ export const getPostsDataByCategory = async (categoryID: string) => {
 //ブックマークされた求人投稿を取得
 export const getBookmarkedPosts = async (uid: string | string[]) => {
     let bookmarkedDataList = [];
-    const bookmarkedData = await db.collection("users").doc(`${uid}`).collection("bookmarks").get();
+    const userData = (await db.collection("users").doc(`${uid}`).get()).data();
 
-    bookmarkedData.forEach((postData) => {
-        const result = postData.data();
-
-        bookmarkedDataList.push(result);
-    });
+    if (userData.bookmarks) {
+        for (const postID of userData.bookmarks) {
+            const resultDoc = await db.collection("posts").doc(`${postID}`).get();
+            const result = resultDoc.data();
+            result.postID = resultDoc.id;
+            result.created_at = result.created_at.toDate().toLocaleDateString();
+            bookmarkedDataList.push(result);
+        }
+    }
 
     return bookmarkedDataList;
 };
