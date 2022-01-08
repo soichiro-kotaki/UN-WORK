@@ -103,12 +103,14 @@ export const getBookmarkedPosts = async (uid: string | string[]) => {
     let bookmarkedDataList = [];
     const userData = (await db.collection("users").doc(`${uid}`).get()).data();
 
-    for (const postID of userData.bookmarks) {
-        const resultDoc = await db.collection("posts").doc(`${postID}`).get();
-        const result = resultDoc.data();
-        result.postID = resultDoc.id;
-        result.created_at = result.created_at.toDate().toLocaleDateString();
-        bookmarkedDataList.push(result);
+    if (userData.bookmarks) {
+        for (const postID of userData.bookmarks) {
+            const resultDoc = await db.collection("posts").doc(`${postID}`).get();
+            const result = resultDoc.data();
+            result.postID = resultDoc.id;
+            result.created_at = result.created_at.toDate().toLocaleDateString();
+            bookmarkedDataList.push(result);
+        }
     }
 
     return bookmarkedDataList;

@@ -36,11 +36,13 @@ export const BookmarkedIcon: React.FC<Props> = (props) => {
                             await db.collection("users").doc(`${User.uid}`).get()
                         ).data();
 
-                        userData.bookmarks.forEach((postID) => {
-                            if (postID === userPostData.postID) {
-                                setIsBookmarked(true);
-                            }
-                        });
+                        if (userData.bookmarks) {
+                            userData.bookmarks.forEach((postID: string) => {
+                                if (postID === userPostData.postID) {
+                                    setIsBookmarked(true);
+                                }
+                            });
+                        }
                     }}
                 />
                 <div
