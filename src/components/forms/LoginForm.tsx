@@ -78,13 +78,13 @@ export const LoginForm: React.FC = () => {
                 <input
                     type="password"
                     id="password"
-                    placeholder="英数字8文字
+                    placeholder="英数字8文字以上16文字以下
         "
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
                     {...register("password", {
                         required: "入力必須項目です。",
                         pattern: {
-                            value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8}$/,
+                            value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,16}$/,
                             message: "パスワードの形式が正しくありません。",
                         },
                     })}
