@@ -56,10 +56,10 @@ export const PostForm: React.FC = () => {
 
     return (
         <>
-            <form action="" onSubmit={handleSubmit(handleOnAddPost)}>
+            <form action="" onSubmit={handleSubmit(handleOnAddPost)} className="text-gray-900">
                 {/* 求人タイトル入力フォーム */}
                 <label className="label mt-6" htmlFor="title">
-                    <span className="text-lg label-text">求人タイトル</span>
+                    <span className="text-lg">求人タイトル</span>
                 </label>
                 <div className="mb-2">
                     {errors.title && <ErrorMessage errorMessage={errors.title.message} />}
@@ -76,7 +76,7 @@ export const PostForm: React.FC = () => {
 
                 {/* 時給入力フォーム */}
                 <label className="label mt-6" htmlFor="salary">
-                    <span className="text-lg label-text">時給</span>
+                    <span className="text-lg">時給</span>
                 </label>
                 <div className="mb-2">
                     {errors.salary && <ErrorMessage errorMessage={errors.salary.message} />}
@@ -94,10 +94,10 @@ export const PostForm: React.FC = () => {
 
                 {/* 求人のカテゴリー選択フォーム */}
                 <label className="label mt-6 mb-2" htmlFor="category">
-                    <span className="text-lg label-text">求人のカテゴリー</span>
+                    <span className="text-lg">求人のカテゴリー</span>
                 </label>
                 <select
-                    className="w-full select text-lg duration-150 ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
+                    className="w-full select text-lg duration-150 ring-green-400 bg-white ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
                     required
                     id="category"
                     {...register("category")}
@@ -124,7 +124,7 @@ export const PostForm: React.FC = () => {
 
                 {/* 求人紹介文入力フォーム */}
                 <label className="label mt-6" htmlFor="body">
-                    <span className="text-lg label-text">紹介文</span>
+                    <span className="text-lg">紹介文</span>
                 </label>
                 <div className="mb-2">
                     {errors.body && <ErrorMessage errorMessage={errors.body.message} />}
@@ -141,7 +141,7 @@ export const PostForm: React.FC = () => {
 
                 {/* 画像アップロードフォーム */}
                 <label className="label mt-6" htmlFor="userImg">
-                    <span className="text-lg label-text">画像をアップロード</span>
+                    <span className="text-lg">画像をアップロード</span>
                 </label>
                 <div className="mb-2">
                     {errors.post_img && <ErrorMessage errorMessage={errors.post_img.message} />}
