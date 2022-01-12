@@ -57,16 +57,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     const uid = params.uid;
     let userData = {};
+    let userPostsData = [];
+    let userBookmarkedPostsData = [];
+
     const signinedUserData = await getUserProfileData(uid);
     userData = signinedUserData;
 
     if (!userData) {
         const testUserData = await getTestUserProfileData();
         userData = testUserData;
+    } else {
+        userPostsData = await getPostEachUser(uid);
+        userBookmarkedPostsData = await getBookmarkedPosts(uid);
     }
-
-    const userPostsData = await getPostEachUser(uid);
-    const userBookmarkedPostsData = await getBookmarkedPosts(uid);
 
     return {
         props: {
@@ -74,6 +77,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
             userPostsData: userPostsData,
             userBookmarkedPostsData: userBookmarkedPostsData,
         },
-        revalidate: 60,
+        revalidate: 30,
     };
 };
