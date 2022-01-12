@@ -12,6 +12,7 @@
         "css:build": "postcss src/styles/tailwind.css -o src/styles/globals.css"
     },
     "dependencies": {
+        "@sendgrid/mail": "^7.6.0",
         "@tailwindcss/line-clamp": "^0.3.0",
         "browser-image-compression": "^1.0.17",
         "date-fns": "^2.27.0",
