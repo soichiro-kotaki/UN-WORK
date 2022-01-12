@@ -16,6 +16,10 @@ export const signupUserData = async (values: SignupFormValuesType, actionCodeSet
     //Firebase Authに登録
     const user = await auth.createUserWithEmailAndPassword(email, password);
 
+    alert(
+        `${email}宛にアカウント認証用メールを送信しました。添付のリンクから認証を行った後にログインを行ってください。\n※受信トレイにメールが届いていない場合は、迷惑メールフォルダに振り分けられている可能性があります。`,
+    );
+
     //画像を圧縮、AuthとStorageに登録
     const userImgRef = await uploadUserImage(userImg[0], email);
     const url = await userImgRef.getDownloadURL();
@@ -34,9 +38,6 @@ export const signupUserData = async (values: SignupFormValuesType, actionCodeSet
 
     //アカウント作成時に入力されたメールアドレスにアカウント認証を行うためのメールを送信
     await auth.currentUser.sendEmailVerification(actionCodeSettings);
-    alert(
-        `${email}宛にアカウント認証用メールを送信しました。添付のリンクから認証を行った後にログインを行ってください。\n※受信トレイにメールが届いていない場合は、迷惑メールフォルダに振り分けられている可能性があります。`,
-    );
 };
 
 //ゲストログイン

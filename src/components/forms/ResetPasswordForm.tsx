@@ -37,8 +37,8 @@ export const ResetPasswordForm: React.FC = () => {
 
         try {
             await auth.sendPasswordResetEmail(email, actionCodeSettings);
-            reset();
             alert(`${email}宛にパスワード再設定用メールが送信されました。`);
+            reset();
             router.push("/login");
         } catch {
             alert("再度メールアドレスを入力してください。");

@@ -41,10 +41,11 @@ export const EditProfileForm: React.FC = () => {
             alert(
                 "プロフィール画像編集を行うには、ログインもしくは新規アカウント登録を行ってください。",
             );
+            reset();
         } else {
             try {
+                alert("画像が更新されました。変更の反映に1分程かかる場合があります。");
                 await updateUserProfile(userImg, User.uid);
-                alert("画像が更新されました。");
                 reset();
                 router.push(`/user/${User.uid}`);
             } catch (error) {

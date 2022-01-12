@@ -43,8 +43,10 @@ export const PostForm: React.FC = () => {
     ) => {
         if (User.isTestUser) {
             alert("求人投稿を行うには、ログインもしくはアカウント作成を行ってください。");
+            reset();
         } else {
             try {
+                alert("求人が投稿されました。投稿の反映に1分程かかる場合があります。");
                 await addJobPost(values, User.uid);
                 reset();
                 router.push("/");
