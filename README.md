@@ -37,6 +37,7 @@
 | ユーザー認証                  | Firebase Authentication           |
 | データベース                  | Firebase Firestore/microCMS       |
 | ストレージ                    | Firebase Storage                  |
+| メール送信               | SendGrid                |
 | リンター/コードフォーマッター | ESlint/Prettier                   |
 | テスト                        | Cypress                           |
 
@@ -56,6 +57,7 @@
 -   カテゴリー検索
 -   ブックマーク
 -   サービスフィードバック・問い合わせ用 Google form の設置
+-   応募フォームからのメール送信機能
 -   投稿毎に匿名コメント（開発中）
 
 ## 今後実装予定の機能
