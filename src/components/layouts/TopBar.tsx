@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 //components
-import { MdNotifications } from "react-icons/md";
+import { MdNotificationsActive } from "react-icons/md";
 
 export const TopBar: React.FC = () => {
     return (
@@ -11,7 +11,7 @@ export const TopBar: React.FC = () => {
                 <div className="ml-2 lg:ml-4">
                     <Image src="/service-logo.png" width={260} height={65} alt="ロゴ画像です。" />
                 </div>
-                <MdNotifications
+                <MdNotificationsActive
                     className="w-8 h-8 block text-gray-500 cursor-pointer hover:text-gray-300 mr-8 lg:w-12 lg:h-12 lg:mt-0"
                     onClick={() => {
                         alert("通知機能は現在開発中です🙇‍♂️");

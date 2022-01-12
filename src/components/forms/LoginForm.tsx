@@ -41,6 +41,7 @@ export const LoginForm: React.FC = () => {
                 : alert("送信されたメールから認証を行ってください。");
         } catch {
             alert("メールアドレスもしくはパスワードが違います。");
+            reset();
         }
     };
 
@@ -84,7 +85,7 @@ export const LoginForm: React.FC = () => {
                     {...register("password", {
                         required: "入力必須項目です。",
                         pattern: {
-                            value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,16}$/,
+                            value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,16}$/i,
                             message: "パスワードの形式が正しくありません。",
                         },
                     })}

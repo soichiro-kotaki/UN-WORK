@@ -37,7 +37,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                     <h1 className="mb-4 p-4 text-2xl font-bold text-center text-green-400 md:text-3xl lg:text-4xl">
                         {postData.title}
                     </h1>
-                    <p className="w-11/12 font-bold mb-2 text-right text- text-xs md:text-xl">{`投稿者連絡先: ${userData.user_email.slice(
+                    <p className="w-11/12 font-bold mb-4 text-right text- text-xs md:text-xl">{`投稿者連絡先: ${userData.user_email.slice(
                         0,
                         21,
                     )}`}</p>
@@ -60,8 +60,8 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                 postData.created_at,
                             )}`}</span>
                         </div>
-                        <h2 className="my-6 text-xl text-center font-bold lg:my-12 lg:text-3xl">
-                            ---求人詳細---
+                        <h2 className="my-6 py-2 w-3/5 mx-auto text-xl text-center  font-semibold lg:my-12 lg:text-3xl">
+                            ---紹介文---
                         </h2>
                         {postData.body
                             .split(/(\n)/g)
@@ -87,7 +87,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                     }
                                 }
                             }}
-                            className="mt-8 mb-6 p-3 duration-300 ml-auto block text-xs shadow-xl text-white rounded-full bg-background-sub border border-background-sub hover:text-background-sub hover:bg-white lg:mb-12 lg:text-lg"
+                            className="mt-8 mb-6 p-4 duration-300 ml-auto block text-xs shadow-xl text-white rounded-full bg-background-sub border border-background-sub hover:text-background-sub hover:bg-white lg:mb-12 lg:text-lg"
                         >
                             {isVisibleComments ? "コメントを閉じる" : "コメントを見る"}
                         </button>

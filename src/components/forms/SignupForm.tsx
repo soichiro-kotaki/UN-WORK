@@ -49,6 +49,7 @@ export const SignupForm: React.FC = () => {
             router.push("/login");
         } catch (error) {
             alert(error.message);
+            reset();
         }
     };
 
@@ -94,13 +95,14 @@ export const SignupForm: React.FC = () => {
                 />
                 <label className="label " htmlFor="email">
                     <span className="text-sm">
-                        ※大学のOutlookのみ利用可、アカウント作成後に入力されたアドレスにアカウント認証用メールが届きます
+                        ※大学Outlookのみ利用可、アカウント作成後に入力されたアドレスにアカウント認証用メールが届きます。
+                        学籍番号の英文字は大文字で記入してください。
                     </span>
                 </label>
 
                 {/* パスワード登録フォーム */}
                 <label className="label mt-6" htmlFor="password">
-                    <span className="text-lg">パスワード</span>
+                    <span className="text-lg">アカウント用パスワード</span>
                 </label>
                 <div className="mb-2">
                     {errors.password && <ErrorMessage errorMessage={errors.password.message} />}
@@ -114,7 +116,7 @@ export const SignupForm: React.FC = () => {
                     {...register("password", {
                         required: "入力必須項目です。",
                         pattern: {
-                            value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,16}$/,
+                            value: /^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,16}$/i,
                             message: "パスワードの形式が正しくありません。",
                         },
                     })}
