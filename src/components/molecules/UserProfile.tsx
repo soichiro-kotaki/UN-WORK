@@ -22,13 +22,15 @@ export const UserProfile: React.FC<Props> = (props) => {
             <div className="w-11/12 rounded-3xl bg-white text-gray-900 border border-gray-300 p-8 mx-auto md:w-9/12">
                 <div className="lg:flex lg:justify-between lg:items-center">
                     <div className="rounded-full text-center mx-auto lg:text-left lg:inline-block lg:m-0 ">
-                        <Image
-                            src={userData.user_img}
-                            width={180}
-                            height={180}
-                            alt="プロフィール画像"
-                            className="rounded-full"
-                        />
+                        <div className="avatar">
+                            <Image
+                                src={userData.user_img}
+                                width={200}
+                                height={200}
+                                alt="プロフィール画像"
+                                className="rounded-full"
+                            />
+                        </div>
                     </div>
                     <div className="mb-4 mt-4 lg:flex lg:flex-col lg:text-right lg:mb-8  xl:mr-0">
                         <h2 className="text-2xl font-semibold mb-2 mx-auto lg:text-3xl lg:inline-block lg:mx-0 ">
