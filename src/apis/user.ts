@@ -81,7 +81,7 @@ export const updateUserProfile = async (
     const userImgRef = await uploadUserImage(userImg.userImg[0], email);
     const url = await userImgRef.getDownloadURL();
 
-    //Firebase AuthとFirestoreに画像URLを更新
+    //Firebase AuthとFirestoreの画像URLを更新
     await auth.currentUser.updateProfile({
         photoURL: url,
     });
