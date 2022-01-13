@@ -8,6 +8,8 @@ module.exports = {
                 "background-main": "#f4f5f7",
                 "background-sub": "#74b9ff",
                 "background-danger": "#ff4757",
+                "normal-btn": "#37cdbe",
+                "normal-btn-hover": "#2aa79b",
             },
         },
     },
