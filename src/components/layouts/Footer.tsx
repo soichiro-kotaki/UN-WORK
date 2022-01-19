@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
 
-//components
+//apis
+import { handleLogOut } from "@apis/user";
 
 export const Footer: React.FC = () => {
     return (
@@ -9,7 +10,12 @@ export const Footer: React.FC = () => {
             <div className="h-80 border-gray-300 bg-white text-gray-900 border-t w-full lg:z-10 lg:fixed lg:right-0 lg:top-0 lg:w-1/5 lg:h-full lg:border-l lg:border-t-0">
                 <div className="lg:w-4/5 pt-4 lg:mx-auto lg:mt-72">
                     <Link href="/login">
-                        <a className="text-gray-50 w-2/5 ml-3 py-1 text-center text-sm block bg-green-400 hover:bg-green-700 transition-colors rounded-full lg:p-3 lg:w-40">
+                        <a
+                            onClick={async () => {
+                                await handleLogOut();
+                            }}
+                            className="text-gray-50 w-2/5 ml-3 py-1 text-center text-sm block bg-green-400 hover:bg-green-700 transition-colors rounded-full lg:p-3 lg:w-40"
+                        >
                             ログインページへ
                         </a>
                     </Link>
