@@ -86,7 +86,7 @@ export const PostForm: React.FC = () => {
                 <input
                     type="salary"
                     id="salary"
-                    placeholder="例: 900~1,000円
+                    placeholder="例: 1,000円~ (詳細は紹介文に記入)
             "
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
                     {...register("salary", {
@@ -133,11 +133,11 @@ export const PostForm: React.FC = () => {
                 </div>
                 <textarea
                     id="body"
-                    placeholder={`※最大1200文字（改行含む）。記入の際、項目毎に改行を入れてください。`}
+                    placeholder={`※最大800文字（項目毎に改行を入れてください。） \n県大生の比率、店舗の雰囲気、時給詳細、福利厚生、その他意外と知られていないことなど自由に記入してください😁`}
                     className="w-full h-60 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
                     {...register("body", {
                         required: "入力必須項目です。",
-                        maxLength: 1200,
+                        maxLength: 800,
                     })}
                 />
 
