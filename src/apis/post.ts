@@ -11,7 +11,7 @@ import { UserAuthContextType } from "src/types/user/UserAuthContextType";
 
 //新規の求人を投稿
 export const addJobPost = async (values: PostFormValuesType, uid: string) => {
-    const { title, salary, category, body, post_img } = values;
+    const { title, salary, category, introduction, post_img } = values;
 
     alert("求人が投稿されました！");
 
@@ -24,7 +24,7 @@ export const addJobPost = async (values: PostFormValuesType, uid: string) => {
         title: title,
         salary: salary,
         category: category,
-        body: body,
+        introduction: introduction,
         post_img: url,
         created_at: firebase.firestore.FieldValue.serverTimestamp(),
     });
