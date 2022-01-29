@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 //apis
@@ -20,12 +20,15 @@ import { UserAuthContext } from "@pages/_app";
 export const PostForm: React.FC = () => {
     const router = useRouter();
     const User = useContext(UserAuthContext);
+    const [intro, setIntro] = useState("");
 
     const {
         register,
         handleSubmit,
         formState: { errors },
         reset,
+        getValues,
+        setFocus,
     } = useForm<PostFormValuesType>({
         mode: "onSubmit",
         reValidateMode: "onSubmit",
@@ -33,7 +36,6 @@ export const PostForm: React.FC = () => {
             title: "",
             salary: "",
             category: "飲食(居酒屋)",
-            body: "",
             post_img: null,
         },
     });
@@ -48,6 +50,7 @@ export const PostForm: React.FC = () => {
             try {
                 alert("求人が投稿されました。投稿の反映に1分程かかる場合があります。");
                 await addJobPost(values, User.uid);
+                localStorage.removeItem("introduction");
                 reset();
                 router.push("/");
             } catch {
@@ -55,6 +58,19 @@ export const PostForm: React.FC = () => {
             }
         }
     };
+
+    useEffect(() => {
+        const text = localStorage.getItem("introduction");
+
+        if (text) {
+            setFocus("introduction");
+            setIntro(text);
+        }
+
+        return () => {
+            localStorage.setItem("introduction", getValues("introduction"));
+        };
+    }, [getValues, setFocus]);
 
     return (
         <>
@@ -125,21 +141,30 @@ export const PostForm: React.FC = () => {
                 </select>
 
                 {/* 求人紹介文入力フォーム */}
-                <label className="label mt-6" htmlFor="body">
-                    <span className="text-lg">紹介文</span>
+                <label className="label mt-6" htmlFor="introduction">
+                    <span className="text-lg">紹介文</span>{" "}
                 </label>
                 <div className="mb-2">
-                    {errors.body && <ErrorMessage errorMessage={errors.body.message} />}
+                    {errors.introduction && (
+                        <ErrorMessage errorMessage={errors.introduction.message} />
+                    )}
                 </div>
                 <textarea
-                    id="body"
+                    id="introduction"
+                    defaultValue={intro}
+                    // autoFocus={text !== "" ? true : false}
                     placeholder={`※最大800文字（項目毎に改行を入れてください。） \n県大生の比率、店舗の雰囲気、時給詳細、福利厚生、その他意外と知られていないことなど自由に記入してください😁`}
                     className="w-full h-60 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
-                    {...register("body", {
+                    {...register("introduction", {
                         required: "入力必須項目です。",
                         maxLength: 800,
                     })}
                 />
+                <label className="label" htmlFor="introduction">
+                    <span className="text-sm">
+                        ※紹介文のみ、入力内容が下書きとして保存されます。
+                    </span>
+                </label>
 
                 {/* 画像アップロードフォーム */}
                 <label className="label mt-6" htmlFor="userImg">

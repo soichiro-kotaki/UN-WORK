@@ -10,7 +10,7 @@ export const PostFormPageTemplate: React.FC = () => {
             <BaseLayout>
                 <main className="w-full min-h-screen py-6 bg-background-main  lg:w-3/5 lg:mx-auto">
                     <h1 className="pt-4 text-2xl font-bold text-center text-green-400 lg:text-4xl">
-                        求人投稿
+                        新規求人作成
                     </h1>
                     <div className="w-4/5 mx-auto lg:2/5">
                         <PostForm />
