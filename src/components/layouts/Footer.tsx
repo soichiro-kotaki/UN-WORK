@@ -23,9 +23,9 @@ export const Footer: React.FC = () => {
                         className=" block my-4 pl-3 font-bold text-left text-green-400 hover:text-green-600 hover:underline "
                         target="_blank"
                         rel="noreferrer"
-                        href="https://docs.google.com/forms/d/e/1FAIpQLSdX3yRZjHaqsV29LQWusM-T1C2EHEa8z5AOYvFBMps1EyxWqw/viewform"
+                        href="https://forms.gle/ojVVLT5WVxQ25S2U7"
                     >
-                        アンケートはこちら
+                        お問い合わせこちら
                     </a>
                     <div>
                         {/* <Link href="/"> */}

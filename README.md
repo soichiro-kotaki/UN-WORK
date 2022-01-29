@@ -37,7 +37,7 @@
 | ユーザー認証                  | Firebase Authentication           |
 | データベース                  | Firebase Firestore/microCMS       |
 | ストレージ                    | Firebase Storage                  |
-| メール送信               | SendGrid                |
+| メール送信                    | SendGrid                          |
 | リンター/コードフォーマッター | ESlint/Prettier                   |
 | テスト                        | Cypress                           |
 
