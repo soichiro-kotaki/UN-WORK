@@ -8,9 +8,6 @@ import { CommentDataType } from "src/types/comment/CommentDataType";
 import { UserAuthContext } from "@pages/_app";
 import { MeitionDataType } from "src/types/reply/MeitionDataType";
 
-//utils
-import { convertDateStr } from "src/utils/convertDateStr";
-
 type Props = {
     firstCommentData: CommentDataType;
     postUserID: string;
@@ -30,7 +27,7 @@ export const FirstComment: React.FC<Props> = (props) => {
                     <div className="flex justify-between">
                         <p className="font-semibold">匿名ユーザー</p>
                         <span className="text-gray-500 text-sm ml-8">
-                            {convertDateStr(firstCommentData.created_at)}
+                            {firstCommentData.created_at}
                         </span>
                     </div>
                     <p className="break-words mt-2 text-sm">{firstCommentData.comment}</p>

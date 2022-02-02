@@ -61,9 +61,7 @@ export const ReplyComment: React.FC<Props> = (props) => {
                                 : "匿名ユーザー"}
                         </p>
                         <span className="text-gray-500 text-sm ml-8">
-                            {`${convertDateStr(
-                                replyCommentData.created_at.toDate().toLocaleDateString(),
-                            )}`}
+                            {replyCommentData.created_at.toDate().toLocaleDateString()}
                         </span>
                     </div>
                     <p className="break-words w-full mt-2 text-sm">{replyCommentData.comment}</p>
