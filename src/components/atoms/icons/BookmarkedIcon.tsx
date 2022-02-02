@@ -70,7 +70,7 @@ export const BookmarkedIcon: React.FC<Props> = (props) => {
                     }}
                 >
                     <a className="block text-center mx-auto">
-                        {isBookmarked ? "ブックマークから削除" : "ブックマークへの登録"}
+                        {isBookmarked ? "ブックマークから削除" : "ブックマークへ登録"}
                     </a>
                 </div>
             </div>
