@@ -13,8 +13,6 @@ import { UserAuthContextType } from "src/types/user/UserAuthContextType";
 export const addJobPost = async (values: PostFormValuesType, uid: string) => {
     const { title, salary, category, introduction, post_img } = values;
 
-    alert("求人が投稿されました！");
-
     //Storageにフォームから取得した画像ファイルを保存
     const postImgRef = await uploadPostImage(post_img[0], uid);
     const url = await postImgRef.getDownloadURL();

@@ -7,7 +7,7 @@ import { getCommentsOnPost } from "@apis/comment";
 //components
 import { BaseLayout } from "@components/layouts/BaseLayout";
 import { AiFillTags } from "react-icons/ai";
-import { Comments } from "@components/molecules/Comments";
+import { CommentSection } from "@components/molecules/CommentSection";
 
 //types
 import { PostDataType } from "src/types/post/PostDataType";
@@ -26,14 +26,14 @@ type Props = {
 
 export const PostPageTemplate: React.FC<Props> = (props) => {
     const { userData, postData } = props;
-    const User = useContext(UserAuthContext);
     const [comments, setComments] = useState([]);
     const [isVisibleComments, setIsVisibleComments] = useState(false);
+    const User = useContext(UserAuthContext);
 
     return (
         <>
             <BaseLayout>
-                <main className="w-full min-h-screen pt-6  bg-white text-gray-900  lg:w-3/5 lg:mx-auto">
+                <main className="w-full min-h-screen pt-6  bg-white text-gray-900 lg:w-3/5 lg:mx-auto">
                     <h1 className="mb-4 p-4 text-2xl font-bold text-center text-green-400 md:text-3xl lg:text-4xl">
                         {postData.title}
                     </h1>
@@ -67,9 +67,10 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                         {postData.body
                             .split(/(\n)/g)
                             .map((text, index) => (text === "\n" ? <br key={index} /> : text))}
+
                         <label htmlFor="my-modal-2" className="modal-button">
                             <a className="bg-normal-btn text-white rounded-md text-center mt-8 mb-20 mx-auto py-3 font-semibold shadow-xl block w-3/5 lg:w-2/5 hover:cursor-pointer hover:bg-normal-btn-hover">
-                                応募する
+                                応募フォームへ
                             </a>
                         </label>
                         <button
@@ -94,14 +95,18 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                         >
                             {isVisibleComments ? "コメントを閉じる" : "コメントを見る"}
                         </button>
-                        {isVisibleComments ? (
-                            <Comments postData={postData} userData={userData} comments={comments} />
-                        ) : (
-                            ""
+                        {isVisibleComments && (
+                            <CommentSection
+                                postData={postData}
+                                userData={userData}
+                                comments={comments}
+                                isVisibleComments={isVisibleComments}
+                                setIsVisibleComments={setIsVisibleComments}
+                            />
                         )}
                     </div>
                     <div className="p-8 bg-background-main text-gray-900 border-t border-gray-300 lg:pb-12">
-                        <h2 className="my-6 font-bold text-green-400  lg:text-2xl ">
+                        <h2 className="my-6 font-bold text-green-400 text-center text-2xl ">
                             投稿者プロフィール
                         </h2>
                         <div>
@@ -117,12 +122,12 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                 </div>
                             </div>
                             <div>
-                                <p className="font-bold text-xl lg:text-2xl">{`氏名: ${userData.user_name}`}</p>
+                                <p className="font-bold text-xl lg:text-2xl">{`${userData.user_name}`}</p>
                                 <p className="my-4">{`連絡先: ${userData.user_email}`}</p>
                                 <p className="my-4">
                                     所属: {`${userData.user_subject}学科 ${userData.user_grade}`}
                                 </p>
-                                <p>{convertDateStr(userData.created_at)}に登録</p>
+                                <p>アカウント作成日: {convertDateStr(userData.created_at)}</p>
                             </div>
                         </div>
                     </div>

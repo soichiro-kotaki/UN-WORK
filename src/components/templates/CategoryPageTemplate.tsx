@@ -31,7 +31,7 @@ export const CategoryPageTemplate: React.FC<Props> = (props) => {
                             );
                         })
                     ) : (
-                        <p className="w-11/12 mx-auto text-center lg:text-2xl ">
+                        <p className="w-11/12 text-gray-900 mx-auto text-center lg:text-2xl ">
                             現在、このカテゴリーの求人はありません
                         </p>
                     )}
