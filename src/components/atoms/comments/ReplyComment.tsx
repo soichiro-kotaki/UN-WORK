@@ -9,9 +9,6 @@ import { UserDataType } from "src/types/user/UserDataType";
 import { ReplyDataType } from "src/types/reply/ReplyDataType";
 import { MeitionDataType } from "src/types/reply/MeitionDataType";
 
-//utils
-import { convertDateStr } from "src/utils/convertDateStr";
-
 //contextAPI
 import { UserAuthContext } from "@pages/_app";
 
@@ -24,6 +21,7 @@ type Props = {
     setIsReply: React.Dispatch<SetStateAction<boolean>>;
     setCommentDocID: React.Dispatch<SetStateAction<string>>;
     setMention: React.Dispatch<SetStateAction<MeitionDataType>>;
+    inputRef: React.MutableRefObject<HTMLInputElement>;
 };
 
 export const ReplyComment: React.FC<Props> = (props) => {
@@ -36,6 +34,7 @@ export const ReplyComment: React.FC<Props> = (props) => {
         setIsReply,
         setCommentDocID,
         setMention,
+        inputRef,
     } = props;
     const User = useContext(UserAuthContext);
 
@@ -84,6 +83,7 @@ export const ReplyComment: React.FC<Props> = (props) => {
                                         uid: replyCommentData.uid,
                                         text: replyCommentData.comment,
                                     });
+                                    inputRef.current?.focus();
                                 }}
                             >
                                 返信する

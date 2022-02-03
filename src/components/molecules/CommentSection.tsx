@@ -1,4 +1,4 @@
-import React, { useContext, useState, SetStateAction } from "react";
+import React, { useContext, useState, useRef, SetStateAction } from "react";
 
 //apis
 import { addCommentOnPost, addReplyOnComment } from "@apis/comment";
@@ -31,7 +31,9 @@ export const CommentSection: React.FC<Props> = (props) => {
     const [commentDocID, setCommentDocID] = useState("");
     const [mention, setMention] = useState<MeitionDataType>({ uid: "", text: "" });
     const [isReply, setIsReply] = useState(false);
+
     const User = useContext(UserAuthContext);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const handleComment = (event: React.ChangeEvent<HTMLInputElement>) => {
         setMessage(event.target.value);
@@ -52,6 +54,7 @@ export const CommentSection: React.FC<Props> = (props) => {
                                         setIsReply={setIsReply}
                                         setCommentDocID={setCommentDocID}
                                         setMention={setMention}
+                                        inputRef={inputRef}
                                     />
                                     {comment.replies &&
                                         comment.replies.map((reply, index) => {
@@ -66,6 +69,7 @@ export const CommentSection: React.FC<Props> = (props) => {
                                                     setIsReply={setIsReply}
                                                     setCommentDocID={setCommentDocID}
                                                     setMention={setMention}
+                                                    inputRef={inputRef}
                                                 />
                                             );
                                         })}
@@ -90,7 +94,7 @@ export const CommentSection: React.FC<Props> = (props) => {
                                             ? userData.user_name
                                             : "匿名ユーザー"
                                     }`}</p>
-                                    <p className="line-clamp-1 break-words">{`
+                                    <p className="line-clamp-3 break-words">{`
                                         ${mention && mention.text}`}</p>
                                 </div>
                                 <p
@@ -110,6 +114,7 @@ export const CommentSection: React.FC<Props> = (props) => {
                             }}
                             id="comment"
                             type="comment"
+                            ref={inputRef}
                             autoFocus={isReply}
                             placeholder="メッセージを入力"
                             className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"

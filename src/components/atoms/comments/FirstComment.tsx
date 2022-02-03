@@ -14,10 +14,12 @@ type Props = {
     setIsReply: React.Dispatch<SetStateAction<boolean>>;
     setCommentDocID: React.Dispatch<SetStateAction<string>>;
     setMention: React.Dispatch<SetStateAction<MeitionDataType>>;
+    inputRef: React.MutableRefObject<HTMLInputElement>;
 };
 
 export const FirstComment: React.FC<Props> = (props) => {
-    const { firstCommentData, postUserID, setIsReply, setCommentDocID, setMention } = props;
+    const { firstCommentData, postUserID, setIsReply, setCommentDocID, setMention, inputRef } =
+        props;
     const User = useContext(UserAuthContext);
 
     return (
@@ -41,6 +43,7 @@ export const FirstComment: React.FC<Props> = (props) => {
                                     uid: firstCommentData.uid,
                                     text: firstCommentData.comment,
                                 });
+                                inputRef.current?.focus();
                             }}
                         >
                             {User.uid === postUserID && "返信する"}
@@ -48,7 +51,9 @@ export const FirstComment: React.FC<Props> = (props) => {
                         {User.uid === firstCommentData.uid && (
                             <FaTrash
                                 onClick={() => {
-                                    alert("コメントを削除したい場合は、運営までご連絡ください。");
+                                    alert(
+                                        "コメントを削除したい場合は、運営(unwork1201@gmail.com)までご連絡ください。",
+                                    );
                                 }}
                                 className="w-6 h-6 mt-4 ml-4 lg:w-8 text-gray-500 lg:h-8 hover:cursor-pointer hover:text-gray-300"
                             />
