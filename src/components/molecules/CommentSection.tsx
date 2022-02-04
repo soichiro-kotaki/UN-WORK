@@ -41,7 +41,7 @@ export const CommentSection: React.FC<Props> = (props) => {
 
     return (
         <>
-            <div className="w-full mx-auto text-gray-900 my-8 lg:w-4/5">
+            <div className="w-full mx-auto text-gray-900 my-8 lg:w-4/5 dark:text-dark-text">
                 <h2 className="text-center text-2xl font-semibold mb-8 lg:text-3xl">コメント</h2>
                 {comments[0] ? (
                     <div>

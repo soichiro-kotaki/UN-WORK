@@ -35,7 +35,7 @@ export const PostCard: React.FC<Props> = (props) => {
 
     return (
         <>
-            <div className="w-11/12 rounded-3xl bg-white text-gray-900 border border-gray-300 p-6 mx-auto md:w-9/12">
+            <div className="w-11/12 rounded-3xl bg-white text-gray-900 border border-gray-300 p-6 mx-auto md:w-9/12 dark:bg-dark-content dark:text-dark-text">
                 <div>
                     <div className="mb-4 mt-4 lg:flex lg:flex-col lg:text-left lg:mb-8 xl:mr-0">
                         <h2 className="text-2xl font-semibold mb-2 mx-auto lg:text-3xl lg:inline-block lg:mx-0 ">
@@ -93,7 +93,7 @@ export const PostCard: React.FC<Props> = (props) => {
                                     <div className="dropdown dropdown-end">
                                         <FaTrash
                                             tabIndex={0}
-                                            className="w-6 h-6 lg:w-10 text-gray-500 lg:h-10 hover:cursor-pointer hover:text-gray-300"
+                                            className="w-6 h-6 lg:w-10 text-gray-500 lg:h-10 hover:cursor-pointer hover:text-gray-300 dark:text-dark-screen"
                                         />
                                         <ul
                                             tabIndex={0}
@@ -131,7 +131,7 @@ export const PostCard: React.FC<Props> = (props) => {
                         </div>
                         <div className="flex justify-between mb-4 md:mb-6">
                             <p className="text-sm font-semibold lg:text-lg">{`時給: ${userPostData.salary}`}</p>
-                            <span className="block text-xs text-gray-500 lg:text-sm">{` ${convertDateStr(
+                            <span className="block text-xs text-gray-500 lg:text-sm dark:text-dark-time">{` ${convertDateStr(
                                 userPostData.created_at,
                             )}`}</span>
                         </div>

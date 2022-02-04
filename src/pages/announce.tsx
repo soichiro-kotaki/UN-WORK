@@ -12,7 +12,7 @@ const announce: NextPage = () => {
             </Head>
 
             <BaseLayout>
-                <main className="w-full min-h-screen py-6 bg-background-main text-gray-900 lg:w-3/5 lg:mx-auto">
+                <main className="w-full min-h-screen py-6 bg-background-main text-gray-900 lg:w-3/5 lg:mx-auto dark:bg-dark-content dark:text-dark-text">
                     <h1 className="text-2xl text-center text-green-400 font-bold mb-4 lg:text-4xl lg:mb-8">
                         お知らせ一覧
                     </h1>

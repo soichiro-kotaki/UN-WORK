@@ -24,8 +24,8 @@ const disclaimer: NextPage<Props> = (props) => {
             </Head>
 
             <BaseLayout>
-                <article className="w-full min-h-screen py-6 text-gray-900 bg-background-main lg:w-3/5 lg:mx-auto">
-                    <h1 className="text-center mb-6 text-2xl font-bold lg:text-4xl">
+                <article className="w-full min-h-screen py-6 text-gray-900 bg-background-main lg:w-3/5 lg:mx-auto dark:bg-dark-screen">
+                    <h1 className="text-center mb-6 text-2xl font-bold lg:text-4xl dark:text-dark-text">
                         {disclaimerData.title}
                     </h1>
                     <div

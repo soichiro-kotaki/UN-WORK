@@ -28,14 +28,14 @@ export const FirstComment: React.FC<Props> = (props) => {
                 <div className="w-full">
                     <div className="flex justify-between">
                         <p className="font-semibold">匿名ユーザー</p>
-                        <span className="text-gray-500 text-sm ml-8">
+                        <span className="text-gray-500 text-sm ml-8 dark:text-dark-time">
                             {firstCommentData.created_at}
                         </span>
                     </div>
                     <p className="break-words mt-2 text-sm">{firstCommentData.comment}</p>
                     <div className="flex justify-end">
                         <p
-                            className="text-gray-500 mt-4 underline text-sm inline-block hover:cursor-pointer hover:text-gray-300 lg:mt-6"
+                            className="text-gray-500 mt-4 underline text-sm inline-block hover:cursor-pointer hover:text-gray-300 lg:mt-6 dark:text-dark-text"
                             onClick={() => {
                                 setCommentDocID(firstCommentData.id);
                                 setIsReply(true);
@@ -55,7 +55,7 @@ export const FirstComment: React.FC<Props> = (props) => {
                                         "コメントを削除したい場合は、運営(unwork1201@gmail.com)までご連絡ください。",
                                     );
                                 }}
-                                className="w-6 h-6 mt-4 ml-4 lg:w-8 text-gray-500 lg:h-8 hover:cursor-pointer hover:text-gray-300"
+                                className="w-6 h-6 mt-4 ml-4 lg:w-8 text-gray-500 lg:h-8 hover:cursor-pointer hover:text-gray-300 "
                             />
                         )}
                     </div>

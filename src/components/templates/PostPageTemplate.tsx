@@ -33,7 +33,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
     return (
         <>
             <BaseLayout>
-                <main className="w-full min-h-screen pt-6  bg-white text-gray-900 lg:w-3/5 lg:mx-auto">
+                <main className="w-full min-h-screen pt-6  bg-white text-gray-900 lg:w-3/5 lg:mx-auto dark:bg-dark-screen dark:text-dark-text">
                     <h1 className="mb-4 p-4 text-2xl font-bold text-center text-green-400 md:text-3xl lg:text-4xl">
                         {postData.title}
                     </h1>
@@ -57,7 +57,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                         </p>
                         <div className="flex justify-between mb-4 md:mb-6">
                             <p className="text-sm font-semibold lg:text-lg">{`時給: ${postData.salary}`}</p>
-                            <span className="block text-xs text-gray-500 lg:text-sm">{`投稿日: ${convertDateStr(
+                            <span className="block text-xs text-gray-500 lg:text-sm dark:text-dark-time">{`投稿日: ${convertDateStr(
                                 postData.created_at,
                             )}`}</span>
                         </div>
@@ -105,7 +105,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                             />
                         )}
                     </div>
-                    <div className="p-8 bg-background-main text-gray-900 border-t border-gray-300 lg:pb-12">
+                    <div className="p-8 bg-background-main text-gray-900 border-t border-gray-300 lg:pb-12 dark:bg-dark-content dark:text-dark-text">
                         <h2 className="my-6 font-bold text-green-400 text-center text-2xl ">
                             投稿者プロフィール
                         </h2>
@@ -136,22 +136,22 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
 
             {/* 応募メッセージ送信用モーダル */}
             <input type="checkbox" id="my-modal-2" className="modal-toggle" />
-            <div className="modal">
-                <div className="modal-box">
+            <div className="modal opacity-5">
+                <div className="modal-box ">
                     <p className="font-bold text-center text-xl">応募メッセージフォーム</p>
                     <p className="my-2">{`件名：${postData.title}への応募`}</p>
                     <p className="my-2">{`送信先：${userData.user_email}`}</p>
-                    <form action="" className="w-full text-gray-900">
+                    <form action="" className="w-full ">
                         {/* 応募文入力フォーム */}
-                        <label className="label mt-6" htmlFor="body">
-                            <span className="text-lg">応募メッセージを入力</span>
+                        <label className="label mt-6 " htmlFor="body">
+                            <span className="text-lg ">応募メッセージを入力</span>
                         </label>
                         <textarea
                             required={true}
                             id="body"
                             maxLength={400}
                             placeholder={`※最大400文字`}
-                            className="w-full h-60 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
+                            className="w-full h-60 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:text-gray-900"
                         />
                     </form>
                     <div className="modal-action">

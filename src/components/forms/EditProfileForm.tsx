@@ -57,7 +57,11 @@ export const EditProfileForm: React.FC = () => {
 
     return (
         <>
-            <form action="" onSubmit={handleSubmit(handleOnUserImg)} className="text-gray-900">
+            <form
+                action=""
+                onSubmit={handleSubmit(handleOnUserImg)}
+                className="text-gray-900 dark:text-dark-text"
+            >
                 {/* プロフィール画像更新フォーム */}
                 <label className="label mt-6" htmlFor="userImg">
                     <span className="text-lg">新たなプロフィール用画像を選択</span>
@@ -70,7 +74,7 @@ export const EditProfileForm: React.FC = () => {
                     id="userImg"
                     name="userImg"
                     accept="image/*"
-                    className="w-full p-2 text-lg duration-150 bg-white ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
+                    className="w-full p-2 text-lg duration-150 bg-white ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4 dark:bg-transparent"
                     {...register("userImg", {
                         required: "画像を選択してください。",
                     })}

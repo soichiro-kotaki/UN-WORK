@@ -59,7 +59,7 @@ export const ReplyComment: React.FC<Props> = (props) => {
                                 ? userData.user_name
                                 : "匿名ユーザー"}
                         </p>
-                        <span className="text-gray-500 text-sm ml-8">
+                        <span className="text-gray-500 text-sm ml-8 dark:text-dark-time">
                             {replyCommentData.created_at.toDate().toLocaleDateString()}
                         </span>
                     </div>
@@ -69,13 +69,13 @@ export const ReplyComment: React.FC<Props> = (props) => {
                             onClick={() => {
                                 alert("コメントを削除したい場合は、運営までご連絡ください。");
                             }}
-                            className="w-6 h-6 mt-4 lg:w-8 text-gray-500 lg:h-8 ml-auto hover:cursor-pointer hover:text-gray-300"
+                            className="w-6 h-6 mt-4 lg:w-8 text-gray-500 lg:h-8 ml-auto hover:cursor-pointer hover:text-gray-300 dark:text-dark-text"
                         />
                     )}
                     {User.uid !== replyCommentData.uid && User.uid === firstCommentUID ? (
                         <div className="flex justify-end">
                             <p
-                                className="text-gray-500 mt-4 underline text-sm inline-block hover:cursor-pointer hover:text-gray-300 lg:mt-6"
+                                className="text-gray-500 mt-4 underline text-sm inline-block hover:cursor-pointer hover:text-gray-300 lg:mt-6 dark:text-dark-text"
                                 onClick={() => {
                                     setCommentDocID(commentDocID);
                                     setIsReply(true);

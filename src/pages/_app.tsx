@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
+
+//styles
 import "@styles/tailwind.css";
-import type { AppProps } from "next/app";
+
+//components
 import Head from "next/head";
+import { ThemeProvider } from "next-themes";
 
 //libs
 import { auth } from "@libs/firebaseConfig";
 
 //types
 import { UserAuthContextType } from "src/types/user/UserAuthContextType";
+import type { AppProps } from "next/app";
 
 //contextAPI
 export const UserAuthContext = React.createContext<UserAuthContextType>({
@@ -45,10 +50,11 @@ function MyApp({ Component, pageProps }: AppProps) {
                 <meta name="viewport" content="width=device-width,initial-scale=1.0" />
                 <link rel="icon" href="/un-work-icon.svg" />
             </Head>
-
-            <UserAuthContext.Provider value={{ uid: uid, isTestUser: isTestUser }}>
-                <Component {...pageProps} />
-            </UserAuthContext.Provider>
+            <ThemeProvider attribute="class" defaultTheme="light">
+                <UserAuthContext.Provider value={{ uid: uid, isTestUser: isTestUser }}>
+                    <Component {...pageProps} />
+                </UserAuthContext.Provider>
+            </ThemeProvider>
         </>
     );
 }

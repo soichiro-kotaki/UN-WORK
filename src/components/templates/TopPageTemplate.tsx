@@ -17,7 +17,7 @@ export const TopPageTemplate: React.FC<Props> = (props) => {
     return (
         <>
             <BaseLayout>
-                <main className="w-full min-h-screen py-6 bg-background-main lg:w-3/5 lg:mx-auto">
+                <main className="w-full min-h-screen py-6 bg-background-main lg:w-3/5 lg:mx-auto dark:bg-dark-screen">
                     <h1 className="mb-4 p-4 text-2xl font-bold text-center text-green-400 lg:text-4xl">
                         最近投稿された求人
                     </h1>

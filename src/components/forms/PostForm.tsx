@@ -74,7 +74,11 @@ export const PostForm: React.FC = () => {
 
     return (
         <>
-            <form action="" onSubmit={handleSubmit(handleOnAddPost)} className="text-gray-900">
+            <form
+                action=""
+                onSubmit={handleSubmit(handleOnAddPost)}
+                className="text-gray-900 dark:text-dark-text"
+            >
                 {/* 求人タイトル入力フォーム */}
                 <label className="label mt-6" htmlFor="title">
                     <span className="text-lg">求人タイトル</span>
@@ -86,7 +90,7 @@ export const PostForm: React.FC = () => {
                     id="title"
                     type="title"
                     placeholder="例: 〇〇ホテルの給仕スタッフ募集！！"
-                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                     {...register("title", {
                         required: "入力必須項目です。",
                     })}
@@ -104,7 +108,7 @@ export const PostForm: React.FC = () => {
                     id="salary"
                     placeholder="例: 1,000円~ (詳細は紹介文に記入)
             "
-                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                     {...register("salary", {
                         required: "入力必須項目です。",
                     })}
@@ -115,7 +119,7 @@ export const PostForm: React.FC = () => {
                     <span className="text-lg">求人のカテゴリー</span>
                 </label>
                 <select
-                    className="w-full select text-lg duration-150 ring-green-400 bg-white ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
+                    className="w-full select text-lg duration-150 ring-green-400 bg-white ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4  dark:bg-transparent dark:text-dark-text dark:focus:bg-dark-content"
                     required
                     id="category"
                     {...register("category")}
@@ -154,7 +158,7 @@ export const PostForm: React.FC = () => {
                     defaultValue={intro}
                     // autoFocus={text !== "" ? true : false}
                     placeholder={`※最大800文字（項目毎に改行を入れてください。） \n県大生の比率、店舗の雰囲気、時給詳細、福利厚生、その他意外と知られていないことなど自由に記入してください😁`}
-                    className="w-full h-60 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
+                    className="w-full h-60 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content "
                     {...register("introduction", {
                         required: "入力必須項目です。",
                         maxLength: 800,
@@ -178,7 +182,7 @@ export const PostForm: React.FC = () => {
                     id="userImg"
                     name="userImg"
                     accept="image/*"
-                    className="w-full p-2 text-lg duration-150 bg-white ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
+                    className="w-full p-2 text-lg duration-150 bg-white ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4 dark:text-dark-text dark:bg-transparent"
                     {...register("post_img", {
                         required: "画像を選択してください。",
                     })}

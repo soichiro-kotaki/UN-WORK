@@ -5,12 +5,13 @@
     @apply text-lg lg:text-xl mt-6 mb-4 p-2 rounded-lg text-white bg-green-400 shadow-lg;
 }
 
-.cms-fixed-content > p {
-    @apply px-4;
+.cms-fixed-content > p,
+h3 {
+    @apply px-4 dark:text-dark-text;
 }
 
 .cms-fixed-content > ol > li {
-    @apply ml-8 my-2 px-4 list-decimal;
+    @apply ml-8 my-2 px-4 list-decimal dark:text-dark-text;
 }
 
 @import "tailwindcss/utilities";

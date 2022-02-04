@@ -17,11 +17,11 @@ export const CategorySearchPageTemplate: React.FC<Props> = (props) => {
     return (
         <>
             <BaseLayout>
-                <main className="w-full min-h-screen py-6 bg-background-main lg:w-3/5 lg:mx-auto">
+                <main className="w-full min-h-screen py-6 bg-background-main lg:w-3/5 lg:mx-auto dark:bg-dark-screen">
                     <h1 className="text-2xl text-center text-green-400 font-bold mb-4 lg:text-4xl lg:mb-8">
                         カテゴリー検索
                     </h1>
-                    <div className="flex p-2 w-11/12 mx-auto flex-wrap  border border-background-sub rounded-lg">
+                    <div className="flex p-2 w-11/12 mx-auto flex-wrap border border-background-sub rounded-lg dark:bg-dark-content dark:text-dark-text">
                         {categoriesData.map((categoryData) => {
                             return (
                                 <div key={categoryData.categoryID} className="inline-block m-2">
