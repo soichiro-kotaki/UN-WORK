@@ -1,7 +1,7 @@
 module.exports = {
     mode: "jit",
     purge: ["./src/pages/**/*.{js,ts,jsx,tsx}", "./src/components/**/*.{js,ts,jsx,tsx}"],
-    darkMode: false, // or 'media' or 'class'
+    darkMode: "class",
     theme: {
         extend: {
             colors: {
@@ -10,6 +10,10 @@ module.exports = {
                 "background-danger": "#ff4757",
                 "normal-btn": "#37cdbe",
                 "normal-btn-hover": "#2aa79b",
+                "dark-screen": "#2f3542",
+                "dark-content": "#57606f",
+                "dark-text": "#dfe4ea",
+                "dark-time": "#a4b0be",
             },
         },
     },
