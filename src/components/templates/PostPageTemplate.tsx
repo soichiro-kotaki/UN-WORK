@@ -3,6 +3,7 @@ import Image from "next/image";
 
 //apis
 import { getCommentsOnPost } from "@apis/comment";
+import { handleApplyEmailForm } from "@apis/sendApplyEmail";
 
 //components
 import { BaseLayout } from "@components/layouts/BaseLayout";
@@ -12,6 +13,7 @@ import { CommentSection } from "@components/molecules/CommentSection";
 //types
 import { PostDataType } from "src/types/post/PostDataType";
 import { UserDataType } from "src/types/user/UserDataType";
+import { CommentDataType } from "src/types/comment/CommentDataType";
 
 //utils
 import { convertDateStr } from "src/utils/convertDateStr";
@@ -26,9 +28,14 @@ type Props = {
 
 export const PostPageTemplate: React.FC<Props> = (props) => {
     const { userData, postData } = props;
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = useState<CommentDataType[]>([]);
     const [isVisibleComments, setIsVisibleComments] = useState(false);
+    const [applyMessage, setApplyMessage] = useState("");
     const User = useContext(UserAuthContext);
+
+    const handleApplyMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setApplyMessage(event.target.value);
+    };
 
     return (
         <>
@@ -149,8 +156,12 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                         <textarea
                             required={true}
                             id="body"
+                            value={applyMessage}
+                            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
+                                handleApplyMessage(e);
+                            }}
                             maxLength={400}
-                            placeholder={`※最大400文字`}
+                            placeholder={`※最大400文字。\n応募者(あなた)の名前とメールアドレスは、送信されるメールに自動で含まれるので、入力する必要はありません。`}
                             className="w-full h-60 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:text-gray-900"
                         />
                     </form>
@@ -159,7 +170,23 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                             htmlFor="my-modal-2"
                             className="btn btn-accent  lg:w-1/3 mx-auto"
                             onClick={async () => {
-                                alert("現在開発中です🙇‍♂️");
+                                if (applyMessage) {
+                                    try {
+                                        await handleApplyEmailForm(
+                                            userData,
+                                            User.uid,
+                                            postData.title,
+                                            applyMessage,
+                                        );
+                                        setApplyMessage("");
+                                        alert("応募メッセージが送信されました。");
+                                    } catch {
+                                        alert("送信に失敗しました。");
+                                        setApplyMessage("");
+                                    }
+                                } else {
+                                    alert("メッセージを入力してください。");
+                                }
                             }}
                         >
                             メールを送信

@@ -13,6 +13,7 @@ import { ErrorMessage } from "@components/atoms/buttons/ErrorMessage";
 
 //types
 import { PostFormValuesType } from "src/types/form/PostFormValuesType";
+import { DraftDataType } from "src/types/draft/DraftDataType";
 
 //contextAPI
 import { UserAuthContext } from "@pages/_app";
@@ -20,7 +21,11 @@ import { UserAuthContext } from "@pages/_app";
 export const PostForm: React.FC = () => {
     const router = useRouter();
     const User = useContext(UserAuthContext);
-    const [intro, setIntro] = useState("");
+    const [drafts, setDrafts] = useState<DraftDataType>({
+        title: "",
+        salary: "",
+        introduction: "",
+    });
 
     const {
         register,
@@ -28,16 +33,9 @@ export const PostForm: React.FC = () => {
         formState: { errors },
         reset,
         getValues,
-        setFocus,
     } = useForm<PostFormValuesType>({
         mode: "onSubmit",
         reValidateMode: "onSubmit",
-        defaultValues: {
-            title: "",
-            salary: "",
-            category: "飲食(居酒屋)",
-            post_img: null,
-        },
     });
 
     const handleOnAddPost: SubmitHandler<PostFormValuesType> = async (
@@ -60,17 +58,28 @@ export const PostForm: React.FC = () => {
     };
 
     useEffect(() => {
-        const text = localStorage.getItem("introduction");
+        const draftData = JSON.parse(localStorage.getItem("body"));
 
-        if (text) {
-            setFocus("introduction");
-            setIntro(text);
+        if (draftData) {
+            setDrafts({
+                title: draftData[0],
+                salary: draftData[1],
+                introduction: draftData[2],
+            });
+            alert(
+                "【注意】一度保存してから変更が無い入力項目の下書きは、このページを離れると削除されます。\nまた、選択式のフォームと画像は保存されていません。",
+            );
         }
 
         return () => {
-            localStorage.setItem("introduction", getValues("introduction"));
+            const draftValues = getValues(["title", "salary", "introduction"]);
+            if (!draftValues.every((element) => element === "")) {
+                localStorage.setItem("body", JSON.stringify(draftValues));
+            } else {
+                localStorage.removeItem("body");
+            }
         };
-    }, [getValues, setFocus]);
+    }, [getValues]);
 
     return (
         <>
@@ -79,6 +88,10 @@ export const PostForm: React.FC = () => {
                 onSubmit={handleSubmit(handleOnAddPost)}
                 className="text-gray-900 dark:text-dark-text"
             >
+                <p className="text-xs my-4 lg:text-lg lg:my-8">
+                    ※ページを離れると、入力型のフォーム内容のみ、下書きとして保存されます。
+                </p>
+
                 {/* 求人タイトル入力フォーム */}
                 <label className="label mt-6" htmlFor="title">
                     <span className="text-lg">求人タイトル</span>
@@ -89,6 +102,7 @@ export const PostForm: React.FC = () => {
                 <input
                     id="title"
                     type="title"
+                    defaultValue={drafts.title && drafts.title}
                     placeholder="例: 〇〇ホテルの給仕スタッフ募集！！"
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                     {...register("title", {
@@ -106,6 +120,7 @@ export const PostForm: React.FC = () => {
                 <input
                     type="salary"
                     id="salary"
+                    defaultValue={drafts.salary && drafts.salary}
                     placeholder="例: 1,000円~ (詳細は紹介文に記入)
             "
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
@@ -155,8 +170,7 @@ export const PostForm: React.FC = () => {
                 </div>
                 <textarea
                     id="introduction"
-                    defaultValue={intro}
-                    // autoFocus={text !== "" ? true : false}
+                    defaultValue={drafts.introduction && drafts.introduction}
                     placeholder={`※最大800文字（項目毎に改行を入れてください。） \n県大生の比率、店舗の雰囲気、時給詳細、福利厚生、その他意外と知られていないことなど自由に記入してください😁`}
                     className="w-full h-60 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content "
                     {...register("introduction", {
@@ -164,11 +178,6 @@ export const PostForm: React.FC = () => {
                         maxLength: 800,
                     })}
                 />
-                <label className="label" htmlFor="introduction">
-                    <span className="text-sm">
-                        ※紹介文のみ、入力内容が下書きとして保存されます。
-                    </span>
-                </label>
 
                 {/* 画像アップロードフォーム */}
                 <label className="label mt-6" htmlFor="userImg">
@@ -180,6 +189,7 @@ export const PostForm: React.FC = () => {
                 <input
                     type="file"
                     id="userImg"
+                    defaultValue={null}
                     name="userImg"
                     accept="image/*"
                     className="w-full p-2 text-lg duration-150 bg-white ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4 dark:text-dark-text dark:bg-transparent"
