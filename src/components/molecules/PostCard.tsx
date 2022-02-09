@@ -137,7 +137,7 @@ export const PostCard: React.FC<Props> = (props) => {
                         </div>
                         <div>
                             <p className="line-clamp-3 w-full mb-6 text-sm lg:mb-8">
-                                {userPostData.body}
+                                {userPostData.introduction}
                             </p>
                         </div>
                         <div className="w-4/5 mx-auto md:w-3/5 lg lg:w-2/5">
