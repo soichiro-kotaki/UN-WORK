@@ -25,7 +25,7 @@ export const Footer: React.FC = () => {
                         rel="noreferrer"
                         href="https://forms.gle/ojVVLT5WVxQ25S2U7"
                     >
-                        お問い合わせこちら
+                        お問い合わせ・ご要望はこちら
                     </a>
                     <div>
                         {/* <Link href="/"> */}
