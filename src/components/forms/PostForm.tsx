@@ -23,7 +23,11 @@ export const PostForm: React.FC = () => {
     const User = useContext(UserAuthContext);
     const [drafts, setDrafts] = useState<DraftDataType>({
         title: "",
+        location: "",
+        job_description: "",
         salary: "",
+        job_time: "",
+        submission_shift_request: "",
         introduction: "",
     });
 
@@ -63,8 +67,12 @@ export const PostForm: React.FC = () => {
         if (draftData) {
             setDrafts({
                 title: draftData[0],
-                salary: draftData[1],
-                introduction: draftData[2],
+                location: draftData[1],
+                job_description: draftData[2],
+                salary: draftData[3],
+                job_time: draftData[4],
+                submission_shift_request: draftData[5],
+                introduction: draftData[6],
             });
             alert(
                 "【注意】一度保存してから変更が無い入力項目の下書きは、このページを離れると削除されます。\nまた、選択式のフォームと画像は保存されていません。",
@@ -72,7 +80,15 @@ export const PostForm: React.FC = () => {
         }
 
         return () => {
-            const draftValues = getValues(["title", "salary", "introduction"]);
+            const draftValues = getValues([
+                "title",
+                "location",
+                "job_description",
+                "salary",
+                "job_time",
+                "submission_shift_request",
+                "introduction",
+            ]);
             if (!draftValues.every((element) => element === "")) {
                 localStorage.setItem("body", JSON.stringify(draftValues));
             } else {
@@ -110,6 +126,45 @@ export const PostForm: React.FC = () => {
                     })}
                 />
 
+                {/* 勤務地入力フォーム */}
+                <label className="label mt-6" htmlFor="location">
+                    <span className="text-lg">勤務地(住所)</span>
+                </label>
+                <div className="mb-2">
+                    {errors.location && <ErrorMessage errorMessage={errors.location.message} />}
+                </div>
+                <input
+                    type="location"
+                    id="location"
+                    defaultValue={drafts.location && drafts.location}
+                    placeholder="例: 長野市三輪〜〜
+            "
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
+                    {...register("location", {
+                        required: "入力必須項目です。",
+                    })}
+                />
+
+                {/* 仕事内容入力フォーム */}
+                <label className="label mt-6" htmlFor="job_description">
+                    <span className="text-lg">仕事内容</span>
+                </label>
+                <div className="mb-2">
+                    {errors.job_description && (
+                        <ErrorMessage errorMessage={errors.job_description.message} />
+                    )}
+                </div>
+                <textarea
+                    id="job_description"
+                    defaultValue={drafts.job_description && drafts.job_description}
+                    placeholder="例: お客様への商品提供、接客などを行います！
+            "
+                    className="w-full h-40 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
+                    {...register("job_description", {
+                        required: "入力必須項目です。",
+                    })}
+                />
+
                 {/* 時給入力フォーム */}
                 <label className="label mt-6" htmlFor="salary">
                     <span className="text-lg">時給</span>
@@ -125,6 +180,48 @@ export const PostForm: React.FC = () => {
             "
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                     {...register("salary", {
+                        required: "入力必須項目です。",
+                    })}
+                />
+
+                {/* 勤務時間入力フォーム */}
+                <label className="label mt-6" htmlFor="job_time">
+                    <span className="text-lg">勤務時間</span>
+                </label>
+                <div className="mb-2">
+                    {errors.job_time && <ErrorMessage errorMessage={errors.job_time.message} />}
+                </div>
+                <input
+                    type="job_time"
+                    id="job_time"
+                    defaultValue={drafts.job_time && drafts.job_time}
+                    placeholder="勤務可能な時間帯を入力
+            "
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
+                    {...register("job_time", {
+                        required: "入力必須項目です。",
+                    })}
+                />
+
+                {/* シフト提出方法入力フォーム */}
+                <label className="label mt-6" htmlFor="submission_shift_request">
+                    <span className="text-lg">シフトについて</span>
+                </label>
+                <div className="mb-2">
+                    {errors.submission_shift_request && (
+                        <ErrorMessage errorMessage={errors.submission_shift_request.message} />
+                    )}
+                </div>
+                <input
+                    type="submission_shift_request"
+                    id="submission_shift_request"
+                    defaultValue={
+                        drafts.submission_shift_request && drafts.submission_shift_request
+                    }
+                    placeholder="シフトの提出方法などを入力
+            "
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
+                    {...register("submission_shift_request", {
                         required: "入力必須項目です。",
                     })}
                 />
@@ -178,6 +275,9 @@ export const PostForm: React.FC = () => {
                         maxLength: 800,
                     })}
                 />
+                <label className="label " htmlFor="introduction">
+                    <span className="text-sm">※投稿ページの最後に表示されます。</span>
+                </label>
 
                 {/* 画像アップロードフォーム */}
                 <label className="label mt-6" htmlFor="userImg">

@@ -6,9 +6,13 @@ import { getCommentsOnPost } from "@apis/comment";
 import { handleApplyEmailForm } from "@apis/sendApplyEmail";
 
 //components
-import { BaseLayout } from "@components/layouts/BaseLayout";
 import { AiFillTags } from "react-icons/ai";
+import { BaseLayout } from "@components/layouts/BaseLayout";
+import { BiTimeFive } from "react-icons/bi";
+import { BsTable } from "react-icons/bs";
 import { CommentSection } from "@components/molecules/CommentSection";
+import { GoLocation } from "react-icons/go";
+import { MdOutlineWork } from "react-icons/md";
 
 //types
 import { PostDataType } from "src/types/post/PostDataType";
@@ -32,6 +36,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
     const [isVisibleComments, setIsVisibleComments] = useState(false);
     const [applyMessage, setApplyMessage] = useState("");
     const User = useContext(UserAuthContext);
+    console.log(postData.introduction);
 
     const handleApplyMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setApplyMessage(event.target.value);
@@ -68,12 +73,48 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                 postData.created_at,
                             )}`}</span>
                         </div>
+
+                        <div
+                            className="
+                        text-green-400 mt-12"
+                        >
+                            <h2 className="mt-8 mb-2 font-bold text-xl">
+                                <GoLocation className="inline-block mr-2" />
+                                勤務地
+                            </h2>
+                            <p className="text-gray-900 dark:text-dark-text">{postData.location}</p>
+                            <h2 className="mt-8 mb-2 font-bold text-xl">
+                                <MdOutlineWork className="inline-block mr-2" />
+                                仕事内容
+                            </h2>
+                            <p className="text-gray-900 dark:text-dark-text">
+                                {postData.job_description}
+                            </p>
+                            <h2 className="mt-8 mb-2 font-bold text-xl">
+                                <BiTimeFive className="inline-block mr-2" />
+                                勤務時間
+                            </h2>
+                            <p className="text-gray-900 dark:text-dark-text">{postData.job_time}</p>
+                            <h2 className="mt-8 mb-2 font-bold text-xl">
+                                <BsTable className="inline-block mr-2" />
+                                シフトについて
+                            </h2>
+                            <p className="text-gray-900 dark:text-dark-text">
+                                {postData.submission_shift_request}
+                            </p>
+                        </div>
                         <h2 className="my-6 py-2 w-3/5 mx-auto text-xl text-center  font-semibold lg:my-12 lg:text-3xl">
                             ---紹介文---
                         </h2>
-                        {postData.body
-                            .split(/(\n)/g)
-                            .map((text, index) => (text === "\n" ? <br key={index} /> : text))}
+                        {postData.introduction.split(/(\s)/g).map((text, index) =>
+                            text === " " ? (
+                                <div key={index}>
+                                    <br />
+                                </div>
+                            ) : (
+                                text
+                            ),
+                        )}
 
                         <label htmlFor="my-modal-2" className="modal-button">
                             <a className="bg-normal-btn text-white rounded-md text-center mt-8 mb-20 mx-auto py-3 font-semibold shadow-xl block w-3/5 lg:w-2/5 hover:cursor-pointer hover:bg-normal-btn-hover">

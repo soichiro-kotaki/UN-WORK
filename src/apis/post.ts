@@ -11,7 +11,17 @@ import { UserAuthContextType } from "src/types/user/UserAuthContextType";
 
 //新規の求人を投稿
 export const addJobPost = async (values: PostFormValuesType, uid: string) => {
-    const { title, salary, category, introduction, post_img } = values;
+    const {
+        title,
+        location,
+        job_description,
+        salary,
+        job_time,
+        submission_shift_request,
+        category,
+        introduction,
+        post_img,
+    } = values;
 
     //Storageにフォームから取得した画像ファイルを保存
     const postImgRef = await uploadPostImage(post_img[0], uid);
@@ -20,7 +30,11 @@ export const addJobPost = async (values: PostFormValuesType, uid: string) => {
     await db.collection("posts").doc().set({
         uid: uid,
         title: title,
+        location: location,
+        job_description: job_description,
         salary: salary,
+        job_time: job_time,
+        submission_shift_request: submission_shift_request,
         category: category,
         introduction: introduction,
         post_img: url,
