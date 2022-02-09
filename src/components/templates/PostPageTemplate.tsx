@@ -15,9 +15,9 @@ import { GoLocation } from "react-icons/go";
 import { MdOutlineWork } from "react-icons/md";
 
 //types
+import { CommentDataType } from "src/types/comment/CommentDataType";
 import { PostDataType } from "src/types/post/PostDataType";
 import { UserDataType } from "src/types/user/UserDataType";
-import { CommentDataType } from "src/types/comment/CommentDataType";
 
 //utils
 import { convertDateStr } from "src/utils/convertDateStr";
@@ -36,7 +36,6 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
     const [isVisibleComments, setIsVisibleComments] = useState(false);
     const [applyMessage, setApplyMessage] = useState("");
     const User = useContext(UserAuthContext);
-    console.log(postData.introduction);
 
     const handleApplyMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         setApplyMessage(event.target.value);
@@ -106,8 +105,8 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                         <h2 className="my-6 py-2 w-3/5 mx-auto text-xl text-center  font-semibold lg:my-12 lg:text-3xl">
                             ---紹介文---
                         </h2>
-                        {postData.introduction.split(/(\s)/g).map((text, index) =>
-                            text === " " ? (
+                        {postData.introduction.split(/(\s) || (\n)/g).map((text, index) =>
+                            text === " " || text === "\n" ? (
                                 <div key={index}>
                                     <br />
                                 </div>
