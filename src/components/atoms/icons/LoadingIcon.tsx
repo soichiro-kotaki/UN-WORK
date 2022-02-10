@@ -1,13 +1,20 @@
 import React from "react";
 
 //libs
-import ReactLoading from "react-loading";
+import { Oval } from "react-loader-spinner";
 
 export const LoadingIcon: React.FC = () => {
     return (
         <>
-            <div className="text-center w-1/4 h-full mx-auto">
-                <ReactLoading type="spokes" width={"30%"} height={"30%"} color="#37cdbe" />
+            <div className="flex justify-center mx-auto w-1/3 lg:w-1/4">
+                <Oval
+                    ariaLabel="loading-indicator"
+                    height={80}
+                    width={80}
+                    strokeWidth={5}
+                    color="#37cdbe"
+                    secondaryColor="light-gray"
+                />
             </div>
         </>
     );
