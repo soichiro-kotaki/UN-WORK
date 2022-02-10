@@ -48,7 +48,7 @@ const Home: NextPage<Props> = (props) => {
             {User.uid ? (
                 <TopPageTemplate allPostsData={allPostsData} />
             ) : (
-                <div className="mt-8">
+                <div className="mt-20">
                     <LoadingIcon />
                 </div>
             )}
