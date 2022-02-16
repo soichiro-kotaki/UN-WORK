@@ -25,6 +25,5 @@ export const handleApplyEmailForm = async (
         method: "POST",
     });
 
-    const result = await res.json();
-    console.log(result);
+    console.log(res);
 };
