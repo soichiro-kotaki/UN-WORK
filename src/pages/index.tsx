@@ -41,7 +41,7 @@ const Home: NextPage<Props> = (props) => {
                 router.push("/login");
             }
         });
-    }, [router, User.uid]);
+    }, [router]);
 
     return (
         <>
