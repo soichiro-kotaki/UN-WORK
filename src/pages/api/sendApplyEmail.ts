@@ -26,7 +26,13 @@ export default function applyEmailHandler(req: NextApiRequest, res: NextApiRespo
 
         (async () => {
             try {
-                await sgMail.send(msg);
+                const result = await sgMail.send(msg);
+                console.log(result);
+                if (res.status(200)) {
+                    return res.send(res.statusCode);
+                } else {
+                    return res.statusMessage;
+                }
             } catch (error) {
                 console.error(error);
                 if (error.response) {
@@ -34,11 +40,5 @@ export default function applyEmailHandler(req: NextApiRequest, res: NextApiRespo
                 }
             }
         })();
-
-        if (res.status(200)) {
-            return res.send(res.statusCode);
-        } else {
-            return res.statusMessage;
-        }
     }
 }
