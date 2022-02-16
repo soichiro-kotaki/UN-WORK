@@ -13,7 +13,6 @@ import { ErrorMessage } from "@components/atoms/buttons/ErrorMessage";
 
 //types
 import { PostFormValuesType } from "src/types/form/PostFormValuesType";
-import { DraftDataType } from "src/types/draft/DraftDataType";
 
 //contextAPI
 import { UserAuthContext } from "@pages/_app";
@@ -21,15 +20,7 @@ import { UserAuthContext } from "@pages/_app";
 export const PostForm: React.FC = () => {
     const router = useRouter();
     const User = useContext(UserAuthContext);
-    const [drafts, setDrafts] = useState<DraftDataType>({
-        title: "",
-        location: "",
-        job_description: "",
-        salary: "",
-        job_time: "",
-        submission_shift_request: "",
-        introduction: "",
-    });
+    const [draft, setDraft] = useState("");
 
     const {
         register,
@@ -37,9 +28,18 @@ export const PostForm: React.FC = () => {
         formState: { errors },
         reset,
         getValues,
+        setFocus,
     } = useForm<PostFormValuesType>({
         mode: "onSubmit",
         reValidateMode: "onSubmit",
+        defaultValues: {
+            title: "",
+            location: "",
+            job_description: "",
+            salary: "",
+            job_time: "",
+            submission_shift_request: "",
+        },
     });
 
     const handleOnAddPost: SubmitHandler<PostFormValuesType> = async (
@@ -51,9 +51,9 @@ export const PostForm: React.FC = () => {
         } else {
             try {
                 alert("求人が投稿されました。投稿の反映に1分程かかる場合があります。");
-                await addJobPost(values, User.uid);
-                localStorage.removeItem("introduction");
                 reset();
+                await addJobPost(values, User.uid);
+                localStorage.removeItem("draft");
                 router.push("/");
             } catch {
                 alert("投稿に失敗しました。");
@@ -62,40 +62,17 @@ export const PostForm: React.FC = () => {
     };
 
     useEffect(() => {
-        const draftData = JSON.parse(localStorage.getItem("body"));
+        const draftData = localStorage.getItem("draft");
 
         if (draftData) {
-            setDrafts({
-                title: draftData[0],
-                location: draftData[1],
-                job_description: draftData[2],
-                salary: draftData[3],
-                job_time: draftData[4],
-                submission_shift_request: draftData[5],
-                introduction: draftData[6],
-            });
-            alert(
-                "【注意】一度保存してから変更が無い入力項目の下書きは、このページを離れると削除されます。\nまた、選択式のフォームと画像は保存されていません。",
-            );
+            setFocus("introduction");
+            setDraft(draftData);
         }
 
         return () => {
-            const draftValues = getValues([
-                "title",
-                "location",
-                "job_description",
-                "salary",
-                "job_time",
-                "submission_shift_request",
-                "introduction",
-            ]);
-            if (!draftValues.every((element) => element === "")) {
-                localStorage.setItem("body", JSON.stringify(draftValues));
-            } else {
-                localStorage.removeItem("body");
-            }
+            localStorage.setItem("draft", getValues("introduction"));
         };
-    }, [getValues]);
+    }, [getValues, setFocus]);
 
     return (
         <>
@@ -105,7 +82,7 @@ export const PostForm: React.FC = () => {
                 className="text-gray-900 dark:text-dark-text"
             >
                 <p className="text-xs my-4 lg:text-lg lg:my-8">
-                    ※ページを離れると、入力型のフォーム内容のみ、下書きとして保存されます。
+                    ※ページを離れると、紹介文の内容のみ、下書きとして保存されます。
                 </p>
 
                 {/* 求人タイトル入力フォーム */}
@@ -118,7 +95,6 @@ export const PostForm: React.FC = () => {
                 <input
                     id="title"
                     type="title"
-                    defaultValue={drafts.title && drafts.title}
                     placeholder="例: 〇〇ホテルの給仕スタッフ募集！！"
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                     {...register("title", {
@@ -136,7 +112,6 @@ export const PostForm: React.FC = () => {
                 <input
                     type="location"
                     id="location"
-                    defaultValue={drafts.location && drafts.location}
                     placeholder="例: 長野市三輪〜〜
             "
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
@@ -156,7 +131,6 @@ export const PostForm: React.FC = () => {
                 </div>
                 <textarea
                     id="job_description"
-                    defaultValue={drafts.job_description && drafts.job_description}
                     placeholder="例: お客様への商品提供、接客などを行います！
             "
                     className="w-full h-40 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
@@ -175,7 +149,6 @@ export const PostForm: React.FC = () => {
                 <input
                     type="salary"
                     id="salary"
-                    defaultValue={drafts.salary && drafts.salary}
                     placeholder="例: 1,000円~ (詳細は紹介文に記入)
             "
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
@@ -194,7 +167,6 @@ export const PostForm: React.FC = () => {
                 <input
                     type="job_time"
                     id="job_time"
-                    defaultValue={drafts.job_time && drafts.job_time}
                     placeholder="勤務可能な時間帯を入力
             "
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
@@ -215,9 +187,6 @@ export const PostForm: React.FC = () => {
                 <input
                     type="submission_shift_request"
                     id="submission_shift_request"
-                    defaultValue={
-                        drafts.submission_shift_request && drafts.submission_shift_request
-                    }
                     placeholder="シフトの提出方法などを入力
             "
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
@@ -267,7 +236,7 @@ export const PostForm: React.FC = () => {
                 </div>
                 <textarea
                     id="introduction"
-                    defaultValue={drafts.introduction && drafts.introduction}
+                    defaultValue={draft && draft}
                     placeholder={`※最大800文字（項目毎に改行を入れてください。） \n県大生の比率、店舗の雰囲気、時給詳細、福利厚生、その他意外と知られていないことなど自由に記入してください😁`}
                     className="w-full h-60 p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content "
                     {...register("introduction", {
