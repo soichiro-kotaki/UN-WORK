@@ -1,4 +1,4 @@
-### 長野県立大学生専用の投稿型アルバイト掲示板サービス　ー　UN-WORK　ー
+### 長野県立大学生専用の投稿型アルバイト掲示板サービス　　UN-WORK　
 <img width="1277" alt="スクリーンショット 2022-02-17 18 14 33" src="https://user-images.githubusercontent.com/69380699/154444015-697ba283-f91b-494c-b7c0-bebca03cae5b.png">
 
 ## サービスの目的
