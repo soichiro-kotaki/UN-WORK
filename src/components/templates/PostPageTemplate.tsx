@@ -222,24 +222,24 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                             htmlFor="my-modal-2"
                             className="btn btn-accent  lg:w-1/3 mx-auto"
                             onClick={async () => {
-                                // if (applyMessage) {
-                                //     try {
-                                //         await handleApplyEmailForm(
-                                //             userData,
-                                //             User.uid,
-                                //             postData.title,
-                                //             applyMessage,
-                                //         );
-                                //         setApplyMessage("");
-                                //         alert("応募メッセージが送信されました。");
-                                //     } catch {
-                                //         alert("送信に失敗しました。");
-                                //         setApplyMessage("");
-                                //     }
-                                // } else {
-                                //     alert("メッセージを入力してください。");
-                                // }
-                                alert("現在、機能を調整中です。🙇‍♂️");
+                                if (applyMessage) {
+                                    try {
+                                        await handleApplyEmailForm(
+                                            userData,
+                                            User.uid,
+                                            postData.title,
+                                            applyMessage,
+                                        );
+                                        setApplyMessage("");
+                                        alert("応募メッセージが送信されました。");
+                                    } catch {
+                                        alert("送信に失敗しました。");
+                                        setApplyMessage("");
+                                    }
+                                } else {
+                                    alert("メッセージを入力してください。");
+                                }
+                                // alert("現在、機能を調整中です。🙇‍♂️");
                             }}
                         >
                             メールを送信
