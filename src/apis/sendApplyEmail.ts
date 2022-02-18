@@ -12,7 +12,7 @@ export const handleApplyEmailForm = async (
 ) => {
     const applicantData = await getUserProfileData(uid);
 
-    const res = await fetch("/api/sendApplyEmail", {
+    await fetch("/api/sendApplyEmail", {
         body: JSON.stringify({
             recruiterData: recruiterData,
             applicantData: applicantData,
@@ -24,6 +24,4 @@ export const handleApplyEmailForm = async (
         },
         method: "POST",
     });
-
-    console.log(res);
 };
