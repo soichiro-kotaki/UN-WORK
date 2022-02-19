@@ -3,14 +3,16 @@ import { uploadUserImage } from "@apis/image";
 
 //libs
 import firebase, { auth, db } from "@libs/firebaseConfig";
-import { UpdateUserProfileValuesType } from "src/types/user/UpdateUserProfileValuesType";
 
 //types
-import { UserAuthContextType } from "src/types/user/UserAuthContextType";
 import { SignupFormValuesType } from "src/types/form/SignupFormValuesType";
+import { UpdateUserProfileValuesType } from "src/types/user/UpdateUserProfileValuesType";
 
 //新規アカウント登録、アカウント認証用メール送信
-export const signupUserData = async (values: SignupFormValuesType, actionCodeSettings: any) => {
+export const signupUserData = async (
+    values: SignupFormValuesType,
+    actionCodeSettings: any,
+): Promise<void> => {
     const { name, email, password, grade, subject, userImg } = values;
 
     //Firebase Authに登録
@@ -41,17 +43,17 @@ export const signupUserData = async (values: SignupFormValuesType, actionCodeSet
 };
 
 //ゲストログイン
-export const handleGuestLogin = async () => {
+export const handleGuestLogin = async (): Promise<void> => {
     await auth.signInAnonymously();
 };
 
 //ログアウト
-export const handleLogOut = async () => {
+export const handleLogOut = async (): Promise<void> => {
     await auth.signOut();
 };
 
 //ユーザーのプロフィールデータを取得
-export const getUserProfileData = async (uid: string | string[] | UserAuthContextType) => {
+export const getUserProfileData = async (uid: string): Promise<firebase.firestore.DocumentData> => {
     let userData = (await db.collection("users").doc(`${uid}`).get()).data();
     if (userData) {
         userData.created_at = userData.created_at.toDate().toLocaleDateString();
@@ -61,7 +63,7 @@ export const getUserProfileData = async (uid: string | string[] | UserAuthContex
 };
 
 //テストユーザー用のプロフィールデータを取得
-export const getTestUserProfileData = async () => {
+export const getTestUserProfileData = async (): Promise<firebase.firestore.DocumentData> => {
     let testUserData = (await db.collection("users").doc("test-user").get()).data();
     testUserData.created_at = testUserData.created_at.toDate().toLocaleDateString();
 
@@ -71,8 +73,8 @@ export const getTestUserProfileData = async () => {
 //ユーザーのプロフィールデータ(画像）を更新
 export const updateUserProfile = async (
     userImg: UpdateUserProfileValuesType,
-    uid: string | string[] | UserAuthContextType,
-) => {
+    uid: string,
+): Promise<void> => {
     const userDataRef = db.collection("users").doc(`${uid}`);
     const userData = (await userDataRef.get()).data();
     const email = userData.user_email;

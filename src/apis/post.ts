@@ -7,10 +7,10 @@ import firebase, { db } from "@libs/firebaseConfig";
 
 //types
 import { PostFormValuesType } from "src/types/form/PostFormValuesType";
-import { UserAuthContextType } from "src/types/user/UserAuthContextType";
+import { PostDataType } from "src/types/post/PostDataType";
 
 //新規の求人を投稿
-export const addJobPost = async (values: PostFormValuesType, uid: string) => {
+export const addJobPost = async (values: PostFormValuesType, uid: string): Promise<void> => {
     const {
         title,
         location,
@@ -43,7 +43,7 @@ export const addJobPost = async (values: PostFormValuesType, uid: string) => {
 };
 
 //全ユーザーの投稿一覧を取得
-export const getAllPostsData = async () => {
+export const getAllPostsData = async (): Promise<[] | firebase.firestore.DocumentData[]> => {
     const allPostsData = await db.collection("posts").orderBy("created_at", "desc").limit(20).get();
     let allPostsDataList = [];
 
@@ -59,7 +59,9 @@ export const getAllPostsData = async () => {
 };
 
 //全ユーザーの投稿のうち、自身が投稿した求人を取得
-export const getPostEachUser = async (uid: string | string[] | UserAuthContextType) => {
+export const getPostEachUser = async (
+    uid: string,
+): Promise<[] | firebase.firestore.DocumentData[]> => {
     const userPostsData = await db
         .collection("posts")
         .where("uid", "==", `${uid}`)
@@ -79,7 +81,7 @@ export const getPostEachUser = async (uid: string | string[] | UserAuthContextTy
 };
 
 //詳細を見るボタンを押された求人を取得
-export const getPostDetail = async (id: string) => {
+export const getPostDetail = async (id: string): Promise<firebase.firestore.DocumentData> => {
     const postData = (await db.collection("posts").doc(id).get()).data();
     if (postData) {
         postData.created_at = postData.created_at.toDate().toLocaleDateString();
@@ -90,7 +92,9 @@ export const getPostDetail = async (id: string) => {
 };
 
 //カテゴリーに該当する求人投稿の一覧を取得
-export const getPostsDataByCategory = async (categoryID: string) => {
+export const getPostsDataByCategory = async (
+    categoryID: string,
+): Promise<{ categoryPostsList: [] | PostDataType[]; categoryName: string }> => {
     const categoryPostsList = [];
     const categoryData = (await db.collection("categories").doc(`${categoryID}`).get()).data();
 
@@ -111,7 +115,7 @@ export const getPostsDataByCategory = async (categoryID: string) => {
 };
 
 //ブックマークされた求人投稿を取得
-export const getBookmarkedPosts = async (uid: string | string[]) => {
+export const getBookmarkedPosts = async (uid: string): Promise<PostDataType[]> => {
     let bookmarkedDataList = [];
     const userData = (await db.collection("users").doc(`${uid}`).get()).data();
 
@@ -129,7 +133,7 @@ export const getBookmarkedPosts = async (uid: string | string[]) => {
 };
 
 //求人投稿を削除
-export const deleteJobPost = async (postID: string, post_img: string) => {
+export const deleteJobPost = async (postID: string, post_img: string): Promise<void> => {
     await db.collection("posts").doc(`${postID}`).delete();
 
     await deletePostImage(post_img);

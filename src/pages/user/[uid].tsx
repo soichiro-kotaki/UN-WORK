@@ -60,15 +60,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     let userPostsData = [];
     let userBookmarkedPostsData = [];
 
-    const signinedUserData = await getUserProfileData(uid);
+    const signinedUserData = await getUserProfileData(uid as string);
     userData = signinedUserData;
 
     if (!userData) {
         const testUserData = await getTestUserProfileData();
         userData = testUserData;
     } else {
-        userPostsData = await getPostEachUser(uid);
-        userBookmarkedPostsData = await getBookmarkedPosts(uid);
+        userPostsData = await getPostEachUser(uid as string);
+        userBookmarkedPostsData = await getBookmarkedPosts(uid as string);
     }
 
     return {

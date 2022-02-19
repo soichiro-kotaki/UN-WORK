@@ -1,7 +1,8 @@
 import { client } from "@libs/microCMS";
+import { Article } from "src/types/fixed/Article";
 
 //プライバシーポリシーのデータを取得
-export const getPolicyData = async () => {
+export const getPolicyData = async (): Promise<Article> => {
     const policyData = await client.get({
         endpoint: "fixed",
         contentId: "policy",
@@ -11,7 +12,7 @@ export const getPolicyData = async () => {
 };
 
 //免責事項のデータを取得
-export const getDisclaimerData = async () => {
+export const getDisclaimerData = async (): Promise<Article> => {
     const disclaimerData = await client.get({
         endpoint: "fixed",
         contentId: "disclaimer",

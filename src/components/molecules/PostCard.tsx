@@ -1,18 +1,12 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 
 //apis
-// import { addPostToBookmarkList } from "@apis/bookmark";
 import { deleteJobPost } from "@apis/post";
-
-//libs
-// import { db } from "@libs/firebaseConfig";
 
 //components
 import { BookmarkedIcon } from "@components/atoms/icons/BookmarkedIcon";
-import { NotBookmarkedIcon } from "@components/atoms/icons/NotBookmarkedIcon";
 import { DetailButton } from "@components/atoms/buttons/DetailButton";
 import { FaTrash } from "react-icons/fa";
-import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { AiOutlineTags } from "react-icons/ai";
 
 //types
@@ -30,7 +24,7 @@ type Props = {
 
 export const PostCard: React.FC<Props> = (props) => {
     const { userPostData } = props;
-    const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
+    const [isBookmarked, setIsBookmarked] = useState(false);
     const User = useContext(UserAuthContext);
 
     return (
@@ -47,49 +41,12 @@ export const PostCard: React.FC<Props> = (props) => {
                                 {` ${userPostData.category}`}
                             </p>
                             <div className="flex">
-                                {/* <div className="dropdown dropdown-end">
-                                    <BsFillBookmarkHeartFill
-                                        tabIndex={0}
-                                        className="w-6 h-6 mr-3 lg:w-10 lg:h-10 hover:cursor-pointer text-pink-400 hover:text-pink-200 lg:mr-4"
-                                    />
-                                    <div
-                                        tabIndex={0}
-                                        className="text-sm mr-3 p-1 shadow menu dropdown-content text-gray-100 bg-pink-200 rounded-lg w-32 hover:bg-pink-700 lg:mr-4 lg:p-2 lg:w-40"
-                                        onClick={async () => {
-                                            // alert("ブックマーク機能は現在開発中です🙇‍♂️");
-                                            if (User.isTestUser) {
-                                                alert(
-                                                    "ブックマークを行うには、ログインもしくは新規アカウント作成を行ってください。",
-                                                );
-                                            } else {
-                                                try {
-                                                    await addPostToBookmarkList(
-                                                        User.uid,
-                                                        userPostData,
-                                                    );
-                                                } catch {
-                                                    alert("ブックマークに失敗しました。");
-                                                }
-                                            }
-                                        }}
-                                    >
-                                        <a className="block text-center mx-auto">ブックマーク</a>
-                                    </div>
-                                </div> */}
-                                {/* {isBookmarked ? ( */}
                                 <BookmarkedIcon
                                     userPostData={userPostData}
                                     isBookmarked={isBookmarked}
                                     setIsBookmarked={setIsBookmarked}
                                 />
-                                {/* ) : (
-                                    <NotBookmarkedIcon
-                                        userPostData={userPostData}
-                                        setIsBookmarked={setIsBookmarked}
-                                    />
-                                )} */}
-
-                                {User.uid === userPostData.uid ? (
+                                {User.uid === userPostData.uid && (
                                     <div className="dropdown dropdown-end">
                                         <FaTrash
                                             tabIndex={0}
@@ -124,8 +81,6 @@ export const PostCard: React.FC<Props> = (props) => {
                                             </li>
                                         </ul>
                                     </div>
-                                ) : (
-                                    ""
                                 )}
                             </div>
                         </div>
