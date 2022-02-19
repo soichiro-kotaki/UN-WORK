@@ -32,7 +32,6 @@ export const NotBookmarkedIcon: React.FC<Props> = (props) => {
                     tabIndex={0}
                     className="text-sm mr-3 p-1 shadow menu dropdown-content text-gray-100 bg-pink-200 rounded-lg w-32 hover:bg-pink-400 lg:mr-4 lg:p-2 lg:w-40"
                     onClick={async () => {
-                        // alert("ブックマーク機能は現在開発中です🙇‍♂️");
                         if (User.isTestUser) {
                             alert(
                                 "ブックマークを行うには、ログインもしくは新規アカウント作成を行ってください。",
