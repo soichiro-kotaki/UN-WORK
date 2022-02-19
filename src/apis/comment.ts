@@ -1,8 +1,13 @@
 //libs
 import firebase, { db } from "@libs/firebaseConfig";
+import { CommentDataType } from "src/types/comment/CommentDataType";
 
 //投稿にコメントを追加
-export const addCommentOnPost = async (message: string, postID: string, uid: string) => {
+export const addCommentOnPost = async (
+    message: string,
+    postID: string,
+    uid: string,
+): Promise<void> => {
     await db.collection("posts").doc(`${postID}`).collection("comments").doc().set({
         comment: message,
         uid: uid,
@@ -16,7 +21,7 @@ export const addReplyOnComment = async (
     postID: string,
     uid: string,
     commentDocID: string,
-) => {
+): Promise<void> => {
     await db
         .collection("posts")
         .doc(`${postID}`)
@@ -35,7 +40,7 @@ export const addReplyOnComment = async (
 };
 
 //投稿のコメント一覧を取得
-export const getCommentsOnPost = async (postID: string) => {
+export const getCommentsOnPost = async (postID: string): Promise<[] | CommentDataType[]> => {
     let commentsDataList = [];
     const commentsData = await db
         .collection("posts")

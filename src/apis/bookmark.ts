@@ -5,7 +5,7 @@ import firebase, { db } from "@libs/firebaseConfig";
 import { PostDataType } from "src/types/post/PostDataType";
 
 //ブックマークリストに求人投稿を追加
-export const addPostToBookmarkList = async (uid: string, postData: PostDataType) => {
+export const addPostToBookmarkList = async (uid: string, postData: PostDataType): Promise<void> => {
     await db
         .collection("users")
         .doc(`${uid}`)
@@ -13,7 +13,7 @@ export const addPostToBookmarkList = async (uid: string, postData: PostDataType)
 };
 
 //リストから削除
-export const deletePostToBookmarkList = async (uid: string, id: string) => {
+export const deletePostToBookmarkList = async (uid: string, id: string): Promise<void> => {
     await db
         .collection("users")
         .doc(`${uid}`)

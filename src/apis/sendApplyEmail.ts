@@ -9,7 +9,7 @@ export const handleApplyEmailForm = async (
     uid: string,
     subject: string,
     message: string,
-) => {
+): Promise<void> => {
     const applicantData = await getUserProfileData(uid);
 
     await fetch("/api/sendApplyEmail", {
