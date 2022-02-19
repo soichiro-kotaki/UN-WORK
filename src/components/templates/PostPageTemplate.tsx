@@ -220,7 +220,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                     <div className="modal-action">
                         <label
                             htmlFor="my-modal-2"
-                            className="btn btn-accent  lg:w-1/3 mx-auto"
+                            className="btn btn-accent lg:w-1/3 mx-auto"
                             onClick={async () => {
                                 if (applyMessage) {
                                     try {
@@ -239,7 +239,6 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                 } else {
                                     alert("メッセージを入力してください。");
                                 }
-                                // alert("現在、機能を調整中です。🙇‍♂️");
                             }}
                         >
                             メールを送信

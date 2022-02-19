@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default function applyEmailHandler(req: NextApiRequest, res: NextApiResponse) {
+export default function applyEmailHandler(req: NextApiRequest, res: NextApiResponse): void {
     if (req.method === "POST") {
         const sgMail = require("@sendgrid/mail");
         sgMail.setApiKey(process.env.SENDGRID_API_KEY);
