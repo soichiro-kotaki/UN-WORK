@@ -20,3 +20,13 @@ export const getDisclaimerData = async (): Promise<Article> => {
 
     return disclaimerData;
 };
+
+//FAQのデータを取得
+export const getFAQData = async (): Promise<Article> => {
+    const faqData = await client.get({
+        endpoint: "fixed",
+        contentId: "faq",
+    });
+
+    return faqData;
+};
