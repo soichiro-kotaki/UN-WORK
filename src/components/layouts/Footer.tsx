@@ -28,16 +28,9 @@ export const Footer: React.FC = () => {
                         お問い合わせはこちら
                     </a>
                     <div>
-                        {/* <Link href="/"> */}
-                        <a
-                            onClick={() => {
-                                alert("現在準備中です🙇‍♂️");
-                            }}
-                            className="block w-10 pl-3 mb-4 hover:underline"
-                        >
-                            FAQ
-                        </a>
-                        {/* </Link> */}
+                        <Link href="/faq">
+                            <a className="block w-10 pl-3 mb-4 hover:underline">FAQ</a>
+                        </Link>
                         <Link href="/policy">
                             <a className="block w-44 pl-3 mb-4 hover:underline">
                                 プライバシーポリシー
