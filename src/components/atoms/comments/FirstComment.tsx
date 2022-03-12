@@ -27,7 +27,7 @@ export const FirstComment: React.FC<Props> = (props) => {
             <div className="flex p-3 border-t-2 border-gray-500 lg:p-4">
                 <div className="w-full">
                     <div className="flex justify-between">
-                        <p className="font-semibold">匿名ユーザー</p>
+                        <p className="font-semibold">{firstCommentData.displayName}</p>
                         <span className="text-gray-500 text-sm ml-8 dark:text-dark-time">
                             {firstCommentData.created_at}
                         </span>
@@ -42,6 +42,7 @@ export const FirstComment: React.FC<Props> = (props) => {
                                 setMention({
                                     uid: firstCommentData.uid,
                                     text: firstCommentData.comment,
+                                    displayName: firstCommentData.displayName,
                                 });
                                 inputRef.current?.focus();
                             }}

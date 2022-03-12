@@ -29,8 +29,9 @@ export const CommentSection: React.FC<Props> = (props) => {
     const { postData, userData, comments, isVisibleComments, setIsVisibleComments } = props;
     const [message, setMessage] = useState("");
     const [commentDocID, setCommentDocID] = useState("");
-    const [mention, setMention] = useState<MeitionDataType>({ uid: "", text: "" });
+    const [mention, setMention] = useState<MeitionDataType>({ displayName: "", uid: "", text: "" });
     const [isReply, setIsReply] = useState(false);
+    const [isDisplayedName, setIsDisplayedName] = useState(false);
 
     const User = useContext(UserAuthContext);
     const inputRef = useRef<HTMLInputElement>(null);
@@ -92,7 +93,7 @@ export const CommentSection: React.FC<Props> = (props) => {
                                     <p className="text-green-500 font-bold">{`＠${
                                         postData.uid === mention.uid
                                             ? userData.user_name
-                                            : "匿名ユーザー"
+                                            : mention.displayName
                                     }`}</p>
                                     <p className="line-clamp-3 break-words">{`
                                         ${mention && mention.text}`}</p>
@@ -100,6 +101,7 @@ export const CommentSection: React.FC<Props> = (props) => {
                                 <p
                                     onClick={() => {
                                         setIsReply(false);
+                                        setIsDisplayedName(false);
                                     }}
                                     className="bg-gray-300 rounded-full p-2 text-sm hover:cursor-pointer"
                                 >
@@ -120,11 +122,23 @@ export const CommentSection: React.FC<Props> = (props) => {
                             className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4"
                         />
                         {!isReply && (
-                            <label className="label" htmlFor="comment">
-                                <span className="text-sm">
-                                    ※コメントや質問は匿名で投稿されます。
-                                </span>
-                            </label>
+                            <div>
+                                <label className="label" htmlFor="comment">
+                                    <span className="text-sm">
+                                        ※コメントや質問は匿名で投稿されます。氏名を公開したい場合は、下のチェックボックスをチェックしてください。
+                                    </span>
+                                </label>
+                                <div className="mt-8 flex">
+                                    <p>氏名を公開する</p>
+                                    <input
+                                        type="checkbox"
+                                        onChange={() => {
+                                            setIsDisplayedName(!isDisplayedName);
+                                        }}
+                                        className="checkbox checkbox-accent ml-4"
+                                    />
+                                </div>
+                            </div>
                         )}
 
                         {/* コメント送信ボタン */}
@@ -142,9 +156,15 @@ export const CommentSection: React.FC<Props> = (props) => {
                                     setMessage("");
                                     setIsVisibleComments(!isVisibleComments);
                                 } else if (message !== "") {
-                                    await addCommentOnPost(message, postData.postID, User.uid);
+                                    await addCommentOnPost(
+                                        message,
+                                        postData.postID,
+                                        User.uid,
+                                        isDisplayedName,
+                                    );
                                     alert("コメントが送信されました。");
                                     setMessage("");
+                                    setIsDisplayedName(false);
                                     setIsVisibleComments(!isVisibleComments);
                                 } else {
                                     alert("入力を行なってください。");

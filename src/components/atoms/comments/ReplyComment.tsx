@@ -57,7 +57,7 @@ export const ReplyComment: React.FC<Props> = (props) => {
                         <p className="font-semibold">
                             {postUserID === replyCommentData.uid
                                 ? userData.user_name
-                                : "匿名ユーザー"}
+                                : replyCommentData.displayName}
                         </p>
                         <span className="text-gray-500 text-sm ml-8 dark:text-dark-time">
                             {replyCommentData.created_at.toDate().toLocaleDateString()}
@@ -67,7 +67,9 @@ export const ReplyComment: React.FC<Props> = (props) => {
                     {User.uid === replyCommentData.uid && (
                         <FaTrash
                             onClick={() => {
-                                alert("コメントを削除したい場合は、運営までご連絡ください。");
+                                alert(
+                                    "コメントを削除したい場合は、運営(unwork1201@gmail.com)までご連絡ください。",
+                                );
                             }}
                             className="w-6 h-6 mt-4 lg:w-8 text-gray-500 lg:h-8 ml-auto hover:cursor-pointer hover:text-gray-300 dark:text-dark-text"
                         />
@@ -80,6 +82,7 @@ export const ReplyComment: React.FC<Props> = (props) => {
                                     setCommentDocID(commentDocID);
                                     setIsReply(true);
                                     setMention({
+                                        displayName: replyCommentData.displayName,
                                         uid: replyCommentData.uid,
                                         text: replyCommentData.comment,
                                     });
