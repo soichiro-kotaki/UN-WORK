@@ -122,7 +122,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
-                                                    <BsInstagram className="mr-6 text-gray-900 inline-block w-10 h-10 hover:opacity-60" />
+                                                    <BsInstagram className="mr-6 text-gray-900 inline-block w-10 h-10 hover:opacity-60 dark:text-dark-text" />
                                                 </a>
                                             )}
                                             {postData.links[1] && (
@@ -131,7 +131,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
-                                                    <AiFillTwitterCircle className="mr-6 text-gray-900 inline-block w-10 h-10 hover:opacity-60" />
+                                                    <AiFillTwitterCircle className="mr-6 text-gray-900 inline-block w-10 h-10 hover:opacity-60 dark:text-dark-text" />
                                                 </a>
                                             )}
                                             {postData.links[2] && (
@@ -140,7 +140,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
-                                                    <FaPager className="text-gray-900 inline-block w-10 h-10 hover:opacity-60" />
+                                                    <FaPager className="text-gray-900 inline-block w-10 h-10 hover:opacity-60 dark:text-dark-text" />
                                                 </a>
                                             )}
                                         </div>
