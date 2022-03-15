@@ -21,25 +21,32 @@ export const addJobPost = async (values: PostFormValuesType, uid: string): Promi
         category,
         introduction,
         post_img,
+        instagram,
+        twitter,
+        homepage,
     } = values;
 
     //Storageにフォームから取得した画像ファイルを保存
     const postImgRef = await uploadPostImage(post_img[0], uid);
     const url = await postImgRef.getDownloadURL();
 
-    await db.collection("posts").doc().set({
-        uid: uid,
-        title: title,
-        location: location,
-        job_description: job_description,
-        salary: salary,
-        job_time: job_time,
-        submission_shift_request: submission_shift_request,
-        category: category,
-        introduction: introduction,
-        post_img: url,
-        created_at: firebase.firestore.FieldValue.serverTimestamp(),
-    });
+    await db
+        .collection("posts")
+        .doc()
+        .set({
+            uid: uid,
+            title: title,
+            location: location,
+            job_description: job_description,
+            salary: salary,
+            job_time: job_time,
+            submission_shift_request: submission_shift_request,
+            category: category,
+            introduction: introduction,
+            post_img: url,
+            links: [instagram, twitter, homepage],
+            created_at: firebase.firestore.FieldValue.serverTimestamp(),
+        });
 };
 
 //全ユーザーの投稿一覧を取得

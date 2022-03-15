@@ -267,6 +267,48 @@ export const PostForm: React.FC = () => {
                     })}
                 />
 
+                {/* リンク(ホームページ)入力フォーム */}
+                <label className="label mt-6 mb-2" htmlFor="instagram">
+                    <span className="text-lg">InstagramアカウントURL (任意)</span>
+                </label>
+                <input
+                    type="instagram"
+                    id="instagram"
+                    placeholder="
+            "
+                    defaultValue={""}
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
+                    {...register("instagram")}
+                />
+
+                {/* リンク(Twitter)入力フォーム */}
+                <label className="label mt-6 mb-2" htmlFor="twitter">
+                    <span className="text-lg">TwitterアカウントURL (任意)</span>
+                </label>
+                <input
+                    type="twitter"
+                    id="twitter"
+                    placeholder="
+            "
+                    defaultValue={""}
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
+                    {...register("twitter")}
+                />
+
+                {/* リンク(ホームページ)入力フォーム */}
+                <label className="label mt-6 mb-2" htmlFor="homepage">
+                    <span className="text-lg">ホームページURL (任意)</span>
+                </label>
+                <input
+                    type="homepage"
+                    id="homepage"
+                    placeholder="
+            "
+                    defaultValue={""}
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
+                    {...register("homepage")}
+                />
+
                 {/* ログインボタン */}
                 <div className="mt-10 mb-4 mx-auto w-40">
                     <SubmitButton text={"投稿"} />

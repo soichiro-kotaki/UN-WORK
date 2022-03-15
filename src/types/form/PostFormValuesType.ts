@@ -8,4 +8,7 @@ export type PostFormValuesType = {
     category: string;
     introduction: string;
     post_img: FileList;
+    instagram: string;
+    twitter: string;
+    homepage: string;
 };

@@ -11,4 +11,5 @@ export type PostDataType = {
     post_img: string;
     created_at: string;
     postID: string;
+    links: string[];
 };

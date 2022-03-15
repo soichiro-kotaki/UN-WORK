@@ -6,12 +6,14 @@ import { getCommentsOnPost } from "@apis/comment";
 import { handleApplyEmailForm } from "@apis/sendApplyEmail";
 
 //components
-import { AiFillTags } from "react-icons/ai";
+import { AiFillTags, AiFillTwitterCircle } from "react-icons/ai";
 import { BaseLayout } from "@components/layouts/BaseLayout";
 import { BiTimeFive } from "react-icons/bi";
-import { BsTable } from "react-icons/bs";
+import { BsInstagram, BsTable } from "react-icons/bs";
 import { CommentSection } from "@components/molecules/CommentSection";
+import { FaPager, FaUserFriends } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
+import { ImLink } from "react-icons/im";
 import { LoadingIcon } from "@components/atoms/icons/LoadingIcon";
 import { MdOutlineWork } from "react-icons/md";
 
@@ -107,9 +109,50 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                 <p className="text-gray-900 dark:text-dark-text">
                                     {postData.submission_shift_request}
                                 </p>
+                                <h2 className="mt-8 mb-2 font-bold text-xl">
+                                    <ImLink className="inline-block mr-2" />
+                                    関連リンク
+                                </h2>
+                                <div className="mt-8">
+                                    {postData.links ? (
+                                        <div>
+                                            {postData.links[0] && (
+                                                <a
+                                                    href={postData.links[0]}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <BsInstagram className="mr-6 text-gray-900 inline-block w-10 h-10 hover:opacity-60" />
+                                                </a>
+                                            )}
+                                            {postData.links[1] && (
+                                                <a
+                                                    href={postData.links[1]}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <AiFillTwitterCircle className="mr-6 text-gray-900 inline-block w-10 h-10 hover:opacity-60" />
+                                                </a>
+                                            )}
+                                            {postData.links[2] && (
+                                                <a
+                                                    href={postData.links[2]}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <FaPager className="text-gray-900 inline-block w-10 h-10 hover:opacity-60" />
+                                                </a>
+                                            )}
+                                        </div>
+                                    ) : (
+                                        <p className="text-gray-900 text-lg">なし</p>
+                                    )}
+                                </div>
                             </div>
-                            <h2 className="my-6 py-2 w-3/5 mx-auto text-xl text-center  font-semibold lg:my-12 lg:text-3xl">
-                                ---紹介文---
+                            <h2 className="mt-8 mb-6 py-2 w-3/5 mx-auto text-2xl text-center text-green-400  font-semibold lg:my-12 lg:text-3xl">
+                                <FaUserFriends className="inline-block" />
+                                <span className="mx-1">紹介文</span>
+                                <FaUserFriends className="inline-block" />
                             </h2>
                             {postData.introduction.split(/(\s) || (\n)/g).map((text, index) =>
                                 text === " " || text === "\n" ? (
