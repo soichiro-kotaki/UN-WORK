@@ -15,12 +15,12 @@ export const signupUserData = async (
 ): Promise<void> => {
     const { name, email, password, grade, subject, userImg } = values;
 
-    //Firebase Authに登録
-    const user = await auth.createUserWithEmailAndPassword(email, password);
-
     alert(
         `${email}宛にアカウント認証用メールを送信しました。添付のリンクから認証を行った後にログインを行ってください。\n※受信トレイにメールが届いていない場合は、迷惑メールフォルダに振り分けられている可能性があります。`,
     );
+
+    //Firebase Authに登録
+    const user = await auth.createUserWithEmailAndPassword(email, password);
 
     //画像を圧縮、AuthとStorageに登録
     const userImgRef = await uploadUserImage(userImg[0], email);
