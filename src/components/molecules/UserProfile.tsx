@@ -19,7 +19,7 @@ export const UserProfile: React.FC<Props> = (props) => {
 
     return (
         <>
-            <div className="w-11/12 rounded-3xl bg-white text-gray-900 border border-gray-300 p-8 mx-auto md:w-9/12 dark:bg-dark-content dark:text-dark-text">
+            <div className="w-11/12 rounded-3xl bg-white text-gray-900 border border-gray-300 p-8 mx-auto shadow-xl lg:shadow-2xl md:w-9/12 dark:bg-dark-content dark:text-dark-text">
                 <div className="lg:flex lg:justify-between lg:items-center">
                     <div className="rounded-full text-center mx-auto lg:text-left lg:inline-block lg:m-0 ">
                         <div className="avatar">
