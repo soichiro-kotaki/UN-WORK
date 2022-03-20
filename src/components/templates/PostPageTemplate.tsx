@@ -114,7 +114,8 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                     関連リンク
                                 </h2>
                                 <div className="mt-8">
-                                    {postData.links ? (
+                                    {postData.links &&
+                                    postData.links.some((link: string) => link.length > 0) ? (
                                         <div>
                                             {postData.links[0] && (
                                                 <a
