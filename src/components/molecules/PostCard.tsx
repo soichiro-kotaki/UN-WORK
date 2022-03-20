@@ -29,14 +29,14 @@ export const PostCard: React.FC<Props> = (props) => {
 
     return (
         <>
-            <div className="w-11/12 rounded-3xl bg-white text-gray-900 border border-gray-300 p-6 mx-auto md:w-9/12 dark:bg-dark-content dark:text-dark-text">
+            <div className="w-11/12 rounded-3xl bg-white text-gray-900 border border-gray-300 p-6 mx-auto shadow-xl lg:shadow-2xl md:w-9/12  dark:bg-dark-content dark:text-dark-text">
                 <div>
-                    <div className="mb-4 mt-4 lg:flex lg:flex-col lg:text-left lg:mb-8 xl:mr-0">
-                        <h2 className="text-2xl font-semibold mb-2 mx-auto lg:text-3xl lg:inline-block lg:mx-0 ">
+                    <div className="mb-4 mt-4 lg:flex lg:flex-col lg:text-left lg:mb-8">
+                        <h2 className="text-2xl font-semibold mb-3 mx-auto lg:text-3xl lg:inline-block lg:mx-0 ">
                             {userPostData.title}
                         </h2>
                         <div className="flex justify-between">
-                            <p className="text-xs text-center  p-2 rounded-full inline-block text-white mb-4 bg-background-sub lg:text-xs lg:mb-6">
+                            <p className="text-xs text-center p-2 rounded-full inline-block text-white mb-4 bg-background-sub lg:text-xs lg:mb-6">
                                 <AiOutlineTags className="inline-block w-5 h-5" />
                                 {` ${userPostData.category}`}
                             </p>
@@ -84,8 +84,8 @@ export const PostCard: React.FC<Props> = (props) => {
                                 )}
                             </div>
                         </div>
-                        <div className="flex justify-between mb-4 md:mb-6">
-                            <p className="text-sm font-semibold lg:text-lg">{`時給: ${userPostData.salary}`}</p>
+                        <div className="flex justify-between mb-3 md:mb-5">
+                            <p className="text-sm font-semibold lg:text-lg">{`【時給】 ${userPostData.salary}`}</p>
                             <span className="block text-xs text-gray-500 lg:text-sm dark:text-dark-time">{` ${convertDateStr(
                                 userPostData.created_at,
                             )}`}</span>

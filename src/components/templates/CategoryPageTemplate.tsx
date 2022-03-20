@@ -25,7 +25,7 @@ export const CategoryPageTemplate: React.FC<Props> = (props) => {
                     {categoryPostsData[0] ? (
                         categoryPostsData.map((postData, index) => {
                             return (
-                                <div className="mb-6 lg:mb-12" key={index}>
+                                <div className="mb-10 lg:mb-14" key={index}>
                                     <PostCard userPostData={postData} />
                                 </div>
                             );

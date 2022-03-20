@@ -26,7 +26,7 @@ export const DetailButton: React.FC<Props> = (props) => {
                         router.push(`/post/${postID}`);
                     }
                 }}
-                className="btn btn-accent inline-block w-full"
+                className="btn btn-accent inline-block w-full shadow-lg hover:shadow-xl"
             >
                 {text}
             </button>

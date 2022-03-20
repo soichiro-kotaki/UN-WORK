@@ -56,7 +56,7 @@ export const UserPageTemplate: React.FC<Props> = (props) => {
                         {userPostsData[0] ? (
                             userPostsData.map((userPostData) => {
                                 return (
-                                    <div className="mb-6 lg:mb-12" key={userPostData.postID}>
+                                    <div className="mb-10 lg:mb-14" key={userPostData.postID}>
                                         <PostCard userPostData={userPostData} />
                                     </div>
                                 );
@@ -74,7 +74,7 @@ export const UserPageTemplate: React.FC<Props> = (props) => {
                             userBookmarkedPostsData.map((userBookmarkedPostData) => {
                                 return (
                                     <div
-                                        className="mb-6 lg:mb-12"
+                                        className="mb-10 lg:mb-14"
                                         key={userBookmarkedPostData.postID}
                                     >
                                         <PostCard userPostData={userBookmarkedPostData} />

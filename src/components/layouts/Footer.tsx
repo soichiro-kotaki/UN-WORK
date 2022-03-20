@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
                             onClick={async () => {
                                 await handleLogOut();
                             }}
-                            className="text-gray-50 w-2/5 ml-3 py-1 text-center text-sm block bg-green-400 hover:bg-green-700 transition-colors rounded-full lg:p-3 lg:w-40"
+                            className="text-gray-50 w-2/5 ml-3 py-1 text-center text-sm block shadow-md bg-green-400 hover:bg-green-700 hover:shadow-lg transition-colors rounded-full lg:p-3 lg:w-40"
                         >
                             ログインページへ
                         </a>
