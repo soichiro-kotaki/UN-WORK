@@ -267,7 +267,7 @@ export const PostForm: React.FC = () => {
                     })}
                 />
 
-                {/* リンク(ホームページ)入力フォーム */}
+                {/* リンク(Instagram)入力フォーム */}
                 <label className="label mt-6 mb-2" htmlFor="instagram">
                     <span className="text-lg">InstagramアカウントURL (任意)</span>
                 </label>
