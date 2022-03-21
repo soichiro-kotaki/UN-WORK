@@ -53,13 +53,13 @@ export const getStaticPaths: GetStaticPaths = async () => {
         postIDList.push(postData.id);
     });
 
-    const paths = postIDList.map((postID) => `/post/${postID}`);
+    const paths = postIDList.map((postID) => `/${postID}`);
 
     return { paths, fallback: "blocking" };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const postID = params.id;
+    const postID = params.postID;
     let userData = {};
 
     let postData = await getPostDetail(postID as string);
@@ -69,5 +69,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         postData = null;
     }
 
-    return { props: { userData: userData, postData: postData }, revalidate: 180 };
+    return { props: { userData: userData, postData: postData }, revalidate: 60 };
 };
