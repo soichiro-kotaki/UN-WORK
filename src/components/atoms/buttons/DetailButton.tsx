@@ -23,7 +23,7 @@ export const DetailButton: React.FC<Props> = (props) => {
                             "詳細ページを見るには、ログインもしくはアカウント作成を行なってください。",
                         );
                     } else {
-                        router.push(`/${postID}`);
+                        router.push(`/post/${postID}`);
                     }
                 }}
                 className="btn btn-accent inline-block w-full shadow-lg hover:shadow-xl"

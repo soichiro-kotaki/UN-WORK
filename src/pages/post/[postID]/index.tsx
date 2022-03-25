@@ -53,7 +53,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
         postIDList.push(postData.id);
     });
 
-    const paths = postIDList.map((postID) => `/${postID}`);
+    const paths = postIDList.map((postID) => `/post/${postID}`);
 
     return { paths, fallback: "blocking" };
 };
