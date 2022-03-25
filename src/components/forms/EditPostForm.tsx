@@ -86,6 +86,7 @@ export const EditPostForm: React.FC<Props> = (props) => {
                         className="object-cover block hover:cursor-pointer hover:brightness-50"
                     />
                 </label>
+
                 {/* リンク(Instagram)入力フォーム */}
                 <label className="label mt-4" htmlFor="instagram">
                     <span className="text-lg">InstagramアカウントURL</span>
@@ -118,6 +119,7 @@ export const EditPostForm: React.FC<Props> = (props) => {
                     {...register("homepage")}
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                 />
+
                 {isSubmitting && <span>Submitting...</span>}
                 <div className="modal-action">
                     <label htmlFor="modal-post-edit" className="btn btn-accent lg:w-1/3 mx-auto">
