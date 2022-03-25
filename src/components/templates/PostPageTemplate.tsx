@@ -6,16 +6,17 @@ import { getCommentsOnPost } from "@apis/comment";
 import { handleApplyEmailForm } from "@apis/sendApplyEmail";
 
 //components
-import { AiFillTags, AiFillTwitterCircle } from "react-icons/ai";
+import { AiFillTags, AiFillTwitterCircle, AiOutlineComment } from "react-icons/ai";
 import { BaseLayout } from "@components/layouts/BaseLayout";
 import { BiTimeFive } from "react-icons/bi";
 import { BsInstagram, BsTable } from "react-icons/bs";
 import { CommentSection } from "@components/molecules/CommentSection";
-import { FaPager, FaUserFriends } from "react-icons/fa";
+import { FaEdit, FaPager, FaUserFriends } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
 import { ImLink } from "react-icons/im";
 import { LoadingIcon } from "@components/atoms/icons/LoadingIcon";
 import { MdOutlineWork } from "react-icons/md";
+import { SiMicrosoftoutlook } from "react-icons/si";
 
 //types
 import { CommentDataType } from "src/types/comment/CommentDataType";
@@ -27,6 +28,7 @@ import { convertDateStr } from "src/utils/convertDateStr";
 
 //contextAPI
 import { UserAuthContext } from "@pages/_app";
+import { EditPostForm } from "@components/forms/EditPostForm";
 
 type Props = {
     userData: UserDataType;
@@ -38,6 +40,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
     const [comments, setComments] = useState<CommentDataType[]>([]);
     const [isVisibleComments, setIsVisibleComments] = useState(false);
     const [applyMessage, setApplyMessage] = useState("");
+    const [preview, setPreview] = useState(postData.post_img);
     const User = useContext(UserAuthContext);
 
     const handleApplyMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -52,7 +55,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                         <h1 className="mb-4 p-4 text-2xl font-bold text-center text-green-400 md:text-3xl lg:text-4xl">
                             {postData.title}
                         </h1>
-                        <p className="w-11/12 font-bold mb-4 text-right text- text-xs md:text-xl">{`投稿者連絡先: ${userData.user_email.slice(
+                        <p className="w-11/12 font-bold mb-4 text-right text-xs md:text-xl">{`投稿者連絡先: ${userData.user_email.slice(
                             0,
                             21,
                         )}`}</p>
@@ -115,29 +118,31 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                 </h2>
                                 <div className="mt-8">
                                     {postData.links &&
-                                    postData.links.some((link: string) => link.length > 0) ? (
+                                    Object.values(postData.links).some(
+                                        (link: string) => link.length > 0,
+                                    ) ? (
                                         <div>
-                                            {postData.links[0] && (
+                                            {postData.links.instagram && (
                                                 <a
-                                                    href={postData.links[0]}
+                                                    href={postData.links.instagram}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
                                                     <BsInstagram className="mr-6 text-gray-900 inline-block w-10 h-10 hover:opacity-60 dark:text-dark-text" />
                                                 </a>
                                             )}
-                                            {postData.links[1] && (
+                                            {postData.links.twitter && (
                                                 <a
-                                                    href={postData.links[1]}
+                                                    href={postData.links.twitter}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
                                                     <AiFillTwitterCircle className="mr-6 text-gray-900 inline-block w-10 h-10 hover:opacity-60 dark:text-dark-text" />
                                                 </a>
                                             )}
-                                            {postData.links[2] && (
+                                            {postData.links.homepage && (
                                                 <a
-                                                    href={postData.links[2]}
+                                                    href={postData.links.homepage}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
@@ -164,12 +169,22 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                     text
                                 ),
                             )}
-
-                            <label htmlFor="my-modal-2" className="modal-button">
-                                <a className="bg-normal-btn text-white rounded-md text-center mt-8 mb-20 mx-auto py-3 font-semibold shadow-xl block w-3/5 lg:w-2/5 hover:cursor-pointer hover:bg-normal-btn-hover">
-                                    応募フォームへ
-                                </a>
-                            </label>
+                            {User.uid !== postData.uid && (
+                                <label htmlFor="modal-apply-message" className="modal-button">
+                                    <a className="bg-normal-btn text-white rounded-md text-center mt-8 mb-20 mx-auto py-3 font-semibold shadow-xl block w-3/5 lg:w-2/5 hover:cursor-pointer hover:bg-normal-btn-hover">
+                                        <SiMicrosoftoutlook className="inline-block mr-2 w-5 h-5 lg:w-8 lg:h-8" />
+                                        応募フォームへ
+                                    </a>
+                                </label>
+                            )}
+                            {User.uid === postData.uid && (
+                                <label htmlFor="modal-post-edit" className="modal-button">
+                                    <a className="bg-gray-500 text-white rounded-md text-center mt-8 mb-20 mx-auto py-3 font-semibold shadow-xl block w-3/5 lg:w-2/5 hover:cursor-pointer hover:bg-gray-700">
+                                        <FaEdit className="inline-block mr-2 w-5 h-5 lg:w-8 lg:h-8" />
+                                        投稿を編集する
+                                    </a>
+                                </label>
+                            )}
                             <button
                                 onClick={async () => {
                                     if (User.isTestUser) {
@@ -190,6 +205,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                 }}
                                 className="mt-8 mb-6 p-4 duration-300 ml-auto block text-xs shadow-xl text-white rounded-full bg-background-sub border border-background-sub hover:text-background-sub hover:bg-white lg:mb-12 lg:text-lg"
                             >
+                                <AiOutlineComment className="inline-block mr-2 w-5 h-5 lg:w-8 lg:h-8" />
                                 {isVisibleComments ? "コメントを閉じる" : "コメントを見る"}
                             </button>
                             {isVisibleComments && (
@@ -238,7 +254,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
             )}
 
             {/* 応募メッセージ送信用モーダル */}
-            <input type="checkbox" id="my-modal-2" className="modal-toggle" />
+            <input type="checkbox" id="modal-apply-message" className="modal-toggle" />
             <div className="modal opacity-5">
                 <div className="modal-box bg-white text-gray-900">
                     <p className="font-bold text-center text-xl">応募メッセージフォーム</p>
@@ -263,7 +279,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                     </form>
                     <div className="modal-action">
                         <label
-                            htmlFor="my-modal-2"
+                            htmlFor="modal-apply-message"
                             className="btn btn-accent lg:w-1/3 mx-auto"
                             onClick={async () => {
                                 if (applyMessage) {
@@ -287,10 +303,20 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                         >
                             メールを送信
                         </label>
-                        <label htmlFor="my-modal-2" className="btn lg:w-1/3 mx-auto">
+                        <label htmlFor="modal-apply-message" className="btn lg:w-1/3 mx-auto">
                             キャンセル
                         </label>
                     </div>
+                </div>
+            </div>
+
+            {/* 投稿編集用モーダル */}
+            <input type="checkbox" id="modal-post-edit" className="modal-toggle" />
+            <div className="modal opacity-5">
+                <div className="modal-box bg-white text-gray-900">
+                    <p className="font-bold text-center text-xl">投稿編集フォーム</p>
+                    {/* 投稿編集フォーム */}
+                    <EditPostForm postData={postData} />
                 </div>
             </div>
         </>

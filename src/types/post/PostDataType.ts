@@ -1,3 +1,5 @@
+import { LinksDataType } from "./LinksDataType";
+
 export type PostDataType = {
     uid: string;
     title: string;
@@ -11,5 +13,5 @@ export type PostDataType = {
     post_img: string;
     created_at: string;
     postID: string;
-    links: string[];
+    links: LinksDataType;
 };

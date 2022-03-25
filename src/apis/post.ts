@@ -4,6 +4,7 @@ import { deletePostImage } from "@apis/image";
 
 //libs
 import firebase, { db } from "@libs/firebaseConfig";
+import { EditPostFormValuesType } from "src/types/form/EditPostFormValuesType";
 
 //types
 import { PostFormValuesType } from "src/types/form/PostFormValuesType";
@@ -44,7 +45,11 @@ export const addJobPost = async (values: PostFormValuesType, uid: string): Promi
             category: category,
             introduction: introduction,
             post_img: url,
-            links: [instagram, twitter, homepage],
+            links: {
+                instagram: instagram,
+                twitter: twitter,
+                homepage: homepage,
+            },
             created_at: firebase.firestore.FieldValue.serverTimestamp(),
         });
 };
@@ -144,4 +149,38 @@ export const deleteJobPost = async (postID: string, post_img: string): Promise<v
     await db.collection("posts").doc(`${postID}`).delete();
 
     await deletePostImage(post_img);
+};
+
+//求人投稿（画像・関連リンク）を変更
+export const editJobPost = async (
+    values: EditPostFormValuesType,
+    uid: string,
+    postData: PostDataType,
+): Promise<void> => {
+    const { post_img, instagram, twitter, homepage } = values;
+    let url = postData.post_img;
+
+    if (post_img) {
+        //Storageにフォームから取得した画像ファイルを保存
+        const postImgRef = await uploadPostImage(post_img[0], uid);
+        url = await postImgRef.getDownloadURL();
+
+        //Storageから既存の投稿画像を削除
+        await deletePostImage(postData.post_img);
+    }
+
+    await db
+        .collection("posts")
+        .doc(`${postData.postID}`)
+        .set(
+            {
+                post_img: url,
+                links: {
+                    instagram: instagram,
+                    twitter: twitter,
+                    homepage: homepage,
+                },
+            },
+            { merge: true },
+        );
 };
