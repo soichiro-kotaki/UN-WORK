@@ -31,7 +31,7 @@ export const PostCard: React.FC<Props> = (props) => {
         <>
             <div className="w-11/12 rounded-3xl bg-white text-gray-900 border border-gray-300 p-6 mx-auto shadow-xl lg:shadow-2xl md:w-9/12  dark:bg-dark-content dark:text-dark-text">
                 <div>
-                    <div className="mb-4 mt-4 lg:flex lg:flex-col lg:text-left lg:mb-8">
+                    <div className="mb-4 mt-4 lg:flex lg:flex-col lg:text-left lg:mb-6 2xl:mb-8">
                         <h2 className="text-2xl font-semibold mb-3 mx-auto lg:text-3xl lg:inline-block lg:mx-0 ">
                             {userPostData.title}
                         </h2>

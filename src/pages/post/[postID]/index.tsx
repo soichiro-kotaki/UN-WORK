@@ -59,7 +59,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-    const postID = params.id;
+    const postID = params.postID;
     let userData = {};
 
     let postData = await getPostDetail(postID as string);
@@ -69,5 +69,5 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
         postData = null;
     }
 
-    return { props: { userData: userData, postData: postData }, revalidate: 180 };
+    return { props: { userData: userData, postData: postData }, revalidate: 60 };
 };
