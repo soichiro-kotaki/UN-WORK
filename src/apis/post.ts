@@ -27,7 +27,7 @@ export const addJobPost = async (values: PostFormValuesType, uid: string): Promi
         homepage,
     } = values;
 
-    //Storageにフォームから取得した画像ファイルを保存
+    //Storageにフォームから取得した投稿画像を圧縮して保存
     const postImgRef = await uploadPostImage(post_img[0], uid);
     const url = await postImgRef.getDownloadURL();
 
@@ -161,8 +161,9 @@ export const editJobPost = async (
     let url = postData.post_img;
 
     if (post_img) {
-        //Storageにフォームから取得した画像ファイルを保存
+        //Storageにフォームから取得した画像ファイルを圧縮して保存
         const postImgRef = await uploadPostImage(post_img[0], uid);
+        //
         url = await postImgRef.getDownloadURL();
 
         //Storageから既存の投稿画像を削除
