@@ -1,5 +1,5 @@
 //apis
-import { uploadUserImage } from "@apis/image";
+import { deletePostImage, uploadUserImage } from "@apis/image";
 
 //libs
 import firebase, { auth, db } from "@libs/firebaseConfig";
@@ -7,13 +7,14 @@ import firebase, { auth, db } from "@libs/firebaseConfig";
 //types
 import { SignupFormValuesType } from "src/types/form/SignupFormValuesType";
 import { UpdateUserProfileValuesType } from "src/types/user/UpdateUserProfileValuesType";
+import { UserDataType } from "src/types/user/UserDataType";
 
 //新規アカウント登録、アカウント認証用メール送信
 export const signupUserData = async (
     values: SignupFormValuesType,
     actionCodeSettings: any,
 ): Promise<void> => {
-    const { name, email, password, grade, subject, userImg } = values;
+    const { name, email, password, grade, subject, userImg, instagram, selfIntroduction } = values;
 
     alert(
         `${email}宛にアカウント認証用メールを送信しました。添付のリンクから認証を行った後にログインを行ってください。\n※受信トレイにメールが届いていない場合は、迷惑メールフォルダに振り分けられている可能性があります。`,
@@ -35,6 +36,8 @@ export const signupUserData = async (
         user_grade: grade,
         user_subject: subject,
         user_img: url,
+        instagram: instagram,
+        selfIntroduction: selfIntroduction,
         created_at: firebase.firestore.FieldValue.serverTimestamp(),
     });
 
@@ -70,24 +73,32 @@ export const getTestUserProfileData = async (): Promise<firebase.firestore.Docum
     return testUserData;
 };
 
-//ユーザーのプロフィールデータ(画像）を更新
+//ユーザーのプロフィールデータ(画像・Instagramリンク・自己紹介文）を更新
 export const updateUserProfile = async (
-    userImg: UpdateUserProfileValuesType,
+    values: UpdateUserProfileValuesType,
     uid: string,
+    userData: UserDataType,
 ): Promise<void> => {
-    const userDataRef = db.collection("users").doc(`${uid}`);
-    const userData = (await userDataRef.get()).data();
-    const email = userData.user_email;
+    const { userImg, instagram, selfIntroduction } = values;
+    let url = userData.user_img;
 
-    //画像の圧縮
-    const userImgRef = await uploadUserImage(userImg.userImg[0], email);
-    const url = await userImgRef.getDownloadURL();
+    if (userImg) {
+        //Storageにフォームから取得したプロフィール用画像ファイルを圧縮して保存
+        const userImgRef = await uploadUserImage(userImg[0], userData.user_email);
+        url = await userImgRef.getDownloadURL();
 
-    //Firebase AuthとFirestoreの画像URLを更新
-    await auth.currentUser.updateProfile({
-        photoURL: url,
-    });
-    await userDataRef.update({
+        //Firebase Authの画像URLを更新
+        await auth.currentUser.updateProfile({
+            photoURL: url,
+        });
+
+        //Storageから既存のプロフィール画像を削除
+        await deletePostImage(userData.user_img);
+    }
+
+    await db.collection("users").doc(`${uid}`).update({
         user_img: url,
+        instagram: instagram,
+        selfIntroduction: selfIntroduction,
     });
 };
