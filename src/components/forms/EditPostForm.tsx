@@ -47,8 +47,8 @@ export const EditPostForm: React.FC<Props> = (props) => {
         values: EditPostFormValuesType,
     ): Promise<void> => {
         try {
-            alert("変更内容が保存されました。反映に1分程かかる場合があります。");
             await editJobPost(values, User.uid, postData);
+            alert("変更内容が保存されました。反映に1分程かかる場合があります。");
             reset();
             router.push("/");
         } catch {
@@ -69,7 +69,10 @@ export const EditPostForm: React.FC<Props> = (props) => {
     return (
         <>
             <form action="" className="w-full" onSubmit={handleSubmit(handleOnEditPost)}>
-                <label className="label mt-2 flex flex-col" htmlFor="post_img">
+                <label
+                    className="label mt-2 flex flex-col w-28 mx-auto hover:brightness-75 hover:cursor-pointer"
+                    htmlFor="post_img"
+                >
                     <input
                         type="file"
                         accept="image/*"
@@ -77,15 +80,16 @@ export const EditPostForm: React.FC<Props> = (props) => {
                         id="post_img"
                         {...register("post_img")}
                     />
-                    <span className="text-lg">画像を変更</span>
+                    <span className="text-lg text-normal-btn">画像を変更</span>
                     <Image
                         src={preview}
                         width={100}
                         height={100}
                         alt={"求人画像プレビュー"}
-                        className="object-cover block hover:cursor-pointer hover:brightness-50"
+                        className="object-cover block"
                     />
                 </label>
+
                 {/* リンク(Instagram)入力フォーム */}
                 <label className="label mt-4" htmlFor="instagram">
                     <span className="text-lg">InstagramアカウントURL</span>
@@ -93,8 +97,9 @@ export const EditPostForm: React.FC<Props> = (props) => {
                 <input
                     type="instagram"
                     id="instagram"
+                    placeholder=" https://instagram.com/~"
                     {...register("instagram")}
-                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50 focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:bg-dark-content dark:focus:bg-green-50"
                 />
 
                 {/* リンク(Twitter)入力フォーム */}
@@ -104,8 +109,9 @@ export const EditPostForm: React.FC<Props> = (props) => {
                 <input
                     type="twitter"
                     id="twitter"
+                    placeholder=" https://twitter.com/~"
                     {...register("twitter")}
-                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:bg-dark-content dark:focus:bg-green-50"
                 />
 
                 {/* リンク(ホームページ)入力フォーム */}
@@ -115,13 +121,16 @@ export const EditPostForm: React.FC<Props> = (props) => {
                 <input
                     type="homepage"
                     id="homepage"
+                    placeholder=" https://~"
                     {...register("homepage")}
-                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:bg-dark-content dark:focus:bg-green-50"
                 />
-                {isSubmitting && <span>Submitting...</span>}
+
                 <div className="modal-action">
                     <label htmlFor="modal-post-edit" className="btn btn-accent lg:w-1/3 mx-auto">
-                        <button type="submit">編集内容を反映</button>
+                        <button type="submit" className="font-bold" disabled={isSubmitting}>
+                            {isSubmitting ? "送信中" : "編集内容を反映"}
+                        </button>
                     </label>
                     <label htmlFor="modal-post-edit" className="btn lg:w-1/3 mx-auto">
                         キャンセル

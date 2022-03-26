@@ -274,8 +274,7 @@ export const PostForm: React.FC = () => {
                 <input
                     type="instagram"
                     id="instagram"
-                    placeholder="
-            "
+                    placeholder="https://instagram.com/~"
                     defaultValue={""}
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                     {...register("instagram")}
@@ -288,8 +287,7 @@ export const PostForm: React.FC = () => {
                 <input
                     type="twitter"
                     id="twitter"
-                    placeholder="
-            "
+                    placeholder=" https://twitter.com/~"
                     defaultValue={""}
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                     {...register("twitter")}
@@ -302,8 +300,7 @@ export const PostForm: React.FC = () => {
                 <input
                     type="homepage"
                     id="homepage"
-                    placeholder="
-            "
+                    placeholder="https://~"
                     defaultValue={""}
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                     {...register("homepage")}

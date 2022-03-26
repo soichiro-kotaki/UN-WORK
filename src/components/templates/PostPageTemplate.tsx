@@ -40,7 +40,6 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
     const [comments, setComments] = useState<CommentDataType[]>([]);
     const [isVisibleComments, setIsVisibleComments] = useState(false);
     const [applyMessage, setApplyMessage] = useState("");
-    const [preview, setPreview] = useState(postData.post_img);
     const User = useContext(UserAuthContext);
 
     const handleApplyMessage = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -241,7 +240,21 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                         所属:{" "}
                                         {`${userData.user_subject}学科 ${userData.user_grade}`}
                                     </p>
-                                    <p>アカウント作成日: {convertDateStr(userData.created_at)}</p>
+                                    <p className="my-4">
+                                        アカウント作成日: {convertDateStr(userData.created_at)}
+                                    </p>
+                                    {userData.instagram && (
+                                        <a
+                                            href={userData.instagram}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            <BsInstagram className="mr-6 text-gray-900 inline-block w-10 h-10 hover:opacity-60 dark:text-dark-text lg:mb-4" />
+                                        </a>
+                                    )}
+                                    {userData.selfIntroduction && (
+                                        <p className="font-bold">{userData.selfIntroduction}</p>
+                                    )}
                                 </div>
                             </div>
                         </div>

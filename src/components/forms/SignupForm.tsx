@@ -36,6 +36,8 @@ export const SignupForm: React.FC = () => {
             grade: "1年生",
             subject: "GM",
             userImg: null,
+            instagram: "",
+            selfIntroduction: "",
         },
     });
 
@@ -181,6 +183,44 @@ export const SignupForm: React.FC = () => {
                 />
                 <label className="label" htmlFor="userImg">
                     <span className="text-sm">※ログイン後に変更可能です</span>
+                </label>
+
+                {/* リンク(Instagram)入力フォーム */}
+                <label className="label mt-4" htmlFor="instagram">
+                    <span className="text-lg">InstagramアカウントURL(自由)</span>
+                </label>
+                <input
+                    type="instagram"
+                    id="instagram"
+                    placeholder="https://instagram.com/~"
+                    {...register("instagram")}
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:bg-dark-content dark:focus:bg-green-50"
+                />
+                <label className="label" htmlFor="instagram">
+                    <span className="text-sm">※ログイン後に変更・追加可能です</span>
+                </label>
+
+                {/* 自己紹介文入力フォーム */}
+                <label className="label mt-6" htmlFor="selfIntroduction">
+                    <span className="text-lg">自己紹介(自由)</span>
+                </label>
+                <div className="mb-2">
+                    {errors.selfIntroduction && (
+                        <ErrorMessage errorMessage={"入力できる文字数は20文字以内です。"} />
+                    )}
+                </div>
+                <input
+                    type="selfIntroduction"
+                    id="selfIntroduction"
+                    placeholder="最大20文字
+            "
+                    className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:bg-dark-content dark:focus:bg-green-50"
+                    {...register("selfIntroduction", {
+                        maxLength: 40,
+                    })}
+                />
+                <label className="label" htmlFor="selfIntroduction">
+                    <span className="text-sm">※ログイン後に変更・追加可能です</span>
                 </label>
 
                 {/* 登録用ボタン */}

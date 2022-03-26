@@ -2,7 +2,9 @@ import React from "react";
 import Image from "next/image";
 
 //components
+import { BsInstagram } from "react-icons/bs";
 import { EditProfileButton } from "@components/atoms/buttons/EditProfileButton";
+import { EditProfileForm } from "@components/forms/EditProfileForm";
 
 //types
 import { UserDataType } from "src/types/user/UserDataType";
@@ -38,13 +40,39 @@ export const UserProfile: React.FC<Props> = (props) => {
                         </h2>
                         <p className="mb-4">{`${userData.user_subject}学科${userData.user_grade}`}</p>
                         <p className="text-sm mb-4 lg:text-base">{` ${userData.user_email}`}</p>
-                        <span className="block mb-8 text-sm text-gray-500 dark:text-dark-time">{`${convertDateStr(
+                        <span className="block mb-4 text-sm text-gray-500 dark:text-dark-time">{`${convertDateStr(
                             userData.created_at,
                         )}に登録`}</span>
-                        <div className=" mx-auto md:w-3/5 lg:w-full">
-                            <EditProfileButton />
+                        <div className="mb-4 flex lg:block">
+                            {userData.instagram && (
+                                <a
+                                    href={userData.instagram}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    <BsInstagram className="mr-6 text-gray-900 inline-block w-10 h-10 hover:opacity-60 dark:text-dark-text lg:mb-4" />
+                                </a>
+                            )}
+                            {userData.selfIntroduction && (
+                                <p className="font-bold">{userData.selfIntroduction}</p>
+                            )}
+                        </div>
+                        <div className="mx-auto md:w-3/5 lg:w-full">
+                            <label htmlFor="modal-profile-edit" className="modal-button">
+                                <EditProfileButton />
+                            </label>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            {/* プロフィール編集用モーダル */}
+            <input type="checkbox" id="modal-profile-edit" className="modal-toggle" />
+            <div className="modal opacity-5">
+                <div className="modal-box bg-white text-gray-900">
+                    <p className="font-bold text-center text-xl">プロフィール編集フォーム</p>
+                    {/* プロフィール編集フォーム */}
+                    <EditProfileForm userData={userData} />
                 </div>
             </div>
         </>

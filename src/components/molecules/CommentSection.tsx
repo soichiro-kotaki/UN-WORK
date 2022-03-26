@@ -103,7 +103,7 @@ export const CommentSection: React.FC<Props> = (props) => {
                                         setIsReply(false);
                                         setIsDisplayedName(false);
                                     }}
-                                    className="bg-gray-300 rounded-full p-2 text-sm hover:cursor-pointer"
+                                    className="bg-gray-300 rounded-full p-2 text-sm hover:cursor-pointer hover:bg-gray-400"
                                 >
                                     キャンセル
                                 </p>
