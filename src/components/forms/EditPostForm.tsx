@@ -57,14 +57,18 @@ export const EditPostForm: React.FC<Props> = (props) => {
     };
 
     //投稿画像が変更された時にプレビュー用の画像URLを生成し、表示
-    const isChanged = watch("post_img");
+    const watchPostImg = watch("post_img");
     useEffect(() => {
-        const files = getValues("post_img");
+        const imgFile = getValues("post_img");
 
-        if (files) {
-            setPreview(window.URL.createObjectURL(files[0]));
+        if (!imgFile) {
+            return;
         }
-    }, [getValues, isChanged]);
+
+        if (imgFile.length > 0) {
+            setPreview(window.URL.createObjectURL(imgFile[0]));
+        }
+    }, [getValues, watchPostImg]);
 
     return (
         <>
@@ -73,6 +77,7 @@ export const EditPostForm: React.FC<Props> = (props) => {
                     className="label mt-2 flex flex-col w-28 mx-auto hover:brightness-75 hover:cursor-pointer"
                     htmlFor="post_img"
                 >
+                    <span className="text-lg text-normal-btn">画像を変更</span>
                     <input
                         type="file"
                         accept="image/*"
@@ -80,7 +85,6 @@ export const EditPostForm: React.FC<Props> = (props) => {
                         id="post_img"
                         {...register("post_img")}
                     />
-                    <span className="text-lg text-normal-btn">画像を変更</span>
                     <Image
                         src={preview}
                         width={100}

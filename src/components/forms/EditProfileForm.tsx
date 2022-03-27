@@ -45,7 +45,7 @@ export const EditProfileForm: React.FC<Props> = (props) => {
         },
     });
 
-    const handleOnUserImg: SubmitHandler<UpdateUserProfileValuesType> = async (
+    const handleOnUserProfile: SubmitHandler<UpdateUserProfileValuesType> = async (
         values: UpdateUserProfileValuesType,
     ): Promise<void> => {
         if (User.isTestUser) {
@@ -66,25 +66,29 @@ export const EditProfileForm: React.FC<Props> = (props) => {
         }
     };
 
-    //投稿画像が変更された時にプレビュー用の画像URLを生成し、表示
-    const isChanged = watch("userImg");
+    //プロフィール画像が変更された時にプレビュー用の画像URLを生成し、表示
+    const watchUserImg = watch("userImg");
     useEffect(() => {
-        const files = getValues("userImg");
+        const imgFile = getValues("userImg");
 
-        if (files) {
-            setPreview(window.URL.createObjectURL(files[0]));
+        if (!imgFile) {
+            return;
         }
-    }, [getValues, isChanged]);
+
+        if (imgFile.length > 0) {
+            setPreview(window.URL.createObjectURL(imgFile[0]));
+        }
+    }, [getValues, watchUserImg]);
 
     return (
         <>
-            <form action="" onSubmit={handleSubmit(handleOnUserImg)} className="text-gray-900">
+            <form action="" onSubmit={handleSubmit(handleOnUserProfile)} className="text-gray-900">
                 {/* プロフィール画像更新フォーム */}
                 <label
                     className="label mt-6 flex flex-col w-56 mx-auto hover:brightness-75 hover:cursor-pointer"
                     htmlFor="userImg"
                 >
-                    <span className=" mb-1 text-lg text-normal-btn hover:text-normal-btn-hover">
+                    <span className="mb-1 text-lg text-normal-btn hover:text-normal-btn-hover">
                         変更する
                     </span>
                     <input
@@ -99,7 +103,7 @@ export const EditProfileForm: React.FC<Props> = (props) => {
                         src={preview}
                         width={200}
                         height={200}
-                        alt={"求人画像プレビュー"}
+                        alt={"プロフィール画像プレビュー"}
                         className="object-cover rounded-full block"
                     />
                 </label>
