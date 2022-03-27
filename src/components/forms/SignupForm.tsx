@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 //apis
@@ -15,6 +16,7 @@ import { ErrorMessage } from "@components/atoms/buttons/ErrorMessage";
 import { SignupFormValuesType } from "src/types/form/SignupFormValuesType";
 
 export const SignupForm: React.FC = () => {
+    const [preview, setPreview] = useState("/no-user-image.jpg");
     const router = useRouter();
 
     const actionCodeSettings = {
@@ -23,9 +25,11 @@ export const SignupForm: React.FC = () => {
 
     const {
         register,
+        getValues,
         handleSubmit,
         formState: { errors },
         reset,
+        watch,
     } = useForm<SignupFormValuesType>({
         mode: "onSubmit",
         reValidateMode: "onSubmit",
@@ -54,6 +58,20 @@ export const SignupForm: React.FC = () => {
             reset();
         }
     };
+
+    //プロフィール画像が変更された時にプレビュー用の画像URLを生成し、表示
+    const watchUserImg = watch("userImg");
+    useEffect(() => {
+        const imgFile = getValues("userImg");
+
+        if (!imgFile) {
+            return;
+        }
+
+        if (imgFile.length > 0) {
+            setPreview(window.URL.createObjectURL(imgFile[0]));
+        }
+    }, [getValues, watchUserImg]);
 
     return (
         <>
@@ -135,7 +153,7 @@ export const SignupForm: React.FC = () => {
                     className="w-full select text-lg duration-150 ring-green-400 bg-white ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
                     required
                     id="grade"
-                    {...register("grade", {})}
+                    {...register("grade")}
                 >
                     <option disabled={true} defaultChecked={true}>
                         学年
@@ -154,7 +172,7 @@ export const SignupForm: React.FC = () => {
                     className="w-full select text-lg duration-150 ring-green-400 bg-white ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
                     required
                     id="subject"
-                    {...register("subject", {})}
+                    {...register("subject")}
                 >
                     <option disabled={true} defaultChecked={true}>
                         学科
@@ -165,24 +183,34 @@ export const SignupForm: React.FC = () => {
                 </select>
 
                 {/* プロフィール画像登録フォーム */}
-                <label className="label mt-6" htmlFor="userImg">
-                    <span className="text-lg">プロフィール用画像を選択</span>
-                </label>
-                <div className="mb-2">
+                <div className="mb-2 mt-8">
                     {errors.userImg && <ErrorMessage errorMessage={errors.userImg.message} />}
                 </div>
-                <input
-                    type="file"
-                    id="userImg"
-                    name="userImg"
-                    accept="image/*"
-                    className="w-full p-2 text-lg duration-150 bg-white ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
-                    {...register("userImg", {
-                        required: "画像を選択してください。",
-                    })}
-                />
-                <label className="label" htmlFor="userImg">
-                    <span className="text-sm">※ログイン後に変更可能です</span>
+                <label
+                    className="label flex flex-col w-56 mx-auto hover:brightness-75 hover:cursor-pointer"
+                    htmlFor="userImg"
+                >
+                    <span className="text-lg text-normal-btn">プロフィール用画像を選択</span>
+                    <input
+                        type="file"
+                        id="userImg"
+                        name="userImg"
+                        accept="image/*"
+                        className="hidden w-full p-2 text-lg duration-150 bg-white ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
+                        {...register("userImg", {
+                            required: "画像を選択してください。",
+                        })}
+                    />
+                    <Image
+                        src={preview}
+                        width={200}
+                        height={200}
+                        alt={"プロフィール画像プレビュー"}
+                        className="object-cover rounded-full block"
+                    />
+                    <label className="label" htmlFor="userImg">
+                        <span className="text-sm">※ログイン後に変更可能です</span>
+                    </label>
                 </label>
 
                 {/* リンク(Instagram)入力フォーム */}

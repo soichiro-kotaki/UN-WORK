@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
 //apis
@@ -18,9 +19,10 @@ import { PostFormValuesType } from "src/types/form/PostFormValuesType";
 import { UserAuthContext } from "@pages/_app";
 
 export const PostForm: React.FC = () => {
-    const router = useRouter();
     const User = useContext(UserAuthContext);
+    const [preview, setPreview] = useState("/no-post-image.jpeg");
     const [draft, setDraft] = useState("");
+    const router = useRouter();
 
     const {
         register,
@@ -29,6 +31,7 @@ export const PostForm: React.FC = () => {
         reset,
         getValues,
         setFocus,
+        watch,
     } = useForm<PostFormValuesType>({
         mode: "onSubmit",
         reValidateMode: "onSubmit",
@@ -39,6 +42,10 @@ export const PostForm: React.FC = () => {
             salary: "",
             job_time: "",
             submission_shift_request: "",
+            post_img: null,
+            instagram: "",
+            twitter: "",
+            homepage: "",
         },
     });
 
@@ -74,6 +81,20 @@ export const PostForm: React.FC = () => {
         };
     }, [getValues, setFocus]);
 
+    //投稿画像が変更された時にプレビュー用の画像URLを生成し、表示
+    const watchPostImg = watch("post_img");
+    useEffect(() => {
+        const imgFile = getValues("post_img");
+
+        if (!imgFile) {
+            return;
+        }
+
+        if (imgFile.length > 0) {
+            setPreview(window.URL.createObjectURL(imgFile[0]));
+        }
+    }, [getValues, watchPostImg]);
+
     return (
         <>
             <form
@@ -82,7 +103,8 @@ export const PostForm: React.FC = () => {
                 className="text-gray-900 dark:text-dark-text"
             >
                 <p className="text-xs my-4 lg:text-lg lg:my-8">
-                    ※ページを離れると、紹介文の内容のみ、下書きとして保存されます。
+                    ※ページを離れると、紹介文の内容のみ、下書きとして保存されます。投稿画像とURLは
+                    投稿後に編集・追加可能です。
                 </p>
 
                 {/* 求人タイトル入力フォーム */}
@@ -249,23 +271,32 @@ export const PostForm: React.FC = () => {
                 </label>
 
                 {/* 画像アップロードフォーム */}
-                <label className="label mt-6" htmlFor="userImg">
-                    <span className="text-lg">画像をアップロード</span>
+                <label
+                    className="label mt-6 flex flex-col w-56 mx-auto hover:brightness-75 hover:cursor-pointer"
+                    htmlFor="userImg"
+                >
+                    <span className="text-lg text-normal-btn">画像をアップロード</span>
+                    <div className="mb-2">
+                        {errors.post_img && <ErrorMessage errorMessage={errors.post_img.message} />}
+                    </div>
+                    <input
+                        type="file"
+                        id="userImg"
+                        name="userImg"
+                        accept="image/*"
+                        className="hidden w-full p-2 text-lg duration-150 bg-white ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4 dark:text-dark-text dark:bg-transparent"
+                        {...register("post_img", {
+                            required: "画像を選択してください。",
+                        })}
+                    />
+                    <Image
+                        src={preview}
+                        width={200}
+                        height={200}
+                        alt={"プロフィール画像プレビュー"}
+                        className="object-cover  block"
+                    />
                 </label>
-                <div className="mb-2">
-                    {errors.post_img && <ErrorMessage errorMessage={errors.post_img.message} />}
-                </div>
-                <input
-                    type="file"
-                    id="userImg"
-                    defaultValue={null}
-                    name="userImg"
-                    accept="image/*"
-                    className="w-full p-2 text-lg duration-150 bg-white ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4 dark:text-dark-text dark:bg-transparent"
-                    {...register("post_img", {
-                        required: "画像を選択してください。",
-                    })}
-                />
 
                 {/* リンク(Instagram)入力フォーム */}
                 <label className="label mt-6 mb-2" htmlFor="instagram">
@@ -275,7 +306,6 @@ export const PostForm: React.FC = () => {
                     type="instagram"
                     id="instagram"
                     placeholder="https://instagram.com/~"
-                    defaultValue={""}
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                     {...register("instagram")}
                 />
@@ -288,7 +318,6 @@ export const PostForm: React.FC = () => {
                     type="twitter"
                     id="twitter"
                     placeholder=" https://twitter.com/~"
-                    defaultValue={""}
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                     {...register("twitter")}
                 />
@@ -301,7 +330,6 @@ export const PostForm: React.FC = () => {
                     type="homepage"
                     id="homepage"
                     placeholder="https://~"
-                    defaultValue={""}
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                     {...register("homepage")}
                 />
