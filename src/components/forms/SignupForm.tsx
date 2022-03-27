@@ -183,14 +183,14 @@ export const SignupForm: React.FC = () => {
                 </select>
 
                 {/* プロフィール画像登録フォーム */}
-                <div className="mb-2 mt-8">
-                    {errors.userImg && <ErrorMessage errorMessage={errors.userImg.message} />}
-                </div>
                 <label
                     className="label flex flex-col w-56 mx-auto hover:brightness-75 hover:cursor-pointer"
                     htmlFor="userImg"
                 >
                     <span className="text-lg text-normal-btn">プロフィール用画像を選択</span>
+                    <div className="mb-2 mt-8">
+                        {errors.userImg && <ErrorMessage errorMessage={errors.userImg.message} />}
+                    </div>
                     <input
                         type="file"
                         id="userImg"
