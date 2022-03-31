@@ -19,11 +19,11 @@ export const LoginForm: React.FC = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isSubmitting, isSubmitSuccessful },
         reset,
     } = useForm<LoginFormValuesType>({
         mode: "onSubmit",
-        reValidateMode: "onSubmit",
+        reValidateMode: "onChange",
         defaultValues: {
             email: "",
             password: "",
@@ -100,7 +100,11 @@ export const LoginForm: React.FC = () => {
 
                 {/* ログインボタン */}
                 <div className="mt-10 mx-auto w-40">
-                    <SubmitButton text={"ログイン"} />
+                    <SubmitButton
+                        text={"ログイン"}
+                        textInProcess={"ログイン中..."}
+                        isDisabled={isSubmitting || isSubmitSuccessful}
+                    />
                 </div>
             </form>
         </>

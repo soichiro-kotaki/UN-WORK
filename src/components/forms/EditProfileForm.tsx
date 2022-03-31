@@ -30,14 +30,15 @@ export const EditProfileForm: React.FC<Props> = (props) => {
 
     const {
         register,
-        handleSubmit,
+        formState: { errors, isDirty, isSubmitting, isSubmitted },
         getValues,
-        formState: { errors, isSubmitting },
+        handleSubmit,
         reset,
+        resetField,
         watch,
     } = useForm<UpdateUserProfileValuesType>({
         mode: "onSubmit",
-        reValidateMode: "onSubmit",
+        reValidateMode: "onChange",
         defaultValues: {
             userImg: null,
             instagram: userData.instagram ? userData.instagram : "",
@@ -56,11 +57,12 @@ export const EditProfileForm: React.FC<Props> = (props) => {
         } else {
             try {
                 await updateUserProfile(values, User.uid, userData);
-                alert("プロフィール情報が更新されました。変更の反映に1分程かかる場合があります。");
-                reset();
                 router.push(`/`);
+                reset();
+                alert("プロフィール情報が更新されました。変更の反映に1分程かかる場合があります。");
             } catch (error) {
                 alert("更新出来ませんでした。");
+                reset();
                 console.log(error.message);
             }
         }
@@ -75,9 +77,7 @@ export const EditProfileForm: React.FC<Props> = (props) => {
             return;
         }
 
-        if (imgFile.length > 0) {
-            setPreview(window.URL.createObjectURL(imgFile[0]));
-        }
+        setPreview(URL.createObjectURL(imgFile[0]));
     }, [getValues, watchUserImg]);
 
     return (
@@ -97,7 +97,15 @@ export const EditProfileForm: React.FC<Props> = (props) => {
                         name="userImg"
                         accept="image/*"
                         className="hidden w-full p-2 text-lg duration-150 bg-white ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4 dark:bg-transparent"
-                        {...register("userImg")}
+                        {...register("userImg", {
+                            onChange: () => {
+                                //ファイル選択キャンセル時のバリデーション
+                                if (getValues("userImg").length === 0) {
+                                    resetField("userImg");
+                                    setPreview(userData.user_img);
+                                }
+                            },
+                        })}
                     />
                     <Image
                         src={preview}
@@ -136,17 +144,32 @@ export const EditProfileForm: React.FC<Props> = (props) => {
             "
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:bg-dark-content dark:focus:bg-green-50"
                     {...register("selfIntroduction", {
-                        maxLength: 40,
+                        maxLength: 20,
                     })}
                 />
 
                 <div className="modal-action">
-                    <label htmlFor="modal-profile-edit" className="btn btn-accent lg:w-1/3 mx-auto">
-                        <button type="submit" className="font-bold" disabled={isSubmitting}>
-                            {isSubmitting ? "送信中" : "編集内容を反映"}
+                    <label
+                        htmlFor="modal-profile-edit"
+                        className="btn btn-accent lg:w-1/3 mx-auto aria-disabled:bg-gray-400 aria-disabled:border-gray-400"
+                        aria-disabled={!isDirty || isSubmitting || isSubmitted}
+                    >
+                        <button
+                            type="submit"
+                            className="font-bold"
+                            disabled={!isDirty || isSubmitting || isSubmitted}
+                        >
+                            {isSubmitting ? "反映中..." : "編集内容を反映"}
                         </button>
                     </label>
-                    <label htmlFor="modal-profile-edit" className="btn lg:w-1/3 mx-auto">
+                    <label
+                        htmlFor="modal-profile-edit"
+                        className="btn lg:w-1/3 mx-auto"
+                        onClick={() => {
+                            setPreview(userData.user_img);
+                            reset();
+                        }}
+                    >
                         キャンセル
                     </label>
                 </div>
