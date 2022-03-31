@@ -59,7 +59,6 @@ export const PostForm: React.FC = () => {
         } else {
             try {
                 alert("求人が投稿されました。投稿の反映に1分程かかる場合があります。");
-                console.log(values);
                 await addJobPost(values, User.uid);
                 reset();
                 localStorage.removeItem("draft");
