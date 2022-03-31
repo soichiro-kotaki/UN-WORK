@@ -52,7 +52,6 @@ export const EditPostForm: React.FC<Props> = (props) => {
             alert("変更内容が保存されました。反映に1分程かかる場合があります。");
             reset();
             router.push("/");
-            console.log(values);
         } catch {
             alert("変更の反映に失敗しました");
             reset();
