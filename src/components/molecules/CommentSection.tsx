@@ -128,7 +128,7 @@ export const CommentSection: React.FC<Props> = (props) => {
                                         ※コメントや質問は匿名で投稿されます。氏名を公開したい場合は、下のチェックボックスをチェックしてください。
                                     </span>
                                 </label>
-                                <div className="mt-8 flex">
+                                <div className="mt-4 flex">
                                     <p>氏名を公開する</p>
                                     <input
                                         type="checkbox"
@@ -153,8 +153,8 @@ export const CommentSection: React.FC<Props> = (props) => {
                                         commentDocID,
                                     );
                                     alert("返信が送信されました。");
-                                    setMessage("");
                                     setIsVisibleComments(!isVisibleComments);
+                                    setMessage("");
                                 } else if (message !== "") {
                                     await addCommentOnPost(
                                         message,
@@ -164,14 +164,18 @@ export const CommentSection: React.FC<Props> = (props) => {
                                     );
                                     alert("コメントが送信されました。");
                                     setMessage("");
-                                    setIsDisplayedName(false);
                                     setIsVisibleComments(!isVisibleComments);
+                                    setIsDisplayedName(false);
                                 } else {
                                     alert("入力を行なってください。");
                                 }
                             }}
                         >
-                            <SubmitButton text={"送信"} />
+                            <SubmitButton
+                                text={"送信"}
+                                textInProcess={"送信中..."}
+                                isDisabled={!message}
+                            />
                         </div>
                     </div>
                 ) : (

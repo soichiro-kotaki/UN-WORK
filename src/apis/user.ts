@@ -1,5 +1,5 @@
 //apis
-import { deletePostImage, uploadUserImage } from "@apis/image";
+import { deleteUserImage, uploadUserImage } from "@apis/image";
 
 //libs
 import firebase, { auth, db } from "@libs/firebaseConfig";
@@ -83,6 +83,9 @@ export const updateUserProfile = async (
     let url = userData.user_img;
 
     if (userImg) {
+        //Storageから既存のプロフィール画像を削除
+        await deleteUserImage(userData.user_img);
+
         //Storageにフォームから取得したプロフィール用画像ファイルを圧縮して保存
         const userImgRef = await uploadUserImage(userImg[0], userData.user_email);
         url = await userImgRef.getDownloadURL();
@@ -91,9 +94,6 @@ export const updateUserProfile = async (
         await auth.currentUser.updateProfile({
             photoURL: url,
         });
-
-        //Storageから既存のプロフィール画像を削除
-        await deletePostImage(userData.user_img);
     }
 
     await db.collection("users").doc(`${uid}`).update({

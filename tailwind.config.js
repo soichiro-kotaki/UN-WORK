@@ -20,5 +20,9 @@ module.exports = {
     variants: {
         extend: {},
     },
-    plugins: [require("daisyui"), require("@tailwindcss/line-clamp")],
+    plugins: [
+        require("daisyui"),
+        require("@tailwindcss/line-clamp"),
+        require("tailwindcss-aria-attributes"),
+    ],
 };

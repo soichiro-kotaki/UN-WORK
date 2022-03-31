@@ -25,20 +25,31 @@ export const uploadUserImage = async (
 };
 
 //storageに投稿画像を圧縮してアップロード
-export const uploadPostImage = async (
-    postImg: File,
-    uid: string,
-): Promise<firebase.storage.Reference> => {
-    const compressedFile = await compressFile(postImg);
-    const blob = new Blob([compressedFile], { type: postImg.type });
+export const uploadPostImage = async (postImages: FileList, uid: string): Promise<string[]> => {
+    let postImagesList = [];
 
-    const postImgRef = storage.ref().child(`images/posts/${uid}/${postImg.name}`);
+    for (const postImg of postImages) {
+        const compressedFile = await compressFile(postImg);
+        const blob = new Blob([compressedFile], { type: postImg.type });
 
-    const result = await postImgRef.put(blob);
-    return result.ref;
+        const postImgRef = storage.ref().child(`images/posts/${uid}/${postImg.name}`);
+
+        const storageSnapshot = await postImgRef.put(blob);
+        const url = await storageSnapshot.ref.getDownloadURL();
+        postImagesList.push(url);
+    }
+
+    return postImagesList;
 };
 
 //選択された求人投稿の画像を削除
-export const deletePostImage = async (post_img: string): Promise<void> => {
-    await storage.refFromURL(post_img).delete();
+export const deletePostImage = async (postImages: string[]): Promise<void> => {
+    for (const postImg of postImages) {
+        await storage.refFromURL(postImg).delete();
+    }
+};
+
+//選択されたプロフィール画像を削除
+export const deleteUserImage = async (userImg: string): Promise<void> => {
+    await storage.refFromURL(userImg).delete();
 };

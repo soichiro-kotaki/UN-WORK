@@ -21,7 +21,7 @@ type Props = {
 
 export const EditPostForm: React.FC<Props> = (props) => {
     const { postData } = props;
-    const [preview, setPreview] = useState(postData.post_img);
+    const [preview, setPreview] = useState(postData.post_img[0]);
     const router = useRouter();
     const User = useContext(UserAuthContext);
 
@@ -30,7 +30,8 @@ export const EditPostForm: React.FC<Props> = (props) => {
         getValues,
         handleSubmit,
         reset,
-        formState: { isSubmitting },
+        resetField,
+        formState: { isDirty, isSubmitting, isSubmitted },
         watch,
     } = useForm<EditPostFormValuesType>({
         mode: "onSubmit",
@@ -51,39 +52,53 @@ export const EditPostForm: React.FC<Props> = (props) => {
             alert("変更内容が保存されました。反映に1分程かかる場合があります。");
             reset();
             router.push("/");
+            console.log(values);
         } catch {
             alert("変更の反映に失敗しました");
+            reset();
         }
     };
 
     //投稿画像が変更された時にプレビュー用の画像URLを生成し、表示
-    const watchPostImg = watch("post_img");
+    const watchPostImages = watch("post_img");
     useEffect(() => {
-        const imgFile = getValues("post_img");
+        const imgFiles = getValues("post_img");
 
-        if (!imgFile) {
+        if (!imgFiles) {
             return;
         }
 
-        if (imgFile.length > 0) {
-            setPreview(window.URL.createObjectURL(imgFile[0]));
-        }
-    }, [getValues, watchPostImg]);
+        setPreview(URL.createObjectURL(imgFiles[0]));
+    }, [getValues, watchPostImages]);
 
     return (
         <>
             <form action="" className="w-full" onSubmit={handleSubmit(handleOnEditPost)}>
+                {/* 投稿画像変更フォーム */}
                 <label
-                    className="label mt-2 flex flex-col w-28 mx-auto hover:brightness-75 hover:cursor-pointer"
+                    className="label mt-2 flex flex-col w-80 mx-auto hover:brightness-75 hover:cursor-pointer"
                     htmlFor="post_img"
                 >
-                    <span className="text-lg text-normal-btn">画像を変更</span>
+                    <span className="text-lg text-normal-btn">投稿画像を変更(最大5枚まで)</span>
                     <input
                         type="file"
                         accept="image/*"
                         className="hidden"
                         id="post_img"
-                        {...register("post_img")}
+                        multiple
+                        {...register("post_img", {
+                            onChange: () => {
+                                //最大ファイルアップロード数と、ファイル選択キャンセル時のバリデーション
+                                if (getValues("post_img").length > 5) {
+                                    alert("アップロードできる画像は最大5枚です。");
+                                    resetField("post_img");
+                                    setPreview(postData.post_img[0]);
+                                } else if (getValues("post_img").length === 0) {
+                                    resetField("post_img");
+                                    setPreview(postData.post_img[0]);
+                                }
+                            },
+                        })}
                     />
                     <Image
                         src={preview}
@@ -92,10 +107,19 @@ export const EditPostForm: React.FC<Props> = (props) => {
                         alt={"求人画像プレビュー"}
                         className="object-cover block"
                     />
+                    {!getValues("post_img") && postData.post_img.length > 1 && (
+                        <span className="mt-2">{`他${postData.post_img.length - 1}件投稿`}</span>
+                    )}
+                    {getValues("post_img") && getValues("post_img").length > 1 && (
+                        <span className="mt-2">{`他${getValues("post_img").length - 1}件`}</span>
+                    )}
                 </label>
+                <span className="text-xs">
+                    ※一部の画像のみを変更したい場合も、もう一度全ての画像を投稿された順番通りにアップロードしてください。
+                </span>
 
                 {/* リンク(Instagram)入力フォーム */}
-                <label className="label mt-4" htmlFor="instagram">
+                <label className="label mt-2" htmlFor="instagram">
                     <span className="text-lg">InstagramアカウントURL</span>
                 </label>
                 <input
@@ -131,12 +155,27 @@ export const EditPostForm: React.FC<Props> = (props) => {
                 />
 
                 <div className="modal-action">
-                    <label htmlFor="modal-post-edit" className="btn btn-accent lg:w-1/3 mx-auto">
-                        <button type="submit" className="font-bold" disabled={isSubmitting}>
-                            {isSubmitting ? "送信中" : "編集内容を反映"}
+                    <label
+                        htmlFor="modal-post-edit"
+                        className="btn btn-accent lg:w-1/3 mx-auto aria-disabled:bg-gray-400 aria-disabled:border-gray-400"
+                        aria-disabled={!isDirty || isSubmitting || isSubmitted}
+                    >
+                        <button
+                            type="submit"
+                            className="font-bold"
+                            disabled={!isDirty || isSubmitting || isSubmitted}
+                        >
+                            {isSubmitting || isSubmitted ? "反映中..." : "編集内容を反映"}
                         </button>
                     </label>
-                    <label htmlFor="modal-post-edit" className="btn lg:w-1/3 mx-auto">
+                    <label
+                        htmlFor="modal-post-edit"
+                        className="btn lg:w-1/3 mx-auto"
+                        onClick={() => {
+                            setPreview(postData.post_img[0]);
+                            reset();
+                        }}
+                    >
                         キャンセル
                     </label>
                 </div>

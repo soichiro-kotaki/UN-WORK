@@ -5,6 +5,13 @@ import Image from "next/image";
 import { getCommentsOnPost } from "@apis/comment";
 import { handleApplyEmailForm } from "@apis/sendApplyEmail";
 
+//libs
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination, Navigation } from "swiper";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
 //components
 import { AiFillTags, AiFillTwitterCircle, AiOutlineComment } from "react-icons/ai";
 import { BaseLayout } from "@components/layouts/BaseLayout";
@@ -50,22 +57,34 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
         <>
             {User.uid ? (
                 <BaseLayout>
-                    <main className="w-full min-h-screen pt-6  bg-white text-gray-900 lg:w-3/5 lg:mx-auto dark:bg-dark-screen dark:text-dark-text">
-                        <h1 className="mb-4 p-4 text-2xl font-bold text-center text-green-400 md:text-3xl lg:text-4xl">
+                    <main className="w-full min-h-screen pt-6 bg-white text-gray-900 lg:w-3/5 lg:mx-auto dark:bg-dark-screen dark:text-dark-text">
+                        <h1 className="p-4 text-2xl font-bold text-center text-green-400 md:text-3xl lg:text-4xl ">
                             {postData.title}
                         </h1>
-                        <p className="w-11/12 font-bold mb-4 text-right text-xs md:text-xl">{`投稿者連絡先: ${userData.user_email.slice(
-                            0,
-                            21,
-                        )}`}</p>
                         <div className="w-full mx-auto text-center lg:p-6">
-                            <Image
-                                src={postData.post_img}
-                                width={1000}
-                                height={1000}
-                                alt={"求人詳細イメージ画像"}
-                                className="object-cover"
-                            />
+                            <Swiper
+                                modules={[Navigation, Pagination]}
+                                slidesPerView={1}
+                                speed={500}
+                                pagination={{
+                                    clickable: true,
+                                }}
+                                navigation
+                            >
+                                {postData.post_img.map((imgSrc, index) => {
+                                    return (
+                                        <SwiperSlide key={index}>
+                                            <Image
+                                                src={imgSrc}
+                                                width={1000}
+                                                height={1000}
+                                                alt={"求人詳細イメージ画像"}
+                                                className="object-cover"
+                                            />
+                                        </SwiperSlide>
+                                    );
+                                })}
+                            </Swiper>
                         </div>
                         <div className="w-11/12 mx-auto mt-4">
                             <p className="text-xs text-center mx-auto p-2 rounded-full inline-block text-white mb-4 bg-background-sub lg:text-xs lg:mb-6 lg:px-4">
@@ -73,7 +92,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                 {postData.category}
                             </p>
                             <div className="flex justify-between mb-4 md:mb-6">
-                                <p className="text-sm font-semibold lg:text-lg">{`時給: ${postData.salary}`}</p>
+                                <p className="text-sm font-semibold lg:text-lg">{`【時給】${postData.salary}`}</p>
                                 <span className="block text-xs text-gray-500 lg:text-sm dark:text-dark-time">{`投稿日: ${convertDateStr(
                                     postData.created_at,
                                 )}`}</span>
@@ -81,7 +100,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
 
                             <div
                                 className="
-                        text-green-400 mt-12"
+                        text-green-400 mt-8 lg:mt-10"
                             >
                                 <h2 className="mt-8 mb-2 font-bold text-xl">
                                     <GoLocation className="inline-block mr-2" />
@@ -249,7 +268,7 @@ export const PostPageTemplate: React.FC<Props> = (props) => {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
-                                            <BsInstagram className="mr-6 text-gray-900 inline-block w-10 h-10 hover:opacity-60 dark:text-dark-text lg:mb-4" />
+                                            <BsInstagram className="mr-6 text-gray-900 inline-block w-10 h-10 hover:opacity-60 dark:text-dark-text mb-4" />
                                         </a>
                                     )}
                                     {userData.selfIntroduction && (

@@ -26,15 +26,16 @@ export const PostForm: React.FC = () => {
 
     const {
         register,
-        handleSubmit,
-        formState: { errors },
-        reset,
+        formState: { errors, isSubmitting, isSubmitSuccessful },
         getValues,
+        handleSubmit,
+        reset,
+        resetField,
         setFocus,
         watch,
     } = useForm<PostFormValuesType>({
         mode: "onSubmit",
-        reValidateMode: "onSubmit",
+        reValidateMode: "onChange",
         defaultValues: {
             title: "",
             location: "",
@@ -58,9 +59,10 @@ export const PostForm: React.FC = () => {
         } else {
             try {
                 alert("求人が投稿されました。投稿の反映に1分程かかる場合があります。");
+                console.log(values);
                 await addJobPost(values, User.uid);
-                localStorage.removeItem("draft");
                 reset();
+                localStorage.removeItem("draft");
                 router.push("/");
             } catch {
                 alert("投稿に失敗しました。");
@@ -82,18 +84,16 @@ export const PostForm: React.FC = () => {
     }, [getValues, setFocus]);
 
     //投稿画像が変更された時にプレビュー用の画像URLを生成し、表示
-    const watchPostImg = watch("post_img");
+    const watchPostImages = watch("post_img");
     useEffect(() => {
-        const imgFile = getValues("post_img");
+        const imgFiles = getValues("post_img");
 
-        if (!imgFile) {
+        if (!imgFiles) {
             return;
         }
 
-        if (imgFile.length > 0) {
-            setPreview(window.URL.createObjectURL(imgFile[0]));
-        }
-    }, [getValues, watchPostImg]);
+        setPreview(URL.createObjectURL(imgFiles[0]));
+    }, [getValues, watchPostImages]);
 
     return (
         <>
@@ -103,7 +103,7 @@ export const PostForm: React.FC = () => {
                 className="text-gray-900 dark:text-dark-text"
             >
                 <p className="text-xs my-4 lg:text-lg lg:my-8">
-                    ※ページを離れると、紹介文の内容のみ、下書きとして保存されます。投稿画像とURLは
+                    ※ページを離れると、紹介文の内容のみ、下書きとして保存されます。画像と各種URLは
                     投稿後に編集・追加可能です。
                 </p>
 
@@ -135,6 +135,7 @@ export const PostForm: React.FC = () => {
                     type="location"
                     id="location"
                     placeholder="例: 長野市三輪〜〜
+
             "
                     className="w-full p-2 pl-3 text-lg duration-150 border border-green-400 rounded-md focus:bg-green-50  focus:outline-none lg:border-0 lg:ring-green-400 lg:ring-1 lg:focus:ring-green-200 lg:focus:ring-4 dark:focus:bg-dark-content"
                     {...register("location", {
@@ -273,20 +274,32 @@ export const PostForm: React.FC = () => {
                 {/* 画像アップロードフォーム */}
                 <label
                     className="label mt-6 flex flex-col w-56 mx-auto hover:brightness-75 hover:cursor-pointer"
-                    htmlFor="userImg"
+                    htmlFor="post_img"
                 >
-                    <span className="text-lg text-normal-btn">画像をアップロード</span>
+                    <span className="text-lg text-normal-btn">画像を選択(最大5件まで)</span>
                     <div className="mb-2">
                         {errors.post_img && <ErrorMessage errorMessage={errors.post_img.message} />}
                     </div>
                     <input
                         type="file"
-                        id="userImg"
-                        name="userImg"
+                        id="post_img"
+                        name="post_img"
                         accept="image/*"
+                        multiple
                         className="hidden w-full p-2 text-lg duration-150 bg-white ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4 dark:text-dark-text dark:bg-transparent"
                         {...register("post_img", {
                             required: "画像を選択してください。",
+                            onChange: () => {
+                                //最大ファイルアップロード数と、ファイル選択キャンセル時のバリデーション
+                                if (getValues("post_img").length > 5) {
+                                    alert("アップロードできる画像は最大5枚です。");
+                                    resetField("post_img");
+                                    setPreview("/no-post-image.jpeg");
+                                } else if (getValues("post_img").length === 0) {
+                                    resetField("post_img");
+                                    setPreview("/no-post-image.jpeg");
+                                }
+                            },
                         })}
                     />
                     <Image
@@ -296,6 +309,9 @@ export const PostForm: React.FC = () => {
                         alt={"プロフィール画像プレビュー"}
                         className="object-cover  block"
                     />
+                    {getValues("post_img") && getValues("post_img").length > 1 && (
+                        <span className="mt-2">{`他${getValues("post_img").length - 1}件`}</span>
+                    )}
                 </label>
 
                 {/* リンク(Instagram)入力フォーム */}
@@ -336,7 +352,11 @@ export const PostForm: React.FC = () => {
 
                 {/* ログインボタン */}
                 <div className="mt-10 mb-4 mx-auto w-40">
-                    <SubmitButton text={"投稿"} />
+                    <SubmitButton
+                        text={"投稿"}
+                        textInProcess={"投稿中..."}
+                        isDisabled={isSubmitting || isSubmitSuccessful}
+                    />
                 </div>
             </form>
         </>

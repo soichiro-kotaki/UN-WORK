@@ -25,14 +25,15 @@ export const SignupForm: React.FC = () => {
 
     const {
         register,
+        formState: { errors, isSubmitting, isSubmitSuccessful },
         getValues,
         handleSubmit,
-        formState: { errors },
         reset,
+        resetField,
         watch,
     } = useForm<SignupFormValuesType>({
         mode: "onSubmit",
-        reValidateMode: "onSubmit",
+        reValidateMode: "onChange",
         defaultValues: {
             name: "",
             email: "",
@@ -68,9 +69,7 @@ export const SignupForm: React.FC = () => {
             return;
         }
 
-        if (imgFile.length > 0) {
-            setPreview(window.URL.createObjectURL(imgFile[0]));
-        }
+        setPreview(URL.createObjectURL(imgFile[0]));
     }, [getValues, watchUserImg]);
 
     return (
@@ -187,8 +186,8 @@ export const SignupForm: React.FC = () => {
                     className="label flex flex-col w-56 mx-auto hover:brightness-75 hover:cursor-pointer"
                     htmlFor="userImg"
                 >
-                    <span className="text-lg text-normal-btn">プロフィール用画像を選択</span>
-                    <div className="mb-2 mt-8">
+                    <span className="text-lg mt-8 text-normal-btn">プロフィール用画像を選択</span>
+                    <div className="mb-2">
                         {errors.userImg && <ErrorMessage errorMessage={errors.userImg.message} />}
                     </div>
                     <input
@@ -199,6 +198,13 @@ export const SignupForm: React.FC = () => {
                         className="hidden w-full p-2 text-lg duration-150 bg-white ring-green-400 ring-1 rounded-md focus:outline-none focus:ring-green-200 focus:ring-4"
                         {...register("userImg", {
                             required: "画像を選択してください。",
+                            onChange: () => {
+                                //ファイル選択キャンセル時のバリデーション
+                                if (getValues("userImg").length === 0) {
+                                    resetField("userImg");
+                                    setPreview("/no-user-image.jpg");
+                                }
+                            },
                         })}
                     />
                     <Image
@@ -253,7 +259,11 @@ export const SignupForm: React.FC = () => {
 
                 {/* 登録用ボタン */}
                 <div className="mt-10 mx-auto w-40">
-                    <SubmitButton text={"登録"} />
+                    <SubmitButton
+                        text={"登録"}
+                        textInProcess={"登録中..."}
+                        isDisabled={isSubmitting || isSubmitSuccessful}
+                    />
                 </div>
             </form>
         </>
