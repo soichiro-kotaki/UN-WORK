@@ -10,7 +10,7 @@ export type PostDataType = {
     submission_shift_request: string;
     category: string;
     introduction: string;
-    post_img: string;
+    post_img: string[];
     created_at: string;
     postID: string;
     links: LinksDataType;

@@ -1,5 +1,5 @@
 export type UpdateUserProfileValuesType = {
-    instagram: string;
+    instagram?: string;
     userImg: FileList;
-    selfIntroduction: string;
+    selfIntroduction?: string;
 };
