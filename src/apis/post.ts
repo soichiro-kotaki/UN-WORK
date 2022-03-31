@@ -28,8 +28,8 @@ export const addJobPost = async (values: PostFormValuesType, uid: string): Promi
     } = values;
 
     //Storageにフォームから取得した投稿画像を圧縮して保存
-    const postImgRef = await uploadPostImage(post_img[0], uid);
-    const url = await postImgRef.getDownloadURL();
+    const postImagesUrlList = await uploadPostImage(post_img, uid);
+    // const url = await postImgRef.getDownloadURL();
 
     await db
         .collection("posts")
@@ -44,7 +44,7 @@ export const addJobPost = async (values: PostFormValuesType, uid: string): Promi
             submission_shift_request: submission_shift_request,
             category: category,
             introduction: introduction,
-            post_img: url,
+            post_img: postImagesUrlList,
             links: {
                 instagram: instagram,
                 twitter: twitter,
@@ -145,7 +145,7 @@ export const getBookmarkedPosts = async (uid: string): Promise<PostDataType[]> =
 };
 
 //求人投稿を削除
-export const deleteJobPost = async (postID: string, post_img: string): Promise<void> => {
+export const deleteJobPost = async (postID: string, post_img: string[]): Promise<void> => {
     await db.collection("posts").doc(`${postID}`).delete();
 
     await deletePostImage(post_img);
@@ -158,16 +158,14 @@ export const editJobPost = async (
     postData: PostDataType,
 ): Promise<void> => {
     const { post_img, instagram, twitter, homepage } = values;
-    let url = postData.post_img;
+    let postImagesUrlList = postData.post_img;
 
     if (post_img) {
-        //Storageにフォームから取得した画像ファイルを圧縮して保存
-        const postImgRef = await uploadPostImage(post_img[0], uid);
-        //
-        url = await postImgRef.getDownloadURL();
-
         //Storageから既存の投稿画像を削除
         await deletePostImage(postData.post_img);
+
+        //Storageにフォームから取得した画像ファイルを圧縮して保存
+        postImagesUrlList = await uploadPostImage(post_img, uid);
     }
 
     await db
@@ -175,7 +173,7 @@ export const editJobPost = async (
         .doc(`${postData.postID}`)
         .set(
             {
-                post_img: url,
+                post_img: postImagesUrlList,
                 links: {
                     instagram: instagram,
                     twitter: twitter,
