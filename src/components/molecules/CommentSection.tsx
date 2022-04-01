@@ -171,11 +171,7 @@ export const CommentSection: React.FC<Props> = (props) => {
                                 }
                             }}
                         >
-                            <SubmitButton
-                                text={"送信"}
-                                textInProcess={"送信中..."}
-                                isDisabled={!message}
-                            />
+                            <SubmitButton text={"送信"} isDisabled={!message} />
                         </div>
                     </div>
                 ) : (

@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {
     text: string;
-    textInProcess: string;
+    textInProcess?: string;
     isDisabled: boolean;
 };
 
