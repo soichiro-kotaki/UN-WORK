@@ -56,7 +56,7 @@ export const addJobPost = async (values: PostFormValuesType, uid: string): Promi
 
 //全ユーザーの投稿一覧を取得
 export const getAllPostsData = async (): Promise<[] | firebase.firestore.DocumentData[]> => {
-    const allPostsData = await db.collection("posts").orderBy("created_at", "desc").limit(20).get();
+    const allPostsData = await db.collection("posts").orderBy("created_at", "desc").limit(30).get();
     let allPostsDataList = [];
 
     allPostsData.forEach((postData) => {
