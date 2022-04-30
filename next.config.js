@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-    reactStrictMode: true,
+const withPWA = require("next-pwa");
+
+module.exports = withPWA({
     env: {
         FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
         FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
@@ -13,4 +14,8 @@ module.exports = {
     images: {
         domains: ["firebasestorage.googleapis.com"],
     },
-};
+    pwa: {
+        dest: "public",
+    },
+    reactStrictMode: true,
+});
