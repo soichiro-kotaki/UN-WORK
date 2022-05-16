@@ -29,7 +29,6 @@ export const addJobPost = async (values: PostFormValuesType, uid: string): Promi
 
     //Storageにフォームから取得した投稿画像を圧縮して保存
     const postImagesUrlList = await uploadPostImage(post_img, uid);
-    // const url = await postImgRef.getDownloadURL();
 
     await db
         .collection("posts")
