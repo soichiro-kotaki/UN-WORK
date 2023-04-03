@@ -92,7 +92,7 @@ export const LoginForm: React.FC = () => {
                 />
 
                 {/* パスワード再設定ページのリンク */}
-                <Link href="/resetPassword">
+                <Link href="/resetPassword" legacyBehavior>
                     <a className="mt-6 inline-block text-green-400 text-xs underline hover:cursor-pointer hover:text-green-300">
                         パスワードを忘れた場合はこちら
                     </a>

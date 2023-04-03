@@ -17,6 +17,7 @@ import { PostDataType } from "src/types/post/PostDataType";
 
 //contextAPI
 import { UserAuthContext } from "./_app";
+import { client } from "@libs/microCMS";
 
 type Props = {
     allPostsData: PostDataType[];

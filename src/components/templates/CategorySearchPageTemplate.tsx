@@ -25,7 +25,7 @@ export const CategorySearchPageTemplate: React.FC<Props> = (props) => {
                         {categoriesData.map((categoryData) => {
                             return (
                                 <div key={categoryData.categoryID} className="inline-block m-2">
-                                    <Link href={`/category/${categoryData.categoryID}`}>
+                                    <Link href={`/category/${categoryData.categoryID}`} legacyBehavior>
                                         <a className="w-15 duration-300 text-sm py-2 shadow-lg hover:shadow-xl px-4 rounded-full inline-block bg-white text-gray-900 mb-4 border border-background-sub lg:text-base hover:bg-background-sub hover:text-white">
                                             {categoryData.name}
                                         </a>

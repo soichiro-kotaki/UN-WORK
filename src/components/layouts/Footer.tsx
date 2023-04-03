@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
         <>
             <div className="h-80 border-gray-300 bg-white text-gray-900 border-t w-full lg:z-10 lg:fixed lg:right-0 lg:top-0 lg:w-1/5 lg:h-full lg:border-l lg:border-t-0 dark:bg-dark-screen dark:text-white">
                 <div className="lg:w-4/5 pt-4 lg:mx-auto lg:mt-72">
-                    <Link href="/login">
+                    <Link href="/login" legacyBehavior>
                         <a
                             onClick={async () => {
                                 await handleLogOut();
@@ -28,16 +28,16 @@ export const Footer: React.FC = () => {
                         お問い合わせはこちら
                     </a>
                     <div>
-                        <Link href="/faq">
+                        <Link href="/faq" legacyBehavior>
                             <a className="block w-10 pl-3 mb-4 hover:underline">FAQ</a>
                         </Link>
-                        <Link href="/policy">
+                        <Link href="/policy" legacyBehavior>
                             <a className="block w-44 pl-3 mb-4 hover:underline">
                                 プライバシーポリシー
                             </a>
                         </Link>
 
-                        <Link href="/disclaimer">
+                        <Link href="/disclaimer" legacyBehavior>
                             <a
                                 className="block w-20 pl-3 mb-4 hover:underline
                             "
