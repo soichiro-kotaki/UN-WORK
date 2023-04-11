@@ -44,11 +44,11 @@ export const MenuBar: React.FC = () => {
                             マイページ
                         </a>
                     </Link>
-                </div>
 
-                {/* PC版の求人投稿ページ遷移ボタン */}
-                <div className="ext-xs w-4/5 h-full text-center pt-3 inline-block md:w-1/4 lg:block lg:w-4/5 lg:h-16 lg:mt-23 lg:mx-auto lg:pt-5  lg:text-lg">
-                    <AddPostTextButton />
+                    {/* PC版の求人投稿ページ遷移ボタン */}
+                    <div className="ext-xs w-4/5 h-full text-center pt-3 inline-block lg:block lg:w-4/5 lg:h-16 lg:mt-23 lg:mx-auto lg:pt-5  lg:text-lg">
+                        <AddPostTextButton />
+                    </div>
                 </div>
             </div>
         </>
