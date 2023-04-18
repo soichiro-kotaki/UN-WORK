@@ -42,8 +42,16 @@ const faq: NextPage<Props> = (props) => {
 
 export default faq;
 
-export const getStaticProps: GetStaticProps = async () => {
-    const faqData = await getFAQData();
+// export const getStaticProps: GetStaticProps = async () => {
+//     const faqData = await getFAQData();
 
-    return { props: { faqData: faqData } };
-};
+//     return { props: { faqData: faqData } };
+// };
+
+async function getStaticProps() {
+    const faqData = await getStaticProps();
+    //     const postsFromFeeds = await getPostsFromFeeds()
+    return faqData.concat(faqData);
+    //       .sort((post1, post2) => (post1.date > post2.date ? -1 : 1))
+    //       .slice(0, 16)
+}
